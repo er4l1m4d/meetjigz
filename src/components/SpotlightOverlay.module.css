@@ -1,0 +1,59 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 6;
+  display: grid;
+  place-items: start center;
+  padding-top: 12vh;
+  background: rgba(10, 12, 20, 0.45);
+  backdrop-filter: blur(10px);
+}
+
+.panel {
+  width: min(640px, 90vw);
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+}
+
+.input {
+  width: 100%;
+  border: var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 0.7rem 0.85rem;
+  background: color-mix(in srgb, var(--glass-bg-strong) 94%, transparent);
+  color: var(--text);
+}
+
+.results {
+  margin-top: var(--space-3);
+  display: grid;
+  gap: 0.4rem;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  text-align: left;
+  padding: 0.55rem 0.7rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, var(--glass-bg) 94%, transparent);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.result:hover {
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.resultTitle {
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.resultDetail {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}

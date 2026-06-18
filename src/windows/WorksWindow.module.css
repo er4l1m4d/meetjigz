@@ -1,0 +1,63 @@
+.worksBody {
+  padding: var(--space-4);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  background: color-mix(in srgb, var(--glass-bg) 96%, transparent);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent) 48%, transparent);
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+.thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-sm);
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--accent) 36%, transparent), color-mix(in srgb, var(--bg-elevated) 90%, transparent)),
+    radial-gradient(circle at 74% 24%, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0));
+}
+
+.title {
+  font-size: var(--text-md);
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.description {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.38rem;
+}
+
+.tag {
+  padding: 0.18rem 0.48rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
+  background: color-mix(in srgb, var(--glass-bg-strong) 88%, transparent);
+  font-size: var(--text-xs);
+  color: var(--text);
+}

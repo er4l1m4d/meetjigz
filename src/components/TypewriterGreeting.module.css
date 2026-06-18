@@ -1,0 +1,24 @@
+.greeting {
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  color: color-mix(in srgb, var(--text) 90%, transparent);
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transition: opacity 380ms ease;
+  pointer-events: none;
+}
+
+.greeting.isVisible {
+  opacity: 1;
+}
+
+.cursor {
+  animation: blinkCursor 1s steps(1, end) infinite;
+}

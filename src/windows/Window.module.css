@@ -1,0 +1,64 @@
+.shell {
+  position: absolute;
+  width: min(86vw, 620px);
+  min-height: 300px;
+  max-height: min(74vh, 700px);
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.inner {
+  height: 100%;
+}
+
+.titlebar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  height: 38px;
+  padding: 0 var(--space-3);
+  cursor: move;
+  user-select: none;
+  background: color-mix(in srgb, var(--glass-bg-strong) 86%, transparent);
+  border-bottom: var(--glass-border);
+}
+
+.dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.dotClose {
+  background: #ff5f57;
+}
+
+.dotMin {
+  background: #febc2e;
+}
+
+.dotMax {
+  background: #28c840;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.body {
+  padding: var(--space-4);
+  height: calc(100% - 38px);
+  overflow: auto;
+}
