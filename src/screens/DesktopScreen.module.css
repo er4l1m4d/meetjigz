@@ -1,4 +1,15 @@
 .page {
   width: 100%;
   min-height: 100vh;
+  position: relative;
+  z-index: 10;
+  padding-top: 128px;
+  padding-bottom: 120px;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding-top: 128px;
+    padding-bottom: 120px;
+  }
 }

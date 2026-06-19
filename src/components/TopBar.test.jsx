@@ -11,13 +11,13 @@ describe('TopBar', () => {
 
   it('renders navigation links', () => {
     renderWithProviders(<TopBar />)
-    expect(screen.getByRole('button', { name: /projects/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /about/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /works/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /contact/i })).toBeInTheDocument()
   })
 
-  it('renders theme toggle', () => {
+  it('renders hire me button', () => {
     renderWithProviders(<TopBar />)
-    expect(screen.getByRole('button', { name: /toggle theme/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /hire me/i })).toBeInTheDocument()
   })
 })

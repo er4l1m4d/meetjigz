@@ -4,8 +4,8 @@
   align-items: center;
   width: 100%;
   min-height: 100vh;
-  background: #000;
-  color: #fff;
+  background: var(--deep-black);
+  color: var(--on-surface);
   font-family: var(--font-body);
   opacity: 1;
   transition: opacity 400ms ease;
@@ -26,8 +26,8 @@
 .logo {
   font-family: var(--font-display);
   font-size: 40px;
-  font-weight: 600;
-  letter-spacing: -0.4px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
   opacity: 0;
   transform: scale(0.96);
   transition: opacity 600ms ease, transform 600ms ease;
@@ -40,9 +40,9 @@
 
 .progress {
   width: 200px;
-  height: 3px;
-  border-radius: 3px;
-  background: rgba(255, 255, 255, 0.12);
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.08);
   overflow: hidden;
   opacity: 0;
   transition: opacity 400ms ease 200ms;
@@ -55,6 +55,6 @@
 .progressFill {
   height: 100%;
   border-radius: inherit;
-  background: #fff;
+  background: var(--primary);
   transition: width 60ms linear;
 }

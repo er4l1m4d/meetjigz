@@ -3,14 +3,17 @@ import styles from './AboutSection.module.css'
 function AboutSection({ about }) {
   return (
     <section className={styles.section} id="about">
-      <div className={styles.inner}>
-        <div className={styles.left}>
-          <p className={styles.sectionLabel}>About</p>
-          <h2 className={styles.sectionHeadline}>A bit about me.</h2>
+      <h2 className={styles.sectionHeadline}>
+        About
+        <span className={styles.divider} />
+      </h2>
+
+      <div className={styles.grid}>
+        <div>
           <p className={styles.bio}>{about.bio}</p>
         </div>
 
-        <div className={styles.right}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
           <div className={styles.group}>
             <h3 className={styles.groupTitle}>Skills</h3>
             <ul className={styles.list}>

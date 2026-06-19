@@ -6,26 +6,31 @@ import DesktopScreen from './DesktopScreen.jsx'
 describe('DesktopScreen', () => {
   it('renders the page', () => {
     renderWithProviders(<DesktopScreen />)
-    expect(screen.getByRole('navigation', { name: /main navigation/i })).toBeInTheDocument()
+    expect(screen.getByRole('navigation')).toBeInTheDocument()
   })
 
-  it('renders the hero section', () => {
+  it('renders the hero headline', () => {
     renderWithProviders(<DesktopScreen />)
-    expect(screen.getByRole('heading', { name: /i build experiences/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /^jigz$/i, level: 1 })).toBeInTheDocument()
   })
 
   it('renders projects section', () => {
     renderWithProviders(<DesktopScreen />)
-    expect(screen.getByRole('heading', { name: /projects/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /selected works/i })).toBeInTheDocument()
   })
 
   it('renders about section', () => {
     renderWithProviders(<DesktopScreen />)
-    expect(screen.getByRole('heading', { name: /a bit about me/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /about/i })).toBeInTheDocument()
   })
 
   it('renders contact section', () => {
     renderWithProviders(<DesktopScreen />)
-    expect(screen.getByRole('heading', { name: /let's work together/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /contact/i })).toBeInTheDocument()
+  })
+
+  it('renders the footer', () => {
+    renderWithProviders(<DesktopScreen />)
+    expect(screen.getByText(/crafted with precision/i)).toBeInTheDocument()
   })
 })

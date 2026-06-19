@@ -4,12 +4,8 @@
   justify-content: center;
   width: 100%;
   min-height: 100vh;
-  background: var(--apple-canvas-parchment);
-  color: var(--text);
-}
-
-html[data-theme='dark'] .screen {
-  background: var(--apple-surface-tile-1);
+  background: var(--deep-black);
+  color: var(--on-surface);
 }
 
 .cardGrid {
@@ -32,28 +28,25 @@ html[data-theme='dark'] .screen {
   gap: 20px;
   padding: 32px 24px;
   cursor: pointer;
-  color: var(--text);
-  background: var(--apple-canvas);
-  border: 1px solid var(--apple-hairline);
-  border-radius: 18px;
-  transition: transform 200ms ease;
-}
-
-html[data-theme='dark'] .card {
-  background: var(--apple-surface-tile-2);
-  border-color: rgba(255, 255, 255, 0.08);
+  color: var(--on-surface);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-stroke);
+  border-radius: 0.75rem;
+  backdrop-filter: blur(24px);
+  transition: transform 200ms ease, border-color 200ms ease;
 }
 
 .card:hover {
   transform: scale(1.02);
+  border-color: var(--primary);
 }
 
 .card.isActive {
-  border-color: var(--apple-blue);
+  border-color: var(--primary);
 }
 
 .card:focus-visible {
-  outline: 2px solid var(--apple-blue);
+  outline: 2px solid var(--primary);
   outline-offset: 3px;
 }
 
@@ -65,16 +58,16 @@ html[data-theme='dark'] .card {
   font-family: var(--font-display);
   font-size: 14px;
   font-weight: 600;
-  border-radius: 11px;
-  background: var(--apple-blue);
+  border-radius: 0.5rem;
+  background: var(--primary-container);
   color: #fff;
 }
 
 .name {
-  font-size: 17px;
-  font-weight: 600;
   font-family: var(--font-display);
-  letter-spacing: -0.374px;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .passwordPanel {
@@ -82,14 +75,10 @@ html[data-theme='dark'] .card {
   flex-direction: column;
   gap: 12px;
   padding: 16px;
-  border-radius: 18px;
-  background: var(--apple-canvas);
-  border: 1px solid var(--apple-hairline);
-}
-
-html[data-theme='dark'] .passwordPanel {
-  background: var(--apple-surface-tile-2);
-  border-color: rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-stroke);
+  backdrop-filter: blur(24px);
 }
 
 .passwordLabel {
@@ -97,43 +86,40 @@ html[data-theme='dark'] .passwordPanel {
   font-weight: 600;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.1em;
 }
 
 .passwordInput {
   width: 100%;
-  border: 1px solid var(--apple-hairline);
-  border-radius: 8px;
-  background: var(--apple-canvas);
-  color: var(--text);
+  border: 1px solid var(--glass-stroke);
+  border-radius: 0.5rem;
+  background: var(--surface-container);
+  color: var(--on-surface);
   padding: 10px 14px;
-  font-size: 17px;
-}
-
-html[data-theme='dark'] .passwordInput {
-  background: var(--apple-surface-tile-3);
-  border-color: rgba(255, 255, 255, 0.1);
+  font-size: 16px;
 }
 
 .passwordInput:focus {
-  outline: 2px solid var(--apple-blue);
+  outline: 2px solid var(--primary);
   outline-offset: 1px;
   border-color: transparent;
 }
 
 .passwordSubmit {
   border: 0;
-  border-radius: 9999px;
-  background: var(--apple-blue);
-  color: #fff;
-  padding: 10px 22px;
-  font-size: 17px;
+  border-radius: 0.25rem;
+  background: var(--primary);
+  color: var(--deep-black);
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  transition: transform 150ms ease;
+  box-shadow: 0 0 20px rgba(170, 199, 255, 0.2);
+  transition: opacity 150ms ease;
 }
 
 .passwordSubmit:hover {
-  transform: scale(0.96);
+  opacity: 0.8;
 }
 
 .passwordError {
