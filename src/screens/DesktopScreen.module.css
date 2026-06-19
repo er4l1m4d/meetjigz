@@ -20,7 +20,6 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: var(--desktop-scrim);
 }
 
 .ambient {
@@ -31,34 +30,13 @@
 }
 
 .blob {
-  position: absolute;
-  width: clamp(220px, 32vw, 420px);
-  aspect-ratio: 1;
-  border-radius: 9999px;
-  filter: blur(80px);
-  opacity: var(--ambient-opacity);
-  transform-origin: center;
+  display: none;
 }
 
-.blobA {
-  top: 10%;
-  left: 8%;
-  background: var(--blob-a-bg);
-  animation: blobDriftA 24s ease-in-out infinite;
-}
-
-.blobB {
-  top: 56%;
-  right: 12%;
-  background: var(--blob-b-bg);
-  animation: blobDriftB 29s ease-in-out infinite;
-}
-
+.blobA,
+.blobB,
 .blobC {
-  bottom: -6%;
-  left: 40%;
-  background: var(--blob-c-bg);
-  animation: blobDriftC 26s ease-in-out infinite;
+  display: none;
 }
 
 .content {

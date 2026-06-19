@@ -1,28 +1,40 @@
 .dock {
   position: fixed;
-  bottom: 20px;
+  bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 4;
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: 0.45rem 0.55rem;
-  border-radius: 9999px;
-  background: color-mix(in srgb, var(--glass-bg-strong) 94%, transparent);
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: var(--radius-lg);
+  background: var(--apple-surface-black);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+html[data-theme='dark'] .dock {
+  background: rgba(30, 30, 30, 0.88);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
 }
 
 .item {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border: 0;
-  border-radius: 9999px;
+  border-radius: var(--radius-sm);
   background: transparent;
-  color: var(--text);
+  color: var(--apple-body-on-dark);
   cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.item:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .itemWrap {
@@ -33,14 +45,14 @@
   border: 0;
   background: transparent;
   padding: 0;
-  color: var(--text);
+  color: var(--apple-body-on-dark);
   cursor: pointer;
 }
 
 .itemWrap:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 9999px;
+  outline: 2px solid var(--apple-blue-on-dark);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
 }
 
 .tooltip {
@@ -48,13 +60,12 @@
   bottom: calc(100% + 8px);
   left: 50%;
   transform: translateX(-50%);
-  padding: 0.2rem 0.45rem;
+  padding: 4px 10px;
   border-radius: var(--radius-sm);
-  border: var(--glass-border);
-  background: color-mix(in srgb, var(--glass-bg-strong) 96%, transparent);
-  box-shadow: var(--shadow-soft);
-  color: var(--text);
-  font-size: var(--text-xs);
+  background: var(--apple-ink);
+  color: var(--apple-body-on-dark);
+  font-size: 11px;
+  font-weight: 500;
   white-space: nowrap;
   pointer-events: none;
 }
@@ -70,20 +81,22 @@
   width: 32px;
   height: 32px;
   font-family: var(--font-display);
-  font-size: var(--text-sm);
-  letter-spacing: 0.05em;
-  border: var(--glass-border);
-  background: color-mix(in srgb, var(--accent) 26%, var(--glass-bg));
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: var(--radius-sm);
+  background: var(--apple-blue);
+  color: var(--apple-on-primary);
 }
 
 @media (max-width: 560px) {
   .dock {
-    bottom: 14px;
-    padding: 0.4rem 0.5rem;
+    bottom: 8px;
+    padding: 5px 8px;
   }
 
   .item {
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
   }
 }

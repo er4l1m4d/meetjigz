@@ -5,9 +5,9 @@
   width: 100%;
   min-height: 100vh;
   padding: clamp(1.25rem, 2.5vw, 2rem);
-  background: #000;
-  color: #a0ff9d;
-  font-family: 'Courier New', 'Consolas', monospace;
+  background: var(--apple-surface-black);
+  color: var(--apple-body-on-dark);
+  font-family: var(--font-body);
   opacity: 1;
   transition: opacity 360ms ease;
 }
@@ -31,8 +31,10 @@
 
 .line {
   margin: 0;
-  font-size: clamp(0.9rem, 1.4vw, 1.05rem);
-  letter-spacing: 0.01em;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.374px;
+  line-height: 1.47;
   opacity: 0;
   transform: translateY(4px);
   transition: opacity 240ms ease, transform 240ms ease;
@@ -47,13 +49,13 @@
   width: 100%;
   height: 4px;
   border-radius: var(--radius-pill);
-  background: rgba(160, 255, 157, 0.2);
+  background: rgba(255, 255, 255, 0.12);
   overflow: hidden;
 }
 
 .progressFill {
   height: 100%;
   border-radius: inherit;
-  background: #a0ff9d;
+  background: var(--apple-blue);
   transition: width 60ms linear;
 }

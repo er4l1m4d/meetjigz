@@ -5,14 +5,19 @@
   transform: translate(-50%, -50%);
   display: inline-flex;
   align-items: center;
-  gap: 0.2rem;
-  font-size: clamp(1rem, 1.8vw, 1.2rem);
-  color: color-mix(in srgb, var(--text) 90%, transparent);
+  gap: 2px;
+  font-size: clamp(1.0625rem, 1.8vw, 1.25rem);
+  color: var(--apple-ink-muted-48);
   font-family: var(--font-display);
-  letter-spacing: 0.02em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   opacity: 0;
   transition: opacity 380ms ease;
   pointer-events: none;
+}
+
+html[data-theme='dark'] .greeting {
+  color: var(--apple-body-muted);
 }
 
 .greeting.isVisible {
@@ -20,5 +25,6 @@
 }
 
 .cursor {
+  font-weight: 400;
   animation: blinkCursor 1s steps(1, end) infinite;
 }

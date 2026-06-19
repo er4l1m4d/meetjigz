@@ -5,8 +5,12 @@
   width: 100%;
   min-height: 100vh;
   padding: clamp(1.25rem, 2.5vw, 2rem);
-  background: linear-gradient(160deg, var(--bg) 0%, var(--bg-elevated) 100%);
+  background: var(--apple-canvas-parchment);
   color: var(--text);
+}
+
+html[data-theme='dark'] .screen {
+  background: var(--apple-surface-tile-1);
 }
 
 .cardGrid {
@@ -30,89 +34,125 @@
   padding: clamp(1.1rem, 2vw, 1.4rem);
   cursor: pointer;
   color: var(--text);
-  background: var(--glass-bg-strong);
-  border: var(--glass-border);
-  box-shadow: var(--shadow-soft);
-  transition: transform 240ms ease, box-shadow 240ms ease, background 240ms ease;
+  background: var(--apple-canvas);
+  border: 1px solid var(--apple-hairline);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+html[data-theme='dark'] .card {
+  background: var(--apple-surface-tile-2);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 }
 
 .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 14px 34px color-mix(in srgb, var(--accent) 28%, transparent);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme='dark'] .card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 .card.isActive {
-  box-shadow: 0 14px 34px color-mix(in srgb, var(--accent) 32%, transparent);
-  border-color: color-mix(in srgb, var(--accent) 60%, #ffffff);
+  border-color: var(--apple-blue);
 }
 
 .card:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--apple-blue);
   outline-offset: 3px;
 }
 
 .avatar {
   display: grid;
   place-items: center;
-  width: 88px;
-  height: 88px;
+  width: 80px;
+  height: 80px;
   font-family: var(--font-display);
-  font-size: 1.15rem;
-  letter-spacing: 0.08em;
-  background: color-mix(in srgb, var(--accent) 26%, var(--glass-bg));
-  border: var(--glass-border);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  background: var(--apple-blue);
+  color: var(--apple-on-primary);
 }
 
 .name {
-  font-size: var(--text-lg);
+  font-size: 17px;
   font-weight: 600;
   font-family: var(--font-display);
+  letter-spacing: -0.374px;
 }
 
 .passwordPanel {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  padding: var(--space-3);
-  border-radius: var(--radius-md);
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--apple-canvas);
+  border: 1px solid var(--apple-hairline);
+}
+
+html[data-theme='dark'] .passwordPanel {
+  background: var(--apple-surface-tile-2);
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 .passwordLabel {
-  font-size: var(--text-sm);
+  font-size: 12px;
+  font-weight: 600;
   color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .passwordInput {
   width: 100%;
-  border: var(--glass-border);
+  border: 1px solid var(--apple-hairline);
   border-radius: var(--radius-sm);
-  background: color-mix(in srgb, var(--bg) 32%, transparent);
+  background: var(--apple-canvas);
   color: var(--text);
-  padding: 0.58rem 0.68rem;
+  padding: 10px 14px;
+  font-size: 17px;
+}
+
+html[data-theme='dark'] .passwordInput {
+  background: var(--apple-surface-tile-3);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .passwordInput:focus {
-  outline: 2px solid color-mix(in srgb, var(--accent) 70%, transparent);
+  outline: 2px solid var(--apple-blue);
   outline-offset: 1px;
+  border-color: transparent;
 }
 
 .passwordSubmit {
-  border: var(--glass-border);
-  border-radius: var(--radius-sm);
-  background: color-mix(in srgb, var(--accent) 48%, transparent);
-  color: var(--text);
-  padding: 0.5rem 0.68rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--apple-blue);
+  color: var(--apple-on-primary);
+  padding: 10px 22px;
+  font-size: 17px;
+  font-weight: 400;
   cursor: pointer;
+  transition: transform 150ms ease;
 }
 
 .passwordSubmit:hover {
-  filter: brightness(1.05);
+  transform: scale(0.96);
+}
+
+.passwordSubmit:active {
+  transform: scale(0.95);
 }
 
 .passwordError {
   margin: 0;
-  font-size: var(--text-xs);
-  color: #ff8b8b;
+  font-size: 13px;
+  color: #ff3b30;
 }
 
 @media (max-width: 560px) {
