@@ -12,29 +12,29 @@ function TopBar() {
     <nav className={styles.nav}>
       <div className={styles.inner}>
         <a className={styles.brand} href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>
-          Jigz
+          jigz
         </a>
 
         <ul className={styles.links}>
           <li>
             <button type="button" className={styles.link} onClick={() => scrollTo('about')}>
-              About
+              who am i ?
             </button>
           </li>
           <li>
             <button type="button" className={`${styles.link} ${styles.isActive}`} onClick={() => scrollTo('works')}>
-              Works
+              what have i done ?
             </button>
           </li>
           <li>
             <button type="button" className={styles.link} onClick={() => scrollTo('contact')}>
-              Contact
+              how can you reach me ?
             </button>
           </li>
         </ul>
 
         <button type="button" className={styles.hireBtn} onClick={() => scrollTo('contact')}>
-          Hire Me
+          let's build
         </button>
 
         <button type="button" className={styles.menuBtn} onClick={toggleTheme} aria-label="Toggle theme">
