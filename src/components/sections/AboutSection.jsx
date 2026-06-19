@@ -1,4 +1,35 @@
+import {
+  Code,
+  FileTs,
+  Server,
+  FigmaLogo,
+  CirclesThree,
+  Layout,
+  Monitor,
+  GitBranch,
+  Triangle,
+  ArrowsOutSimple,
+  Notepad,
+} from '@phosphor-icons/react'
 import styles from './AboutSection.module.css'
+
+const SKILL_ICONS = {
+  'React': Code,
+  'TypeScript': FileTs,
+  'Node.js': Server,
+  'Figma': FigmaLogo,
+  'Motion Design': CirclesThree,
+  'System Design': Layout,
+}
+
+const TOOL_ICONS = {
+  'VS Code': Monitor,
+  'Figma': FigmaLogo,
+  'Git': GitBranch,
+  'Vercel': Triangle,
+  'Linear': ArrowsOutSimple,
+  'Notion': Notepad,
+}
 
 function AboutSection({ about }) {
   return (
@@ -17,18 +48,30 @@ function AboutSection({ about }) {
           <div className={styles.group}>
             <h3 className={styles.groupTitle}>Skills</h3>
             <ul className={styles.list}>
-              {about.skills.map((skill) => (
-                <li key={skill} className={styles.chip}>{skill}</li>
-              ))}
+              {about.skills.map((skill) => {
+                const Icon = SKILL_ICONS[skill]
+                return (
+                  <li key={skill} className={styles.chip}>
+                    {Icon && <Icon size={16} weight="light" />}
+                    {skill}
+                  </li>
+                )
+              })}
             </ul>
           </div>
 
           <div className={styles.group}>
             <h3 className={styles.groupTitle}>Tools</h3>
             <ul className={styles.list}>
-              {about.tools.map((tool) => (
-                <li key={tool} className={styles.chip}>{tool}</li>
-              ))}
+              {about.tools.map((tool) => {
+                const Icon = TOOL_ICONS[tool]
+                return (
+                  <li key={tool} className={styles.chip}>
+                    {Icon && <Icon size={16} weight="light" />}
+                    {tool}
+                  </li>
+                )
+              })}
             </ul>
           </div>
 

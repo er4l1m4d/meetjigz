@@ -4,7 +4,7 @@ function Footer({ contact }) {
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
-        <div className={styles.brand}>Jigz</div>
+        <div className={styles.brand}>jigz</div>
 
         <ul className={styles.links}>
           {contact.socials.map((social) => (
@@ -16,7 +16,7 @@ function Footer({ contact }) {
           ))}
         </ul>
 
-        <p className={styles.copyright}>&copy; 2024 Jigz. Crafted with precision.</p>
+        <p className={styles.copyright}>&copy; 2026 Jigz.</p>
       </div>
     </footer>
   )

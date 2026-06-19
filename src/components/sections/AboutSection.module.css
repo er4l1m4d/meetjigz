@@ -75,6 +75,9 @@
 }
 
 .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 8px 16px;
   border-radius: 0.5rem;
   background: var(--surface-container);
@@ -82,4 +85,9 @@
   font-size: 14px;
   font-weight: 500;
   border: 1px solid var(--glass-stroke);
+}
+
+.chip svg {
+  color: var(--primary);
+  flex-shrink: 0;
 }

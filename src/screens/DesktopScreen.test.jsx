@@ -31,6 +31,6 @@ describe('DesktopScreen', () => {
 
   it('renders the footer', () => {
     renderWithProviders(<DesktopScreen />)
-    expect(screen.getByText(/crafted with precision/i)).toBeInTheDocument()
+    expect(screen.getByText(/© 2026 jigz/i)).toBeInTheDocument()
   })
 })
