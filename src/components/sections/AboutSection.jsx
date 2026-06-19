@@ -4,7 +4,7 @@ function AboutSection({ about }) {
   return (
     <section className={styles.section} id="about">
       <h2 className={styles.sectionHeadline}>
-        About
+        about me
         <span className={styles.divider} />
       </h2>
 

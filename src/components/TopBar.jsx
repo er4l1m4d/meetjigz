@@ -18,17 +18,17 @@ function TopBar() {
         <ul className={styles.links}>
           <li>
             <button type="button" className={styles.link} onClick={() => scrollTo('about')}>
-              who am i ?
+              my works
             </button>
           </li>
           <li>
             <button type="button" className={`${styles.link} ${styles.isActive}`} onClick={() => scrollTo('works')}>
-              what have i done ?
+              about me
             </button>
           </li>
           <li>
             <button type="button" className={styles.link} onClick={() => scrollTo('contact')}>
-              how can you reach me ?
+              contact
             </button>
           </li>
         </ul>

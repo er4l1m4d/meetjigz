@@ -49,22 +49,3 @@
   color: var(--on-surface-variant);
   z-index: 1;
 }
-
-.glassBio {
-  margin-top: 120px;
-  padding: 32px;
-  z-index: 1;
-  max-width: 768px;
-}
-
-@media (min-width: 768px) {
-  .glassBio {
-    padding: 48px;
-  }
-}
-
-.bioText {
-  font-size: 18px;
-  line-height: 1.6;
-  color: var(--on-surface);
-}
