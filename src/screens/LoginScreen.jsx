@@ -41,9 +41,7 @@ function LoginScreen({ onGuestLogin, onJigzLogin }) {
     const enteredHash = await sha256Hex(password)
 
     if (enteredHash === JIGZ_PASSWORD_HASH) {
-      if (typeof onJigzLogin === 'function') {
-        onJigzLogin()
-      }
+      onJigzLogin?.()
       return
     }
 
@@ -58,22 +56,18 @@ function LoginScreen({ onGuestLogin, onJigzLogin }) {
           <div key={profile.id} className={styles.cardSlot}>
             <button
               type="button"
-              className={`${styles.card} glass ${selectedProfile === profile.id ? styles.isActive : ''}`}
+              className={`${styles.card} ${selectedProfile === profile.id ? styles.isActive : ''}`}
               onClick={() => {
                 setErrorText('')
                 setPassword('')
-
-                if (profile.id === 'guest' && typeof onGuestLogin === 'function') {
-                  onGuestLogin()
+                if (profile.id === 'guest') {
+                  onGuestLogin?.()
                   return
                 }
-
-                if (profile.id === 'jigz') {
-                  setSelectedProfile('jigz')
-                }
+                setSelectedProfile('jigz')
               }}
             >
-              <span className={`${styles.avatar} sqircle`} aria-hidden="true">
+              <span className={styles.avatar} aria-hidden="true">
                 {profile.initials}
               </span>
               <span className={styles.name}>{profile.label}</span>
@@ -82,13 +76,13 @@ function LoginScreen({ onGuestLogin, onJigzLogin }) {
             {profile.id === 'jigz' && selectedProfile === 'jigz' && (
               <Motion.form
                 key={shakeToken}
-                className={`${styles.passwordPanel} glass`}
+                className={styles.passwordPanel}
                 onSubmit={handleJigzSubmit}
                 initial={{ opacity: 0, y: 6 }}
                 animate={{
                   opacity: 1,
                   y: 0,
-                  x: shakeToken > 0 ? [0, -9, 9, -7, 7, 0] : 0,
+                  x: shakeToken > 0 ? [0, -8, 8, -6, 6, 0] : 0,
                 }}
                 transition={{ duration: shakeToken > 0 ? 0.34 : 0.22 }}
               >
@@ -99,16 +93,15 @@ function LoginScreen({ onGuestLogin, onJigzLogin }) {
                   id="jigz-password"
                   type="password"
                   value={password}
-                  onChange={(event) => setPassword(event.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                   className={styles.passwordInput}
-                  placeholder="Enter Jigz password"
+                  placeholder="Enter password"
                   autoComplete="current-password"
                   aria-invalid={errorText ? 'true' : 'false'}
                 />
                 <button type="submit" className={styles.passwordSubmit}>
                   Enter
                 </button>
-
                 {errorText && <p className={styles.passwordError}>{errorText}</p>}
               </Motion.form>
             )}

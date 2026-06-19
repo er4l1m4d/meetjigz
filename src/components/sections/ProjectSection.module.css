@@ -1,0 +1,151 @@
+.section {
+  padding: 80px 24px;
+  background: var(--apple-canvas-parchment);
+}
+
+html[data-theme='dark'] .section {
+  background: var(--apple-surface-tile-1);
+}
+
+.inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.sectionLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--apple-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+
+html[data-theme='dark'] .sectionLabel {
+  color: var(--apple-blue-on-dark);
+}
+
+.sectionHeadline {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5vw, 40px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.374px;
+  color: var(--apple-ink);
+  margin-bottom: 48px;
+}
+
+html[data-theme='dark'] .sectionHeadline {
+  color: var(--apple-body-on-dark);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--apple-canvas);
+  border: 1px solid var(--apple-hairline);
+  transition: transform 200ms ease;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+html[data-theme='dark'] .card {
+  background: var(--apple-surface-tile-2);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  text-decoration: none;
+  color: inherit;
+}
+
+.cardThumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--apple-canvas-parchment);
+}
+
+html[data-theme='dark'] .cardThumb {
+  background: var(--apple-surface-tile-3);
+}
+
+.cardBody {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cardTitle {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.374px;
+  color: var(--text);
+  margin: 0;
+}
+
+.cardDesc {
+  font-size: 14px;
+  line-height: 1.43;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.cardTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.tag {
+  padding: 4px 10px;
+  border-radius: 9999px;
+  border: 1px solid var(--apple-hairline);
+  font-size: 12px;
+  color: var(--text-muted);
+  background: transparent;
+}
+
+html[data-theme='dark'] .tag {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--apple-blue);
+  text-decoration: none;
+}
+
+html[data-theme='dark'] .cardLink {
+  color: var(--apple-blue-on-dark);
+}
+
+.cardLink:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 64px 20px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

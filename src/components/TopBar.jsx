@@ -1,59 +1,41 @@
-import { useEffect, useState } from 'react'
-import { MagnifyingGlass, Moon, Sun } from '@phosphor-icons/react'
+import { Moon, Sun } from '@phosphor-icons/react'
 import { useTheme } from '../context/ThemeContext.jsx'
 import styles from './TopBar.module.css'
 
-function formatDesktopTime(date) {
-  const formatter = new Intl.DateTimeFormat('en-GB', {
-    weekday: 'short',
-    day: 'numeric',
-    month: 'short',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  })
-
-  return formatter.format(date).replace(/,/g, '')
-}
-
-function TopBar({ onOpenSpotlight }) {
+function TopBar() {
   const { isDark, toggleTheme } = useTheme()
-  const [timeLabel, setTimeLabel] = useState(() => formatDesktopTime(new Date()))
 
-  useEffect(() => {
-    const intervalId = window.setInterval(() => {
-      setTimeLabel(formatDesktopTime(new Date()))
-    }, 1000)
-
-    return () => {
-      window.clearInterval(intervalId)
-    }
-  }, [])
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  }
 
   return (
-    <header className={`${styles.topBar} glass`} aria-label="Desktop top bar">
-      <div className={styles.topBarLeft}>
-        <span className={`${styles.dot} ${styles.dotRed}`} />
-        <span className={`${styles.dot} ${styles.dotYellow}`} />
-        <span className={`${styles.dot} ${styles.dotGreen}`} />
-      </div>
+    <nav className={styles.nav} aria-label="Main navigation">
+      <span className={styles.brand}>Jigz</span>
 
-      <div className={styles.centerLeft}>
-        <button type="button" className={styles.btn} aria-label="Open search" onClick={onOpenSpotlight}>
-          <MagnifyingGlass size={16} weight="bold" />
-        </button>
-      </div>
-
-      <div className={styles.centerRight}>
-        <button type="button" className={styles.btn} onClick={toggleTheme} aria-label="Toggle theme">
-          {isDark ? <Sun size={16} weight="bold" /> : <Moon size={16} weight="bold" />}
-        </button>
-      </div>
-
-      <div className={styles.time} aria-live="polite">
-        {timeLabel}
-      </div>
-    </header>
+      <ul className={styles.links}>
+        <li>
+          <button type="button" className={styles.link} onClick={() => scrollTo('projects')}>
+            Projects
+          </button>
+        </li>
+        <li>
+          <button type="button" className={styles.link} onClick={() => scrollTo('about')}>
+            About
+          </button>
+        </li>
+        <li>
+          <button type="button" className={styles.link} onClick={() => scrollTo('contact')}>
+            Contact
+          </button>
+        </li>
+        <li>
+          <button type="button" className={styles.themeBtn} onClick={toggleTheme} aria-label="Toggle theme">
+            {isDark ? <Sun size={14} weight="fill" /> : <Moon size={14} weight="fill" />}
+          </button>
+        </li>
+      </ul>
+    </nav>
   )
 }
 

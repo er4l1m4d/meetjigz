@@ -1,94 +1,81 @@
-.topBar {
+.nav {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 4;
-  display: grid;
-  grid-template-columns: auto auto auto 1fr;
+  z-index: 100;
+  display: flex;
   align-items: center;
-  gap: var(--space-3);
+  justify-content: space-between;
   height: 44px;
-  padding: 0 var(--space-5);
-  background: var(--apple-surface-black);
-  color: var(--apple-body-on-dark);
-}
-
-html[data-theme='dark'] .topBar {
+  padding: 0 24px;
   background: rgba(0, 0, 0, 0.88);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
 }
 
-.topBarLeft {
-  display: inline-flex;
-  gap: 0;
-  align-items: center;
+.brand {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.08px;
 }
 
-.dot {
-  width: 0;
-  height: 0;
-  border-radius: 0;
-  display: none;
-}
-
-.dotRed,
-.dotYellow,
-.dotGreen {
-  display: none;
-}
-
-.centerLeft,
-.centerRight {
+.links {
   display: inline-flex;
   align-items: center;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.btn {
+.link {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 150ms ease;
+  letter-spacing: -0.12px;
+}
+
+.link:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.themeBtn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   padding: 0;
   border: 0;
-  border-radius: var(--radius-pill);
+  border-radius: 9999px;
   background: transparent;
-  color: var(--apple-body-on-dark);
+  color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
   transition: background 150ms ease;
 }
 
-.btn:hover {
+.themeBtn:hover {
   background: rgba(255, 255, 255, 0.12);
 }
 
-.btn:focus-visible {
+.themeBtn:focus-visible {
   outline: 2px solid var(--apple-blue-on-dark);
   outline-offset: 1px;
 }
 
-.time {
-  justify-self: end;
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: -0.12px;
-  color: var(--apple-body-on-dark);
-}
-
-@media (max-width: 560px) {
-  .topBar {
-    grid-template-columns: auto auto 1fr;
-    gap: var(--space-2);
-    padding: 0 var(--space-3);
+@media (max-width: 640px) {
+  .links {
+    gap: 16px;
   }
 
-  .centerRight {
-    display: none;
-  }
-
-  .time {
+  .link {
     font-size: 11px;
   }
 }

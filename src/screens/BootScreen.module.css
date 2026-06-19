@@ -4,12 +4,11 @@
   align-items: center;
   width: 100%;
   min-height: 100vh;
-  padding: clamp(1.25rem, 2.5vw, 2rem);
-  background: var(--apple-surface-black);
-  color: var(--apple-body-on-dark);
+  background: #000;
+  color: #fff;
   font-family: var(--font-body);
   opacity: 1;
-  transition: opacity 360ms ease;
+  transition: opacity 400ms ease;
 }
 
 .screen.isExiting {
@@ -19,43 +18,43 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
-  width: min(720px, 100%);
+  align-items: center;
+  gap: 32px;
+  width: min(600px, 100%);
 }
 
-.terminal {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.line {
-  margin: 0;
-  font-size: 17px;
-  font-weight: 400;
-  letter-spacing: -0.374px;
-  line-height: 1.47;
+.logo {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
   opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 240ms ease, transform 240ms ease;
+  transform: scale(0.96);
+  transition: opacity 600ms ease, transform 600ms ease;
 }
 
-.line.isVisible {
+.logo.isVisible {
   opacity: 1;
-  transform: translateY(0);
+  transform: scale(1);
 }
 
 .progress {
-  width: 100%;
-  height: 4px;
-  border-radius: var(--radius-pill);
+  width: 200px;
+  height: 3px;
+  border-radius: 3px;
   background: rgba(255, 255, 255, 0.12);
   overflow: hidden;
+  opacity: 0;
+  transition: opacity 400ms ease 200ms;
+}
+
+.progress.isVisible {
+  opacity: 1;
 }
 
 .progressFill {
   height: 100%;
   border-radius: inherit;
-  background: var(--apple-blue);
+  background: #fff;
   transition: width 60ms linear;
 }

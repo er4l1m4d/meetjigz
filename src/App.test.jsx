@@ -1,22 +1,11 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import App from './App.jsx'
-import { AuthProvider } from './context/AuthContext.jsx'
-import { ThemeProvider } from './context/ThemeContext.jsx'
-
-function renderApp() {
-  return render(
-    <ThemeProvider>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </ThemeProvider>,
-  )
-}
+import { renderWithProviders } from './test/renderWithProviders.jsx'
 
 describe('App', () => {
   it('renders the boot screen on initial load', () => {
-    renderApp()
-    expect(screen.getByRole('region', { name: /boot sequence/i })).toBeInTheDocument()
+    renderWithProviders(<App />)
+    expect(screen.getByRole('region', { name: /loading/i })).toBeInTheDocument()
   })
 })

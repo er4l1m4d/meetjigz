@@ -1,5 +1,4 @@
 import { screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi } from 'vitest'
 import { renderWithProviders } from '../test/renderWithProviders.jsx'
 
@@ -16,6 +15,7 @@ describe('LoginScreen', () => {
 
   it('calls onGuestLogin when guest card is clicked', async () => {
     const onGuestLogin = vi.fn()
+    const { default: userEvent } = await import('@testing-library/user-event')
     const user = userEvent.setup()
 
     renderWithProviders(<LoginScreen onGuestLogin={onGuestLogin} />)
@@ -25,6 +25,7 @@ describe('LoginScreen', () => {
   })
 
   it('shows password input when Jigz card is clicked', async () => {
+    const { default: userEvent } = await import('@testing-library/user-event')
     const user = userEvent.setup()
     renderWithProviders(<LoginScreen />)
 
@@ -35,6 +36,7 @@ describe('LoginScreen', () => {
   })
 
   it('shows error for incorrect password', async () => {
+    const { default: userEvent } = await import('@testing-library/user-event')
     const user = userEvent.setup()
     renderWithProviders(<LoginScreen />)
 
