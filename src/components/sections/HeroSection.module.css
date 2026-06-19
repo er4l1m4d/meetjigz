@@ -1,182 +1,101 @@
 .hero {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 128px 20px 80px;
-  max-width: 1200px;
-  margin: 0 auto;
-  margin-bottom: 120px;
-}
-
-@media (min-width: 768px) {
-  .hero {
-    padding: 128px 24px 80px;
-  }
-}
-
-.glow {
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.card {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 32px;
-  padding: 32px;
-  width: 100%;
-  max-width: 640px;
-  z-index: 1;
-}
-
-@media (min-width: 640px) {
-  .card {
-    padding: 40px;
-  }
-}
-
-.avatarWrap {
-  position: relative;
-  flex-shrink: 0;
-}
-
-.avatar {
-  width: 96px;
-  height: 96px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #c084fc, #a855f7, #7c3aed);
-  display: grid;
-  place-items: center;
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: -0.02em;
-  overflow: hidden;
-}
-
-@media (min-width: 640px) {
-  .avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 20px;
-    font-size: 36px;
-  }
-}
-
-.avatarBorder {
-  position: absolute;
-  inset: -3px;
-  border-radius: 19px;
-  border: 3px solid rgba(168, 85, 247, 0.3);
-  pointer-events: none;
-}
-
-@media (min-width: 640px) {
-  .avatarBorder {
-    border-radius: 23px;
-  }
-}
-
-.info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 80px 24px;
+  text-align: center;
+  position: relative;
 }
 
-.name {
+.label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+}
+
+.headline {
   font-family: var(--font-display);
-  font-size: 28px;
+  font-size: clamp(40px, 8vw, 56px);
   font-weight: 700;
-  letter-spacing: -0.02em;
+  line-height: 1.07;
+  letter-spacing: -0.28px;
   color: var(--on-surface);
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  max-width: 800px;
+  margin-bottom: 16px;
 }
 
-@media (min-width: 640px) {
-  .name {
-    font-size: 36px;
-  }
-}
-
-.handle {
-  font-size: 16px;
+.tagline {
+  font-size: clamp(17px, 2.5vw, 21px);
   font-weight: 400;
+  line-height: 1.47;
   color: var(--text-muted);
-  margin: 0;
+  max-width: 520px;
+  margin-bottom: 32px;
 }
 
 .actions {
-  display: flex;
+  display: inline-flex;
+  gap: 12px;
+}
+
+.btnPrimary {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.actionBtn {
-  width: 40px;
-  height: 40px;
-  display: grid;
-  place-items: center;
-  border-radius: 10px;
-  border: 1px solid var(--glass-stroke);
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--on-surface);
-  cursor: pointer;
-  transition: all 200ms ease;
-}
-
-.actionBtn:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.15);
-}
-
-.badge {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
+  padding: 11px 22px;
+  border: 0;
   border-radius: 9999px;
-  background: rgba(34, 197, 94, 0.12);
-  border: 1px solid rgba(34, 197, 94, 0.2);
-  font-size: 12px;
-  font-weight: 600;
-  color: #22c55e;
-  letter-spacing: 0.02em;
+  background: var(--primary);
+  color: var(--on-primary);
+  font-size: 17px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 150ms ease;
 }
 
-.badgeIcon {
-  width: 14px;
-  height: 14px;
+.btnPrimary:hover {
+  transform: scale(0.96);
 }
 
-@media (max-width: 480px) {
-  .card {
-    flex-direction: column;
-    text-align: center;
-  }
+.btnPrimary:active {
+  transform: scale(0.95);
+}
 
-  .info {
-    align-items: center;
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 11px 22px;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--primary);
+  font-size: 17px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 150ms ease;
+}
+
+.btnSecondary:hover {
+  transform: scale(0.96);
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 80px 20px;
   }
 
   .actions {
-    justify-content: center;
+    flex-direction: column;
+    width: 100%;
   }
 
-  .badge {
-    top: 12px;
-    right: 12px;
+  .btnPrimary,
+  .btnSecondary {
+    justify-content: center;
+    width: 100%;
   }
 }

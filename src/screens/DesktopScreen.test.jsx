@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { renderWithProviders } from '../test/renderWithProviders.jsx'
 import DesktopScreen from './DesktopScreen.jsx'
@@ -9,15 +9,9 @@ describe('DesktopScreen', () => {
     expect(screen.getByRole('navigation')).toBeInTheDocument()
   })
 
-  it('renders the hero headline', async () => {
+  it('renders the hero headline', () => {
     renderWithProviders(<DesktopScreen />)
-    await waitFor(() => {
-      const jigzElements = screen.getAllByText(/jigz/i)
-      const headline = jigzElements.find(
-        (el) => el.className.includes('headline')
-      )
-      expect(headline).toBeInTheDocument()
-    }, { timeout: 2000 })
+    expect(screen.getByRole('heading', { name: /build experiences/i })).toBeInTheDocument()
   })
 
   it('renders projects section', () => {
