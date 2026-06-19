@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useAuth } from './context/AuthContext.jsx'
 import BootScreen from './screens/BootScreen.jsx'
 import DesktopScreen from './screens/DesktopScreen.jsx'
-import LoginScreen from './screens/LoginScreen.jsx'
 
 const pageVariants = {
   initial: { opacity: 0 },
@@ -12,7 +10,6 @@ const pageVariants = {
 }
 
 function App() {
-  const { login } = useAuth()
   const [activeScreen, setActiveScreen] = useState('boot')
   const [isBootExiting, setIsBootExiting] = useState(false)
 
@@ -30,27 +27,6 @@ function App() {
         </motion.div>
       )}
 
-      {activeScreen === 'login' && (
-        <motion.div
-          key="login"
-          variants={pageVariants}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-        >
-          <LoginScreen
-            onGuestLogin={() => {
-              login('guest')
-              setActiveScreen('desktop')
-            }}
-            onJigzLogin={() => {
-              login('jigz')
-              setActiveScreen('desktop')
-            }}
-          />
-        </motion.div>
-      )}
-
       {activeScreen === 'boot' && (
         <motion.div
           key="boot"
@@ -65,7 +41,7 @@ function App() {
               setIsBootExiting(true)
             }}
             onExitComplete={() => {
-              setActiveScreen('login')
+              setActiveScreen('desktop')
             }}
           />
         </motion.div>
