@@ -55,6 +55,10 @@
   --theme-transition-ease: ease;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body,
 #root {

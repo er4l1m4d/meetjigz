@@ -1,4 +1,7 @@
 import { useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
+import Reveal from '../animations/Reveal.jsx'
+import { staggerContainer, scaleIn } from '../animations/variants.js'
 import styles from './ProjectSection.module.css'
 
 function ProjectSection({ projects = [] }) {
@@ -30,16 +33,28 @@ function ProjectSection({ projects = [] }) {
     <section className={styles.section} id="works">
       <div className="ambient-glow" style={{ top: '50%', right: '-100px' }} />
 
-      <h2 className={styles.sectionHeadline}>
-        Selected Works
-        <span className={styles.divider} />
-      </h2>
+      <Reveal>
+        <h2 className={styles.sectionHeadline}>
+          selected works
+          <span className={styles.divider} />
+        </h2>
+      </Reveal>
 
-      <div className={styles.grid} ref={gridRef}>
+      <motion.div
+        className={styles.grid}
+        ref={gridRef}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-80px' }}
+        variants={staggerContainer}
+      >
         {projects.map((project, index) => (
-          <article
+          <motion.article
             key={project.id}
             className={`${styles.card} glass-panel project-card ${index === 2 ? styles.span2 : ''}`}
+            variants={scaleIn}
+            whileHover={{ scale: 1.02, borderColor: 'var(--primary)' }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className={styles.cardGlow} />
             <div className={styles.cardBg}>
@@ -57,9 +72,9 @@ function ProjectSection({ projects = [] }) {
               <h3 className={styles.cardTitle}>{project.title}</h3>
               <p className={styles.cardDesc}>{project.description}</p>
             </div>
-          </article>
+          </motion.article>
         ))}
-      </div>
+      </motion.div>
     </section>
   )
 }

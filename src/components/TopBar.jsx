@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext.jsx'
 import styles from './TopBar.module.css'
 
@@ -9,7 +10,12 @@ function TopBar() {
   }
 
   return (
-    <nav className={styles.nav}>
+    <motion.nav
+      className={styles.nav}
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+    >
       <div className={styles.inner}>
         <a className={styles.brand} href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>
           jigz
@@ -33,15 +39,22 @@ function TopBar() {
           </li>
         </ul>
 
-        <button type="button" className={styles.hireBtn} onClick={() => scrollTo('contact')}>
+        <motion.button
+          type="button"
+          className={styles.hireBtn}
+          onClick={() => scrollTo('contact')}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.97 }}
+          transition={{ duration: 0.15 }}
+        >
           let's build
-        </button>
+        </motion.button>
 
         <button type="button" className={styles.menuBtn} onClick={toggleTheme} aria-label="Toggle theme">
           <span className="material-symbols-outlined">menu</span>
         </button>
       </div>
-    </nav>
+    </motion.nav>
   )
 }
 
