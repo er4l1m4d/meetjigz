@@ -1,8 +1,11 @@
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi } from 'vitest'
-import LoginScreen from './LoginScreen.jsx'
 import { renderWithProviders } from '../test/renderWithProviders.jsx'
+
+vi.stubEnv('VITE_JIGZ_PASSWORD_HASH', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8')
+
+const { default: LoginScreen } = await import('./LoginScreen.jsx')
 
 describe('LoginScreen', () => {
   it('renders both profile cards', () => {
