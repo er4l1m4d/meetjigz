@@ -11,7 +11,7 @@ describe('DesktopScreen', () => {
 
   it('renders the hero headline', () => {
     renderWithProviders(<DesktopScreen />)
-    expect(screen.getByRole('heading', { name: /build experiences/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /^jigz$/i })).toBeInTheDocument()
   })
 
   it('renders projects section', () => {
