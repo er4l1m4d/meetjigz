@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import BootScreen from './screens/BootScreen.jsx'
 import DesktopScreen from './screens/DesktopScreen.jsx'
+import ArchivePage from './screens/ArchivePage.jsx'
 
 const pageVariants = {
   initial: { opacity: 0 },
@@ -13,21 +15,9 @@ function App() {
   const [activeScreen, setActiveScreen] = useState('boot')
   const [isBootExiting, setIsBootExiting] = useState(false)
 
-  return (
-    <AnimatePresence mode="wait">
-      {activeScreen === 'desktop' && (
-        <motion.div
-          key="desktop"
-          variants={pageVariants}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-        >
-          <DesktopScreen />
-        </motion.div>
-      )}
-
-      {activeScreen === 'boot' && (
+  if (activeScreen === 'boot') {
+    return (
+      <AnimatePresence mode="wait">
         <motion.div
           key="boot"
           variants={pageVariants}
@@ -45,8 +35,27 @@ function App() {
             }}
           />
         </motion.div>
-      )}
-    </AnimatePresence>
+      </AnimatePresence>
+    )
+  }
+
+  return (
+    <BrowserRouter>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key="desktop"
+          variants={pageVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+        >
+          <Routes>
+            <Route path="/" element={<DesktopScreen />} />
+            <Route path="/archive" element={<ArchivePage />} />
+          </Routes>
+        </motion.div>
+      </AnimatePresence>
+    </BrowserRouter>
   )
 }
 

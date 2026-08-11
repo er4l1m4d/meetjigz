@@ -1,10 +1,17 @@
+import { Link, useLocation } from 'react-router-dom'
 import { useTheme } from '../context/ThemeContext.jsx'
 import styles from './TopBar.module.css'
 
 function TopBar() {
   const { toggleTheme } = useTheme()
+  const location = useLocation()
+  const isArchive = location.pathname === '/archive'
 
   const scrollTo = (id) => {
+    if (isArchive) {
+      window.location.href = `/#${id}`
+      return
+    }
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
   }
 
@@ -12,9 +19,9 @@ function TopBar() {
     <nav className={styles.nav}>
       <div className={styles.inner}>
         <div className={styles.brand}>
-          <a href="#" className={styles.name} onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>
+          <Link to="/" className={styles.name}>
             Jigz
-          </a>
+          </Link>
           <span className={styles.separator}>·</span>
           <span className={styles.role}>Full-Stack Developer</span>
           <span className={styles.statusDot} aria-label="Available for work" />
@@ -36,6 +43,9 @@ function TopBar() {
               <button type="button" className={styles.link} onClick={() => scrollTo('contact')}>
                 contact
               </button>
+            </li>
+            <li>
+              <Link to="/archive" className={styles.link}>archive</Link>
             </li>
           </ul>
 

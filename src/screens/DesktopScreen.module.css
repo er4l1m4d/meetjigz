@@ -120,3 +120,54 @@
   display: block;
   object-fit: cover;
 }
+
+/* Archive page */
+.archiveHeader {
+  margin-bottom: var(--space-8);
+}
+
+.archiveTitle {
+  font-family: var(--font-mono);
+  font-size: clamp(2rem, 5.5vw, 3.75rem);
+  font-weight: 700;
+  line-height: 1.02;
+  color: var(--ink);
+}
+
+.archiveSubtitle {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  margin-top: var(--space-3);
+}
+
+.archiveFooter {
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--hairline);
+}
+
+.backLink {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--link);
+  text-decoration: none;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+.backLink:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.imageWrapper {
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+}
