@@ -1,33 +1,18 @@
 :root {
-  --font-display: 'Sora', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-body: 'IBM Plex Sans', sans-serif;
 
-  --primary: #aac7ff;
-  --primary-container: #0066cc;
-  --on-primary: #002f65;
-  --on-primary-container: #dfe8ff;
-  --on-surface: #e5e2e1;
-  --on-surface-variant: #c1c6d5;
-  --surface: #131313;
-  --surface-container: #201f1f;
-  --surface-container-high: #2a2a2a;
-  --surface-container-low: #1c1b1b;
-  --surface-container-lowest: #0e0e0e;
-  --surface-dim: #131313;
-  --surface-variant: #353534;
-  --text-muted: #A1A1AA;
-  --outline: #8b919e;
-  --outline-variant: #414753;
-  --deep-black: #000000;
-  --glass-stroke: rgba(255, 255, 255, 0.08);
-  --charcoal-surface: #161616;
-
-  --bg: #000000;
-  --bg-elevated: var(--surface-container);
-  --text: var(--on-surface);
-  --text-muted: var(--text-muted);
-  --accent: var(--primary);
-  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --bg: #14171C;
+  --surface: #1C2027;
+  --surface-raised: #20242C;
+  --ink: #E4E7EC;
+  --ink-muted: #8B93A1;
+  --hairline: #2A2F38;
+  --status-live: #3DDC84;
+  --status-progress: #F2A93B;
+  --status-shadow: #6B7280;
+  --link: #5B8DEF;
+  --pop: #FF3D81;
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -36,23 +21,13 @@
   --space-5: 1.5rem;
   --space-6: 2rem;
   --space-7: 3rem;
+  --space-8: 6rem;
 
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-md: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.5rem;
-  --text-2xl: 2rem;
-
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 0.75rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
   --radius-pill: 9999px;
 
-  --theme-transition: all 0.3s ease;
-  --theme-transition-properties: background-color, color, border-color, box-shadow, fill, stroke;
-  --theme-transition-duration: 0.3s;
-  --theme-transition-ease: ease;
+  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.4);
 }
 
 html {
@@ -72,10 +47,9 @@ body {
   min-height: 100vh;
   font-family: var(--font-body);
   font-size: 16px;
-  line-height: 1.6;
-  background: var(--deep-black);
-  color: var(--on-surface);
-  transition: var(--theme-transition);
+  line-height: 1.65;
+  background: var(--bg);
+  color: var(--ink);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -85,7 +59,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
 }
 
 p {
@@ -93,8 +67,12 @@ p {
 }
 
 a {
-  color: inherit;
+  color: var(--link);
   text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 button,
@@ -104,37 +82,12 @@ select {
   font: inherit;
 }
 
-.glass-panel {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-  border-right: 1px solid rgba(255, 255, 255, 0.03);
-  border-radius: 0.75rem;
-}
-
-.ambient-glow {
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(170, 199, 255, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes blinkCursor {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    transition: none !important;
-    animation: none !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }

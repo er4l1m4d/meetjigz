@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import styles from './BootScreen.module.css'
 
-const BOOT_DURATION_MS = 2400
+const BOOT_DURATION_MS = 2000
 
 function BootScreen({ isExiting = false, onComplete, onExitComplete }) {
   const [progress, setProgress] = useState(0)
