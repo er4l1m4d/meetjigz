@@ -1,15 +1,108 @@
 .page {
   width: 100%;
   min-height: 100vh;
+  max-width: 720px;
+  margin: 0 auto;
   position: relative;
   z-index: 10;
-  padding-top: 128px;
-  padding-bottom: 120px;
+  padding: 120px 24px 80px;
 }
 
-@media (min-width: 768px) {
-  .page {
-    padding-top: 128px;
-    padding-bottom: 120px;
-  }
+/* About entry */
+.bio {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ink);
+  margin-bottom: var(--space-5);
+}
+
+.hobbies {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--ink-muted);
+  margin-top: var(--space-4);
+}
+
+/* Tag groups */
+.tagGroup {
+  margin-top: var(--space-4);
+}
+
+.tagLabel {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: var(--space-2);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+}
+
+/* Build entry */
+.description {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ink);
+  margin-bottom: var(--space-4);
+}
+
+.projectLink {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--link);
+  text-decoration: none;
+  margin-top: var(--space-4);
+  transition: opacity 200ms ease;
+}
+
+.projectLink:hover {
+  text-decoration: underline;
+}
+
+.projectLink:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Design entry */
+.imageGrid {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-4) 0;
+}
+
+.imageWrapper {
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
 }

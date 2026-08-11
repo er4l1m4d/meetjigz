@@ -1,6 +1,5 @@
 .footer {
-  background: var(--charcoal-surface);
-  border-top: 1px solid var(--glass-stroke);
+  border-top: 1px solid var(--hairline);
   width: 100%;
   padding: 32px 0;
   position: relative;
@@ -12,7 +11,7 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  max-width: 1200px;
+  max-width: 720px;
   margin: 0 auto;
   padding: 0 24px;
 }
@@ -25,10 +24,10 @@
 }
 
 .brand {
-  font-family: var(--font-display);
-  font-size: 24px;
+  font-family: var(--font-mono);
+  font-size: 14px;
   font-weight: 700;
-  color: var(--on-surface);
+  color: var(--ink);
 }
 
 .links {
@@ -41,18 +40,28 @@
 }
 
 .link {
-  font-size: 16px;
-  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
   text-decoration: none;
-  transition: color 200ms ease, transform 200ms ease;
+  transition: color 200ms ease;
 }
 
 .link:hover {
-  color: var(--primary);
-  transform: scale(1.05);
+  color: var(--link);
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 .copyright {
-  font-size: 14px;
-  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-muted);
 }

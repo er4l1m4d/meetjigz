@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext.jsx'
 import styles from './TopBar.module.css'
 
@@ -10,51 +9,50 @@ function TopBar() {
   }
 
   return (
-    <motion.nav
-      className={styles.nav}
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-    >
+    <nav className={styles.nav}>
       <div className={styles.inner}>
-        <a className={styles.brand} href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>
-          jigz
-        </a>
+        <div className={styles.brand}>
+          <a href="#" className={styles.name} onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>
+            Jigz
+          </a>
+          <span className={styles.separator}>·</span>
+          <span className={styles.role}>Full-Stack Developer</span>
+          <span className={styles.statusDot} aria-label="Available for work" />
+        </div>
 
-        <ul className={styles.links}>
-          <li>
-            <button type="button" className={styles.link} onClick={() => scrollTo('about')}>
-              my works
-            </button>
-          </li>
-          <li>
-            <button type="button" className={`${styles.link} ${styles.isActive}`} onClick={() => scrollTo('works')}>
-              about me
-            </button>
-          </li>
-          <li>
-            <button type="button" className={styles.link} onClick={() => scrollTo('contact')}>
-              contact
-            </button>
-          </li>
-        </ul>
+        <div className={styles.right}>
+          <ul className={styles.links}>
+            <li>
+              <button type="button" className={styles.link} onClick={() => scrollTo('about')}>
+                about
+              </button>
+            </li>
+            <li>
+              <button type="button" className={styles.link} onClick={() => scrollTo('works')}>
+                works
+              </button>
+            </li>
+            <li>
+              <button type="button" className={styles.link} onClick={() => scrollTo('contact')}>
+                contact
+              </button>
+            </li>
+          </ul>
 
-        <motion.button
-          type="button"
-          className={styles.hireBtn}
-          onClick={() => scrollTo('contact')}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.97 }}
-          transition={{ duration: 0.15 }}
-        >
-          let's build
-        </motion.button>
-
-        <button type="button" className={styles.menuBtn} onClick={toggleTheme} aria-label="Toggle theme">
-          <span className="material-symbols-outlined">menu</span>
-        </button>
+          <button
+            type="button"
+            className={styles.themeToggle}
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.5"/>
+              <path d="M8 1V2.5M8 13.5V15M1 8H2.5M13.5 8H15M3.05 3.05L4.11 4.11M11.89 11.89L12.95 12.95M12.95 3.05L11.89 4.11M4.11 11.89L3.05 12.95" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          </button>
+        </div>
       </div>
-    </motion.nav>
+    </nav>
   )
 }
 
