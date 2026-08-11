@@ -1,6 +1,10 @@
+import { useState } from 'react'
 import { usePortfolioData } from '../hooks/usePortfolioData.js'
 import { DEFAULT_HERO } from '../data/defaults.js'
 import Entry from '../components/Entry.jsx'
+import Lightbox from '../components/Lightbox.jsx'
+import CiphraChip from '../components/graphics/CiphraChip.jsx'
+import VergeGate from '../components/graphics/VergeGate.jsx'
 import HeroSection from '../components/sections/HeroSection.jsx'
 import ContactSection from '../components/sections/ContactSection.jsx'
 import Footer from '../components/Footer.jsx'
@@ -37,10 +41,19 @@ function AboutContent({ entry }) {
   )
 }
 
+const GRAPHICS = {
+  'ciphra-chip': CiphraChip,
+  'verge-gate': VergeGate,
+}
+
 function BuildContent({ entry }) {
+  const Graphic = entry.graphic ? GRAPHICS[entry.graphic] : null
+
   return (
     <>
       <p className={styles.description}>{entry.description}</p>
+
+      {Graphic && <Graphic />}
 
       <div className={styles.tagGroup}>
         <div className={styles.tags}>
@@ -60,6 +73,8 @@ function BuildContent({ entry }) {
 }
 
 function DesignContent({ entry }) {
+  const [lightbox, setLightbox] = useState(null)
+
   return (
     <>
       <p className={styles.description}>{entry.brief}</p>
@@ -67,9 +82,14 @@ function DesignContent({ entry }) {
       {entry.images && entry.images.length > 0 && (
         <div className={styles.imageGrid}>
           {entry.images.map((img, i) => (
-            <div key={i} className={styles.imageWrapper}>
+            <button
+              key={i}
+              className={styles.imageButton}
+              onClick={() => setLightbox(img)}
+              aria-label={`View: ${img.alt}`}
+            >
               <img src={img.src} alt={img.alt} className={styles.image} loading="lazy" />
-            </div>
+            </button>
           ))}
         </div>
       )}
@@ -81,6 +101,14 @@ function DesignContent({ entry }) {
           ))}
         </div>
       </div>
+
+      {lightbox && (
+        <Lightbox
+          src={lightbox.src}
+          alt={lightbox.alt}
+          onClose={() => setLightbox(null)}
+        />
+      )}
     </>
   )
 }

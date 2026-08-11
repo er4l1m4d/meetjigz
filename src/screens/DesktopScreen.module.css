@@ -93,11 +93,25 @@
   margin: var(--space-4) 0;
 }
 
-.imageWrapper {
+.imageButton {
   width: 100%;
+  background: none;
+  border: 1px solid var(--hairline);
   border-radius: var(--radius-md);
   overflow: hidden;
-  border: 1px solid var(--hairline);
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 200ms ease;
+}
+
+.imageButton:hover {
+  border-color: var(--ink-muted);
+}
+
+.imageButton:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
 }
 
 .image {

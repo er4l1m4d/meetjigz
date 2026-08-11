@@ -1,0 +1,58 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(20, 23, 28, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  animation: fadeIn 200ms ease;
+}
+
+.content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 85vh;
+}
+
+.image {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--hairline);
+}
+
+.close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: none;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  color: var(--ink-muted);
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.close:hover {
+  color: var(--ink);
+  border-color: var(--ink-muted);
+}
+
+.close:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

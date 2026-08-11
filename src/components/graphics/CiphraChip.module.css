@@ -1,0 +1,42 @@
+.chip {
+  width: 100%;
+  max-width: 320px;
+  margin: var(--space-4) 0;
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+}
+
+.body {
+  fill: var(--surface);
+  stroke: var(--hairline);
+  stroke-width: 1;
+}
+
+.pin {
+  stroke: var(--ink-muted);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.trace {
+  stroke: var(--link);
+  stroke-width: 1;
+  stroke-linecap: round;
+  opacity: 0.6;
+}
+
+.core {
+  fill: var(--pop);
+  opacity: 0.8;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  fill: var(--ink-muted);
+}
