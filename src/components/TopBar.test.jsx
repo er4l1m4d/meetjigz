@@ -6,18 +6,28 @@ import TopBar from './TopBar.jsx'
 describe('TopBar', () => {
   it('renders the brand name', () => {
     renderWithProviders(<TopBar />)
-    expect(screen.getByText('jigz')).toBeInTheDocument()
+    expect(screen.getByText('Jigz')).toBeInTheDocument()
+  })
+
+  it('renders the role', () => {
+    renderWithProviders(<TopBar />)
+    expect(screen.getByText('Full-Stack Developer')).toBeInTheDocument()
   })
 
   it('renders navigation links', () => {
     renderWithProviders(<TopBar />)
-    expect(screen.getByRole('button', { name: /my works/i })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /about me/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /about/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /works/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /contact/i })).toBeInTheDocument()
   })
 
-  it('renders hire me button', () => {
+  it('renders archive link', () => {
     renderWithProviders(<TopBar />)
-    expect(screen.getByRole('button', { name: /let's build/i })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /archive/i })).toBeInTheDocument()
+  })
+
+  it('renders theme toggle', () => {
+    renderWithProviders(<TopBar />)
+    expect(screen.getByRole('button', { name: /toggle theme/i })).toBeInTheDocument()
   })
 })

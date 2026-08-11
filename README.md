@@ -1,6 +1,6 @@
-# Jigz OS Portfolio
+# Jigz — Build Log Portfolio
 
-A desktop-OS-themed portfolio site built with React + Vite, featuring draggable windows, a dock, spotlight search, boot/login screens, and dark/light theming.
+A single-column, chronological "build log" portfolio built with React + Vite. The page reads as the artifact of the same PRD → build plan → graduation-gate process used to ship the actual projects. Entries interleave code projects and design work, proving "designer and developer" through the content itself.
 
 ## Run Locally
 
@@ -28,48 +28,53 @@ Use `Ctrl + C` in the terminal to stop the server.
 
 ```
 src/
-├── main.jsx              # Entry point
-├── App.jsx               # Root component (Boot → Login → Desktop)
-├── index.css             # Global styles + theme variables
+├── main.jsx                    # Entry point (StrictMode + ThemeProvider)
+├── App.jsx                     # Root: boot → router (BrowserRouter)
+├── index.css                   # Build Log design tokens
 ├── context/
-│   └── AuthContext.jsx    # Auth state (guest/jigz)
-├── screens/
-│   ├── BootScreen.jsx     # Animated boot sequence
-│   ├── LoginScreen.jsx    # Profile card login
-│   └── DesktopScreen.jsx  # Main desktop (top bar, dock, windows, ambient)
-├── components/
-│   ├── TopBar.jsx         # System bar (spotlight trigger, clock, theme toggle)
-│   ├── Dock.jsx           # Bottom dock with app icons
-│   ├── SpotlightOverlay.jsx # Cmd+K spotlight search
-│   └── TypewriterGreeting.jsx # Animated greeting
-├── windows/
-│   ├── Window.jsx         # Generic draggable/resizable window shell
-│   ├── WorksWindow.jsx    # Projects gallery
-│   ├── AboutWindow.jsx    # About me
-│   └── ContactWindow.jsx  # Social links
-├── hooks/
-│   ├── usePortfolioData.js   # Centralized data with localStorage persistence
-│   └── useWindowManager.js   # useReducer-based window open/close/focus
+│   └── ThemeContext.jsx         # Dark/light theme with localStorage
 ├── data/
-│   └── defaults.js        # Default projects, about, contact data
+│   └── defaults.js             # FEATURED_ENTRIES, ARCHIVE_ENTRIES, DEFAULT_CONTACT, DEFAULT_HERO
+├── hooks/
+│   └── usePortfolioData.js     # Data layer with localStorage persistence
+├── screens/
+│   ├── BootScreen.jsx          # Animated loading bar (2s)
+│   ├── DesktopScreen.jsx       # Main page: hero + entries + contact
+│   └── ArchivePage.jsx         # Archive page: remaining entries
+├── components/
+│   ├── Entry.jsx               # Shared shell: ghost numeral, divider, title, badge
+│   ├── Lightbox.jsx            # Full-screen image overlay
+│   ├── TopBar.jsx              # Sticky header: brand + role + nav + theme toggle
+│   ├── Footer.jsx              # Brand + social links + copyright
+│   ├── sections/
+│   │   ├── HeroSection.jsx     # Oversized type + pop highlight
+│   │   └── ContactSection.jsx  # Terminal-style contact block
+│   ├── graphics/
+│   │   ├── CiphraChip.jsx      # SVG chip graphic (build entries)
+│   │   └── VergeGate.jsx       # SVG gate bar graphic (build entries)
+│   └── animations/
+│       ├── Reveal.jsx          # Scroll-triggered reveal
+│       └── variants.js         # Framer Motion variants
 └── test/
-    ├── setup.js           # Vitest setup (jest-dom matchers)
-    └── renderWithProviders.jsx # Shared test helper
+    ├── setup.js                # Vitest setup + localStorage polyfill
+    └── renderWithProviders.jsx # Test helper (ThemeProvider + BrowserRouter)
 ```
 
 ## Architecture
 
-- **Screens**: Boot → Login → Desktop flow managed by `App.jsx` state
-- **Window system**: `useWindowManager` reducer tracks open/focused windows; `Window` component provides drag, resize, minimize, maximize
-- **Data**: `usePortfolioData` hook loads from localStorage with fallback to defaults; CRUD operations for projects
-- **Theme**: CSS variables in `:root` / `[data-theme="dark"]`; components use CSS Modules
-- **Spotlight**: Cmd+K / Ctrl+K global keyboard shortcut; click-outside and Escape to close
-- **Auth**: Stylized login flow; password hash stored in `.env` (not security-critical)
+- **Two pages**: `/` (main Build Log) and `/archive` (remaining entries), connected via React Router
+- **Entry system**: Single `<Entry>` component renders about, build, and design entries via `kind` field. Ghost numerals auto-index from array position.
+- **Data model**: `FEATURED_ENTRIES` and `ARCHIVE_ENTRIES` arrays in `defaults.js`. Each entry has `kind` ('about' | 'build' | 'design') with type-specific fields.
+- **Build entries**: `status`, `description`, `tags`, `href`, `graphic` (resolves to SVG component)
+- **Design entries**: `brief`, `images`, `tools`, `caseStudy`. Images open in Lightbox.
+- **Design tokens**: IBM Plex Mono/Sans fonts, graphite palette (#14171C), magenta accent (#FF3D81)
+- **Animation**: Stagger-in on first load (disabled under prefers-reduced-motion)
+- **Theme**: CSS variables in `:root`. Dark/light toggle with localStorage persistence.
 
 ## Environment
 
-Copy `.env.example` to `.env` and set `VITE_JIGZ_PASSWORD_HASH` (SHA-256 hex) for the Jigz login card.
+No environment variables required. Deploy directly to Vercel.
 
 ## Testing
 
-Tests use Vitest + React Testing Library. Run `npm run test` to execute all 47 tests across 10 test files.
+Tests use Vitest + React Testing Library. Run `npm run test` to execute all tests.

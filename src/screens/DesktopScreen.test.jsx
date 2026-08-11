@@ -4,33 +4,34 @@ import { renderWithProviders } from '../test/renderWithProviders.jsx'
 import DesktopScreen from './DesktopScreen.jsx'
 
 describe('DesktopScreen', () => {
-  it('renders the page', () => {
+  it('renders the navigation', () => {
     renderWithProviders(<DesktopScreen />)
     expect(screen.getByRole('navigation')).toBeInTheDocument()
   })
 
   it('renders the hero headline', () => {
     renderWithProviders(<DesktopScreen />)
-    expect(screen.getByRole('heading', { name: /^jigz$/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /i design and build/i })).toBeInTheDocument()
   })
 
-  it('renders projects section', () => {
-    renderWithProviders(<DesktopScreen />)
-    expect(screen.getByRole('heading', { name: /selected works/i })).toBeInTheDocument()
-  })
-
-  it('renders about section', () => {
+  it('renders the about entry', () => {
     renderWithProviders(<DesktopScreen />)
     expect(screen.getByRole('heading', { name: /about/i })).toBeInTheDocument()
   })
 
-  it('renders contact section', () => {
+  it('renders the contact section', () => {
     renderWithProviders(<DesktopScreen />)
-    expect(screen.getByRole('heading', { name: /contact/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /let/i })).toBeInTheDocument()
   })
 
   it('renders the footer', () => {
     renderWithProviders(<DesktopScreen />)
     expect(screen.getByText(/© 2026 jigz/i)).toBeInTheDocument()
+  })
+
+  it('renders entry titles from data', () => {
+    renderWithProviders(<DesktopScreen />)
+    expect(screen.getByRole('heading', { name: /ciphra/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /verge/i })).toBeInTheDocument()
   })
 })
