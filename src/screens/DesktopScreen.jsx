@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { usePortfolioData } from '../hooks/usePortfolioData.js'
 import { DEFAULT_HERO } from '../data/defaults.js'
+import { staggerContainer, staggerItem } from '../components/animations/variants.js'
 import Entry from '../components/Entry.jsx'
 import Lightbox from '../components/Lightbox.jsx'
 import CiphraChip from '../components/graphics/CiphraChip.jsx'
@@ -127,33 +129,45 @@ function DesktopScreen() {
           support={DEFAULT_HERO.support}
         />
 
-        {featuredEntries.map((entry, index) => {
-          if (entry.kind === 'about') {
-            return (
-              <Entry key={entry.id} index={index} title={entry.title} kind="about">
-                <AboutContent entry={entry} />
-              </Entry>
-            )
-          }
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+        >
+          {featuredEntries.map((entry, index) => {
+            if (entry.kind === 'about') {
+              return (
+                <motion.div key={entry.id} variants={staggerItem}>
+                  <Entry index={index} title={entry.title} kind="about">
+                    <AboutContent entry={entry} />
+                  </Entry>
+                </motion.div>
+              )
+            }
 
-          if (entry.kind === 'build') {
-            return (
-              <Entry key={entry.id} index={index} title={entry.title} status={entry.status} kind="build">
-                <BuildContent entry={entry} />
-              </Entry>
-            )
-          }
+            if (entry.kind === 'build') {
+              return (
+                <motion.div key={entry.id} variants={staggerItem}>
+                  <Entry index={index} title={entry.title} status={entry.status} kind="build">
+                    <BuildContent entry={entry} />
+                  </Entry>
+                </motion.div>
+              )
+            }
 
-          if (entry.kind === 'design') {
-            return (
-              <Entry key={entry.id} index={index} title={entry.title} kind="design">
-                <DesignContent entry={entry} />
-              </Entry>
-            )
-          }
+            if (entry.kind === 'design') {
+              return (
+                <motion.div key={entry.id} variants={staggerItem}>
+                  <Entry index={index} title={entry.title} kind="design">
+                    <DesignContent entry={entry} />
+                  </Entry>
+                </motion.div>
+              )
+            }
 
-          return null
-        })}
+            return null
+          })}
+        </motion.div>
 
         <ContactSection contact={contact} />
       </main>
