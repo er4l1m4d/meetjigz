@@ -87,6 +87,13 @@ export const ARCHIVE_ENTRIES = [
   },
 ]
 
+export const DEFAULT_HERO = {
+  eyebrow: 'portfolio2026',
+  headline: 'I design and build digital products',
+  highlight: 'design',
+  support: 'Full-stack developer and graphic designer. I work across code and canvas to ship things that feel deliberate.',
+}
+
 export const DEFAULT_CONTACT = {
   name: 'Jigz',
   role: 'Full-Stack Developer',

@@ -1,4 +1,5 @@
 import { usePortfolioData } from '../hooks/usePortfolioData.js'
+import { DEFAULT_HERO } from '../data/defaults.js'
 import Entry from '../components/Entry.jsx'
 import HeroSection from '../components/sections/HeroSection.jsx'
 import ContactSection from '../components/sections/ContactSection.jsx'
@@ -91,7 +92,12 @@ function DesktopScreen() {
     <>
       <TopBar />
       <main className={styles.page}>
-        <HeroSection />
+        <HeroSection
+          eyebrow={DEFAULT_HERO.eyebrow}
+          headline={DEFAULT_HERO.headline}
+          highlight={DEFAULT_HERO.highlight}
+          support={DEFAULT_HERO.support}
+        />
 
         {featuredEntries.map((entry, index) => {
           if (entry.kind === 'about') {
