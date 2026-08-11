@@ -1,9 +1,9 @@
 import { useState, useCallback } from 'react'
-import { DEFAULT_PROJECTS, DEFAULT_ABOUT, DEFAULT_CONTACT } from '../data/defaults.js'
+import { FEATURED_ENTRIES, ARCHIVE_ENTRIES, DEFAULT_CONTACT } from '../data/defaults.js'
 
 const STORAGE_KEYS = {
-  projects: 'jigz-projects',
-  about: 'jigz-about',
+  featured: 'jigz-featured-entries',
+  archive: 'jigz-archive-entries',
 }
 
 function loadFromStorage(key, fallback) {
@@ -24,60 +24,69 @@ function saveToStorage(key, value) {
 }
 
 export function usePortfolioData() {
-  const [projects, setProjectsState] = useState(() =>
-    loadFromStorage(STORAGE_KEYS.projects, DEFAULT_PROJECTS),
+  const [featuredEntries, setFeaturedState] = useState(() =>
+    loadFromStorage(STORAGE_KEYS.featured, FEATURED_ENTRIES),
   )
-  const [about, setAboutState] = useState(() =>
-    loadFromStorage(STORAGE_KEYS.about, DEFAULT_ABOUT),
+  const [archiveEntries, setArchiveState] = useState(() =>
+    loadFromStorage(STORAGE_KEYS.archive, ARCHIVE_ENTRIES),
   )
 
-  const setProjects = useCallback((newProjects) => {
-    setProjectsState((prev) => {
-      const next = typeof newProjects === 'function' ? newProjects(prev) : newProjects
-      saveToStorage(STORAGE_KEYS.projects, next)
+  const setFeaturedEntries = useCallback((newEntries) => {
+    setFeaturedState((prev) => {
+      const next = typeof newEntries === 'function' ? newEntries(prev) : newEntries
+      saveToStorage(STORAGE_KEYS.featured, next)
       return next
     })
   }, [])
 
-  const setAbout = useCallback((newAbout) => {
-    setAboutState((prev) => {
-      const next = typeof newAbout === 'function' ? newAbout(prev) : newAbout
-      saveToStorage(STORAGE_KEYS.about, next)
+  const setArchiveEntries = useCallback((newEntries) => {
+    setArchiveState((prev) => {
+      const next = typeof newEntries === 'function' ? newEntries(prev) : newEntries
+      saveToStorage(STORAGE_KEYS.archive, next)
       return next
     })
   }, [])
 
-  const addProject = useCallback(
-    (project) => {
-      setProjects((prev) => [...prev, { ...project, id: crypto.randomUUID() }])
+  const addEntry = useCallback(
+    (entry, target = 'featured') => {
+      const newEntry = { ...entry, id: entry.id || crypto.randomUUID() }
+      if (target === 'featured') {
+        setFeaturedEntries((prev) => [...prev, newEntry])
+      } else {
+        setArchiveEntries((prev) => [...prev, newEntry])
+      }
     },
-    [setProjects],
+    [setFeaturedEntries, setArchiveEntries],
   )
 
-  const updateProject = useCallback(
+  const updateEntry = useCallback(
     (id, updates) => {
-      setProjects((prev) =>
-        prev.map((p) => (p.id === id ? { ...p, ...updates } : p)),
+      setFeaturedEntries((prev) =>
+        prev.map((e) => (e.id === id ? { ...e, ...updates } : e)),
+      )
+      setArchiveEntries((prev) =>
+        prev.map((e) => (e.id === id ? { ...e, ...updates } : e)),
       )
     },
-    [setProjects],
+    [setFeaturedEntries, setArchiveEntries],
   )
 
-  const deleteProject = useCallback(
+  const deleteEntry = useCallback(
     (id) => {
-      setProjects((prev) => prev.filter((p) => p.id !== id))
+      setFeaturedEntries((prev) => prev.filter((e) => e.id !== id))
+      setArchiveEntries((prev) => prev.filter((e) => e.id !== id))
     },
-    [setProjects],
+    [setFeaturedEntries, setArchiveEntries],
   )
 
   return {
-    projects,
-    about,
+    featuredEntries,
+    archiveEntries,
     contact: DEFAULT_CONTACT,
-    setProjects,
-    setAbout,
-    addProject,
-    updateProject,
-    deleteProject,
+    setFeaturedEntries,
+    setArchiveEntries,
+    addEntry,
+    updateEntry,
+    deleteEntry,
   }
 }

@@ -8,15 +8,18 @@ import TopBar from '../components/TopBar.jsx'
 import styles from './DesktopScreen.module.css'
 
 function DesktopScreen() {
-  const { projects, about, contact } = usePortfolioData()
+  const { featuredEntries, contact } = usePortfolioData()
+
+  const aboutEntry = featuredEntries.find((e) => e.kind === 'about')
+  const projectEntries = featuredEntries.filter((e) => e.kind === 'build')
 
   return (
     <>
       <TopBar />
       <main className={styles.page}>
         <HeroSection />
-        <ProjectSection projects={projects} />
-        <AboutSection about={about} />
+        <ProjectSection projects={projectEntries} />
+        {aboutEntry && <AboutSection about={aboutEntry} />}
         <ContactSection contact={contact} />
       </main>
       <Footer contact={contact} />
