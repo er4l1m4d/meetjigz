@@ -1,5 +1,18 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import {
+  Code,
+  FileTs,
+  Database,
+  FigmaLogo,
+  CirclesThree,
+  Layout,
+  Monitor,
+  GitBranch,
+  Triangle,
+  ArrowsOutSimple,
+  Notepad,
+} from '@phosphor-icons/react'
 import { usePortfolioData } from '../hooks/usePortfolioData.js'
 import { DEFAULT_HERO } from '../data/defaults.js'
 import { staggerContainer, staggerItem } from '../components/animations/variants.js'
@@ -8,10 +21,27 @@ import Lightbox from '../components/Lightbox.jsx'
 import CiphraChip from '../components/graphics/CiphraChip.jsx'
 import VergeGate from '../components/graphics/VergeGate.jsx'
 import HeroSection from '../components/sections/HeroSection.jsx'
-import ContactSection from '../components/sections/ContactSection.jsx'
 import Footer from '../components/Footer.jsx'
 import TopBar from '../components/TopBar.jsx'
 import styles from './DesktopScreen.module.css'
+
+const SKILL_ICONS = {
+  'React': Code,
+  'TypeScript': FileTs,
+  'Node.js': Database,
+  'Figma': FigmaLogo,
+  'Motion Design': CirclesThree,
+  'System Design': Layout,
+}
+
+const TOOL_ICONS = {
+  'VS Code': Monitor,
+  'Figma': FigmaLogo,
+  'Git': GitBranch,
+  'Vercel': Triangle,
+  'Linear': ArrowsOutSimple,
+  'Notion': Notepad,
+}
 
 function AboutContent({ entry }) {
   return (
@@ -21,18 +51,30 @@ function AboutContent({ entry }) {
       <div className={styles.tagGroup}>
         <span className={styles.tagLabel}>Skills</span>
         <div className={styles.tags}>
-          {entry.skills.map((skill) => (
-            <span key={skill} className={styles.tag}>{skill}</span>
-          ))}
+          {entry.skills.map((skill) => {
+            const Icon = SKILL_ICONS[skill]
+            return (
+              <span key={skill} className={styles.tag}>
+                {Icon && <Icon size={14} weight="light" />}
+                {skill}
+              </span>
+            )
+          })}
         </div>
       </div>
 
       <div className={styles.tagGroup}>
         <span className={styles.tagLabel}>Tools</span>
         <div className={styles.tags}>
-          {entry.tools.map((tool) => (
-            <span key={tool} className={styles.tag}>{tool}</span>
-          ))}
+          {entry.tools.map((tool) => {
+            const Icon = TOOL_ICONS[tool]
+            return (
+              <span key={tool} className={styles.tag}>
+                {Icon && <Icon size={14} weight="light" />}
+                {tool}
+              </span>
+            )
+          })}
         </div>
       </div>
 
@@ -168,8 +210,6 @@ function DesktopScreen() {
             return null
           })}
         </motion.div>
-
-        <ContactSection contact={contact} />
       </main>
       <Footer contact={contact} />
     </>

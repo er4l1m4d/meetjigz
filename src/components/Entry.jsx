@@ -36,9 +36,8 @@ function Entry({ index, title, status, kind, children }) {
       <div className={styles.divider} />
 
       <header className={styles.header}>
-        <h2 className={styles.title}>{title}</h2>
-        <div className={styles.meta}>
-          <span className={styles.entryId}>#{paddedIndex}</span>
+        <div className={styles.titleRow}>
+          <h2 className={styles.title}>{title}</h2>
           {kind === 'design' ? <DesignBadge /> : <StatusBadge status={status} />}
         </div>
       </header>

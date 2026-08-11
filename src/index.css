@@ -30,6 +30,21 @@
   --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.4);
 }
 
+[data-theme="light"] {
+  --bg: #FAFAFA;
+  --surface: #FFFFFF;
+  --surface-raised: #F0F0F0;
+  --ink: #1A1D23;
+  --ink-muted: #6B7280;
+  --hairline: #E5E7EB;
+  --status-live: #22A65A;
+  --status-progress: #D48A1E;
+  --status-shadow: #9CA3AF;
+  --link: #3B6FD4;
+  --pop: #E0366D;
+  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
 html {
   scroll-behavior: smooth;
 }
