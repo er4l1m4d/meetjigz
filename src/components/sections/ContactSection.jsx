@@ -1,64 +1,44 @@
-import { motion } from 'framer-motion'
-import { DiscordLogo, TelegramLogo, TwitterLogo } from '@phosphor-icons/react'
-import Reveal from '../animations/Reveal.jsx'
-import { staggerContainer, staggerItem, slideFromLeft, slideFromRight } from '../animations/variants.js'
 import styles from './ContactSection.module.css'
-
-const ICONS = {
-  x: TwitterLogo,
-  telegram: TelegramLogo,
-  discord: DiscordLogo,
-}
 
 function ContactSection({ contact }) {
   return (
     <section className={styles.section} id="contact">
-      <Reveal>
-        <h2 className={styles.sectionHeadline}>
-          contact
-          <span className={styles.divider} />
-        </h2>
-      </Reveal>
+      <div className={styles.divider} />
 
-      <div className={styles.grid}>
-        <Reveal variants={slideFromLeft}>
-          <div>
-            <p className={styles.labelCaps}>Get in touch</p>
-            <a className={styles.email} href={`mailto:${contact.email}`}>
-              {contact.email}
-            </a>
-          </div>
-        </Reveal>
+      <h2 className={styles.headline}>
+        Let&apos;s build something <span className={styles.pop}>together</span>.
+      </h2>
 
-        <Reveal variants={slideFromRight}>
-          <div className={styles.socials}>
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-40px' }}
-              variants={staggerContainer}
-            >
-              {contact.socials.map((social) => {
-                const Icon = ICONS[social.id]
-                return (
-                  <motion.a
-                    key={social.id}
-                    className={styles.socialLink}
-                    href={social.href}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    variants={staggerItem}
-                    whileHover={{ scale: 1.02, borderColor: 'var(--primary)' }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {Icon && <Icon size={20} weight="light" />}
-                    {social.label}
-                  </motion.a>
-                )
-              })}
-            </motion.div>
+      <div className={styles.terminal}>
+        <div className={styles.terminalBar}>
+          <span className={styles.dot} />
+          <span className={styles.dot} />
+          <span className={styles.dot} />
+        </div>
+        <div className={styles.terminalBody}>
+          <div className={styles.line}>
+            <span className={styles.prompt}>$</span>
+            <span className={styles.command}>contact --block</span>
           </div>
-        </Reveal>
+          <div className={styles.line}>
+            <span className={styles.output}>name:</span>
+            <span className={styles.value}>{contact.name}</span>
+          </div>
+          <div className={styles.line}>
+            <span className={styles.output}>role:</span>
+            <span className={styles.value}>{contact.role}</span>
+          </div>
+          <div className={styles.line}>
+            <span className={styles.output}>email:</span>
+            <a href={`mailto:${contact.email}`} className={styles.link}>{contact.email}</a>
+          </div>
+          {contact.socials.map((social) => (
+            <div key={social.id} className={styles.line}>
+              <span className={styles.output}>{social.id}:</span>
+              <a href={social.href} className={styles.link} target="_blank" rel="noreferrer noopener">{social.label}</a>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )
