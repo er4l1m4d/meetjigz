@@ -1,45 +1,49 @@
+import Reveal from '../animations/Reveal.jsx'
+import { fadeIn } from '../animations/variants.js'
 import styles from './ContactSection.module.css'
 
 function ContactSection({ contact }) {
   return (
-    <section className={styles.section} id="contact">
-      <div className={styles.divider} />
+    <section id="contact" className={styles.section}>
+      <Reveal variants={fadeIn}>
+        <div className={styles.inner}>
+          <h2 className={styles.headline}>
+            Let&apos;s build something <span className={styles.pop}>together</span>.
+          </h2>
 
-      <h2 className={styles.headline}>
-        Let&apos;s build something <span className={styles.pop}>together</span>.
-      </h2>
-
-      <div className={styles.terminal}>
-        <div className={styles.terminalBar}>
-          <span className={styles.dot} />
-          <span className={styles.dot} />
-          <span className={styles.dot} />
-        </div>
-        <div className={styles.terminalBody}>
-          <div className={styles.line}>
-            <span className={styles.prompt}>$</span>
-            <span className={styles.command}>contact --block</span>
-          </div>
-          <div className={styles.line}>
-            <span className={styles.output}>name:</span>
-            <span className={styles.value}>{contact.name}</span>
-          </div>
-          <div className={styles.line}>
-            <span className={styles.output}>role:</span>
-            <span className={styles.value}>{contact.role}</span>
-          </div>
-          <div className={styles.line}>
-            <span className={styles.output}>email:</span>
-            <a href={`mailto:${contact.email}`} className={styles.link}>{contact.email}</a>
-          </div>
-          {contact.socials.map((social) => (
-            <div key={social.id} className={styles.line}>
-              <span className={styles.output}>{social.id}:</span>
-              <a href={social.href} className={styles.link} target="_blank" rel="noreferrer noopener">{social.label}</a>
+          <div className={styles.terminal}>
+            <div className={styles.terminalBar}>
+              <span className={styles.dot} />
+              <span className={styles.dot} />
+              <span className={styles.dot} />
             </div>
-          ))}
+            <div className={styles.terminalBody}>
+              <div className={styles.line}>
+                <span className={styles.prompt}>$</span>
+                <span className={styles.command}>contact --block</span>
+              </div>
+              <div className={styles.line}>
+                <span className={styles.output}>name:</span>
+                <span className={styles.value}>{contact.name}</span>
+              </div>
+              <div className={styles.line}>
+                <span className={styles.output}>role:</span>
+                <span className={styles.value}>{contact.role}</span>
+              </div>
+              <div className={styles.line}>
+                <span className={styles.output}>email:</span>
+                <a href={`mailto:${contact.email}`} className={styles.link}>{contact.email}</a>
+              </div>
+              {contact.socials.map((social) => (
+                <div key={social.id} className={styles.line}>
+                  <span className={styles.output}>{social.id}:</span>
+                  <a href={social.href} className={styles.link} target="_blank" rel="noreferrer noopener">{social.label}</a>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   )
 }

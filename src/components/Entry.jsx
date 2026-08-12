@@ -31,7 +31,9 @@ function Entry({ index, title, status, kind, children }) {
 
   return (
     <article className={styles.entry}>
-      <span className={styles.ghostNumeral} aria-hidden="true">{paddedIndex}</span>
+      {kind !== 'about' && (
+        <span className={styles.ghostNumeral} aria-hidden="true">{paddedIndex}</span>
+      )}
 
       <div className={styles.divider} />
 

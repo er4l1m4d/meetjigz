@@ -21,6 +21,7 @@ import Lightbox from '../components/Lightbox.jsx'
 import CiphraChip from '../components/graphics/CiphraChip.jsx'
 import VergeGate from '../components/graphics/VergeGate.jsx'
 import HeroSection from '../components/sections/HeroSection.jsx'
+import ContactSection from '../components/sections/ContactSection.jsx'
 import Footer from '../components/Footer.jsx'
 import TopBar from '../components/TopBar.jsx'
 import styles from './DesktopScreen.module.css'
@@ -41,6 +42,27 @@ const TOOL_ICONS = {
   'Vercel': Triangle,
   'Linear': ArrowsOutSimple,
   'Notion': Notepad,
+}
+
+function SeeMore({ children }) {
+  const [expanded, setExpanded] = useState(false)
+
+  return (
+    <div className={styles.seeMore}>
+      <div className={`${styles.seeMoreContent} ${expanded ? styles.expanded : ''}`}>
+        <div className={styles.seeMoreInner}>
+          {children}
+        </div>
+      </div>
+      <button
+        type="button"
+        className={styles.seeMoreBtn}
+        onClick={() => setExpanded(!expanded)}
+      >
+        {expanded ? 'see less' : 'see more'}
+      </button>
+    </div>
+  )
 }
 
 function AboutContent({ entry }) {
@@ -95,7 +117,9 @@ function BuildContent({ entry }) {
 
   return (
     <>
-      <p className={styles.description}>{entry.description}</p>
+      <SeeMore>
+        <p className={styles.description}>{entry.description}</p>
+      </SeeMore>
 
       {Graphic && <Graphic />}
 
@@ -121,7 +145,9 @@ function DesignContent({ entry }) {
 
   return (
     <>
-      <p className={styles.description}>{entry.brief}</p>
+      <SeeMore>
+        <p className={styles.description}>{entry.brief}</p>
+      </SeeMore>
 
       {entry.images && entry.images.length > 0 && (
         <div className={styles.imageGrid}>
@@ -159,6 +185,7 @@ function DesignContent({ entry }) {
 
 function DesktopScreen() {
   const { featuredEntries, contact } = usePortfolioData()
+  const [aboutId, ...worksEntries] = featuredEntries
 
   return (
     <>
@@ -176,42 +203,45 @@ function DesktopScreen() {
           animate="visible"
           variants={staggerContainer}
         >
-          {featuredEntries.map((entry, index) => {
-            if (entry.kind === 'about') {
-              return (
-                <motion.div key={entry.id} variants={staggerItem}>
-                  <Entry index={index} title={entry.title} kind="about">
-                    <AboutContent entry={entry} />
-                  </Entry>
-                </motion.div>
-              )
-            }
+          {aboutId && (
+            <motion.div key={aboutId.id} variants={staggerItem} id="about">
+              <Entry index={0} title={aboutId.title} kind="about">
+                <AboutContent entry={aboutId} />
+              </Entry>
+            </motion.div>
+          )}
 
-            if (entry.kind === 'build') {
-              return (
-                <motion.div key={entry.id} variants={staggerItem}>
-                  <Entry index={index} title={entry.title} status={entry.status} kind="build">
-                    <BuildContent entry={entry} />
-                  </Entry>
-                </motion.div>
-              )
-            }
+          <div id="works">
+            {worksEntries.map((entry, i) => {
+              const index = i + 1
 
-            if (entry.kind === 'design') {
-              return (
-                <motion.div key={entry.id} variants={staggerItem}>
-                  <Entry index={index} title={entry.title} kind="design">
-                    <DesignContent entry={entry} />
-                  </Entry>
-                </motion.div>
-              )
-            }
+              if (entry.kind === 'build') {
+                return (
+                  <motion.div key={entry.id} variants={staggerItem}>
+                    <Entry index={index} title={entry.title} status={entry.status} kind="build">
+                      <BuildContent entry={entry} />
+                    </Entry>
+                  </motion.div>
+                )
+              }
 
-            return null
-          })}
+              if (entry.kind === 'design') {
+                return (
+                  <motion.div key={entry.id} variants={staggerItem}>
+                    <Entry index={index} title={entry.title} kind="design">
+                      <DesignContent entry={entry} />
+                    </Entry>
+                  </motion.div>
+                )
+              }
+
+              return null
+            })}
+          </div>
         </motion.div>
       </main>
-      <Footer contact={contact} />
+      <ContactSection contact={contact} />
+      <Footer />
     </>
   )
 }

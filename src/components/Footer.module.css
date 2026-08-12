@@ -1,12 +1,12 @@
 .footer {
   width: 100%;
-  padding: var(--space-8) 0 var(--space-6);
+  padding: var(--space-6) 0;
   position: relative;
   z-index: 20;
 }
 
 .inner {
-  max-width: 720px;
+  max-width: 860px;
   margin: 0 auto;
   padding: 0 24px;
 }
@@ -16,101 +16,6 @@
   height: 1px;
   background: var(--hairline);
   margin-bottom: var(--space-6);
-}
-
-.headline {
-  font-family: var(--font-mono);
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--ink);
-  margin-bottom: var(--space-6);
-}
-
-.pop {
-  color: var(--pop);
-}
-
-/* Terminal block */
-.terminal {
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  max-width: 480px;
-  margin-bottom: var(--space-8);
-}
-
-.terminalBar {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 14px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--hairline);
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--hairline);
-}
-
-.terminalBody {
-  padding: 16px;
-  background: var(--bg);
-}
-
-.line {
-  display: flex;
-  gap: 8px;
-  line-height: 1.8;
-}
-
-.prompt {
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--status-live);
-  user-select: none;
-}
-
-.command {
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--ink);
-}
-
-.output {
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--ink-muted);
-  min-width: 60px;
-}
-
-.value {
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  color: var(--ink);
-}
-
-.link {
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  color: var(--link);
-  text-decoration: none;
-}
-
-.link:hover {
-  text-decoration: underline;
-}
-
-.link:focus-visible {
-  outline: 2px solid var(--link);
-  outline-offset: 2px;
-  border-radius: 2px;
 }
 
 .bottom {

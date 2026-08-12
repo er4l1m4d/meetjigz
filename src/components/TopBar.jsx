@@ -15,7 +15,11 @@ function TopBar() {
       window.location.href = `/#${id}`
       return
     }
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    const el = document.getElementById(id)
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY - 60
+      window.scrollTo({ top: y, behavior: 'smooth' })
+    }
   }
 
   return (

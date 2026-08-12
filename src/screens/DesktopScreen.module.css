@@ -1,7 +1,7 @@
 .page {
   width: 100%;
   min-height: 100vh;
-  max-width: 720px;
+  max-width: 860px;
   margin: 0 auto;
   position: relative;
   z-index: 10;
@@ -65,25 +65,72 @@
   font-size: 1rem;
   line-height: 1.65;
   color: var(--ink);
-  margin-bottom: var(--space-4);
+  margin-bottom: 0;
 }
 
 .projectLink {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-family: var(--font-mono);
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--link);
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
   margin-top: var(--space-4);
-  transition: opacity 200ms ease;
+  transition: color 200ms ease, gap 200ms ease;
 }
 
 .projectLink:hover {
-  text-decoration: underline;
+  gap: 10px;
 }
 
 .projectLink:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* See more */
+.seeMore {
+  margin-bottom: var(--space-4);
+}
+
+.seeMoreContent {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms ease;
+}
+
+.seeMoreContent.expanded {
+  grid-template-rows: 1fr;
+}
+
+.seeMoreInner {
+  overflow: hidden;
+}
+
+.seeMoreBtn {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  margin-top: var(--space-2);
+  transition: color 200ms ease;
+}
+
+.seeMoreBtn:hover {
+  color: var(--ink);
+}
+
+.seeMoreBtn:focus-visible {
   outline: 2px solid var(--link);
   outline-offset: 2px;
   border-radius: 2px;
