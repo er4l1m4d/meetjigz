@@ -2,7 +2,7 @@ import { useState } from 'react'
 import styles from './PasswordGate.module.css'
 
 const STORAGE_KEY = 'jigz-console-auth'
-const CORRECT_HASH = 'a4f8c2e1d9b7'
+const CORRECT_HASH = 'u15eno'
 
 function hashPassword(str) {
   let hash = 0
