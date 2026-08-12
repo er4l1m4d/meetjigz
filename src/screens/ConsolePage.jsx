@@ -171,7 +171,7 @@ function EntryForm({ entry, onSave, onCancel }) {
         <>
           <TextInput label="description" value={form.description} onChange={set('description')} multiline />
           <TextInput label="tags (comma-separated)" value={form.tags} onChange={set('tags')} />
-          <TextInput label="href" value={form.href} onChange={set('href')} />
+          <TextInput label="project url" value={form.href} onChange={set('href')} />
           <div className={styles.formRow}>
             <label className={styles.field}>
               <span className={styles.label}>status</span>
@@ -273,7 +273,7 @@ function ConsolePage() {
           <p className={styles.subtitle}>manage your portfolio content</p>
         </header>
 
-        <HeroForm hero={hero} onSave={setHero} />
+        <HeroForm hero={hero} onSave={(data) => { setHero(data); showToast('hero updated') }} />
 
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>$ entries --list</h2>
@@ -302,7 +302,7 @@ function ConsolePage() {
           )}
         </section>
 
-        <ContactForm contact={contact} onSave={setContact} />
+        <ContactForm contact={contact} onSave={(data) => { setContact(data); showToast('contact updated') }} />
 
         <footer className={styles.footer}>
           <Link to="/" className={styles.backLink}>← back to main</Link>
