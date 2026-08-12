@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  padding: var(--space-8) 0;
+  padding: var(--space-6) 0 var(--space-8);
   margin-bottom: var(--space-8);
 }
 

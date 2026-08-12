@@ -4,7 +4,8 @@ import { useTheme } from '../context/ThemeContext.jsx'
 import styles from './TopBar.module.css'
 
 function TopBar() {
-  const { toggleTheme } = useTheme()
+  const { theme, toggleTheme } = useTheme()
+  const isDark = theme === 'dark'
   const location = useLocation()
   const isArchive = location.pathname === '/archive'
   const [menuOpen, setMenuOpen] = useState(false)
@@ -60,12 +61,18 @@ function TopBar() {
             type="button"
             className={styles.themeToggle}
             onClick={toggleTheme}
-            aria-label="Toggle theme"
+            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
           >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="8" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.5"/>
-              <path d="M8 1V2.5M8 13.5V15M1 8H2.5M13.5 8H15M3.05 3.05L4.11 4.11M11.89 11.89L12.95 12.95M12.95 3.05L11.89 4.11M4.11 11.89L3.05 12.95" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
+            {isDark ? (
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.5"/>
+                <path d="M8 1V2.5M8 13.5V15M1 8H2.5M13.5 8H15M3.05 3.05L4.11 4.11M11.89 11.89L12.95 12.95M12.95 3.05L11.89 4.11M4.11 11.89L3.05 12.95" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 9.5A6.5 6.5 0 0 1 6.5 2a6.5 6.5 0 1 0 7.5 7.5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            )}
           </button>
 
           <button

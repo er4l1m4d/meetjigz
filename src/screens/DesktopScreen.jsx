@@ -192,7 +192,7 @@ function DesktopScreen() {
       <TopBar />
       <main className={styles.page}>
         <HeroSection
-          eyebrow={DEFAULT_HERO.eyebrow}
+          eyebrow={null}
           headline={DEFAULT_HERO.headline}
           highlight={DEFAULT_HERO.highlight}
           support={DEFAULT_HERO.support}

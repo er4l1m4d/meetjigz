@@ -28,6 +28,6 @@ describe('TopBar', () => {
 
   it('renders theme toggle', () => {
     renderWithProviders(<TopBar />)
-    expect(screen.getByRole('button', { name: /toggle theme/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /switch to.*mode/i })).toBeInTheDocument()
   })
 })
