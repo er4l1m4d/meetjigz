@@ -1,9 +1,11 @@
 import { useState, useCallback } from 'react'
-import { FEATURED_ENTRIES, ARCHIVE_ENTRIES, DEFAULT_CONTACT } from '../data/defaults.js'
+import { FEATURED_ENTRIES, ARCHIVE_ENTRIES, DEFAULT_CONTACT, DEFAULT_HERO } from '../data/defaults.js'
 
 const STORAGE_KEYS = {
   featured: 'jigz-featured-entries',
   archive: 'jigz-archive-entries',
+  hero: 'jigz-hero',
+  contact: 'jigz-contact',
 }
 
 function loadFromStorage(key, fallback) {
@@ -30,6 +32,12 @@ export function usePortfolioData() {
   const [archiveEntries, setArchiveState] = useState(() =>
     loadFromStorage(STORAGE_KEYS.archive, ARCHIVE_ENTRIES),
   )
+  const [hero, setHeroState] = useState(() =>
+    loadFromStorage(STORAGE_KEYS.hero, DEFAULT_HERO),
+  )
+  const [contact, setContactState] = useState(() =>
+    loadFromStorage(STORAGE_KEYS.contact, DEFAULT_CONTACT),
+  )
 
   const setFeaturedEntries = useCallback((newEntries) => {
     setFeaturedState((prev) => {
@@ -43,6 +51,22 @@ export function usePortfolioData() {
     setArchiveState((prev) => {
       const next = typeof newEntries === 'function' ? newEntries(prev) : newEntries
       saveToStorage(STORAGE_KEYS.archive, next)
+      return next
+    })
+  }, [])
+
+  const setHero = useCallback((updates) => {
+    setHeroState((prev) => {
+      const next = typeof updates === 'function' ? updates(prev) : { ...prev, ...updates }
+      saveToStorage(STORAGE_KEYS.hero, next)
+      return next
+    })
+  }, [])
+
+  const setContact = useCallback((updates) => {
+    setContactState((prev) => {
+      const next = typeof updates === 'function' ? updates(prev) : { ...prev, ...updates }
+      saveToStorage(STORAGE_KEYS.contact, next)
       return next
     })
   }, [])
@@ -82,9 +106,12 @@ export function usePortfolioData() {
   return {
     featuredEntries,
     archiveEntries,
-    contact: DEFAULT_CONTACT,
+    hero,
+    contact,
     setFeaturedEntries,
     setArchiveEntries,
+    setHero,
+    setContact,
     addEntry,
     updateEntry,
     deleteEntry,
