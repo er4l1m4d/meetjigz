@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, useMemo } from 'react'
+import { createContext, useContext, useState, useCallback, useMemo, useEffect } from 'react'
 import { FEATURED_ENTRIES, ARCHIVE_ENTRIES, DEFAULT_CONTACT, DEFAULT_HERO } from '../data/defaults.js'
 
 const PortfolioContext = createContext(null)
@@ -22,9 +22,27 @@ function loadFromStorage(key, fallback) {
 function saveToStorage(key, value) {
   try {
     localStorage.setItem(key, JSON.stringify(value))
+  } catch {}
+}
+
+async function fetchPortfolio() {
+  try {
+    const res = await fetch('/api/portfolio')
+    if (!res.ok) return null
+    return await res.json()
   } catch {
-    // Storage full or unavailable
+    return null
   }
+}
+
+async function savePortfolio(data) {
+  try {
+    await fetch('/api/portfolio', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+  } catch {}
 }
 
 function PortfolioProvider({ children }) {
@@ -40,11 +58,38 @@ function PortfolioProvider({ children }) {
   const [contact, setContactState] = useState(() =>
     loadFromStorage(STORAGE_KEYS.contact, DEFAULT_CONTACT),
   )
+  const [loaded, setLoaded] = useState(false)
+
+  // On mount: fetch from API and override localStorage cache
+  useEffect(() => {
+    fetchPortfolio().then((data) => {
+      if (data) {
+        if (data.featured) {
+          setFeaturedState(data.featured)
+          saveToStorage(STORAGE_KEYS.featured, data.featured)
+        }
+        if (data.archive) {
+          setArchiveState(data.archive)
+          saveToStorage(STORAGE_KEYS.archive, data.archive)
+        }
+        if (data.hero) {
+          setHeroState(data.hero)
+          saveToStorage(STORAGE_KEYS.hero, data.hero)
+        }
+        if (data.contact) {
+          setContactState(data.contact)
+          saveToStorage(STORAGE_KEYS.contact, data.contact)
+        }
+      }
+      setLoaded(true)
+    }).catch(() => setLoaded(true))
+  }, [])
 
   const setFeaturedEntries = useCallback((newEntries) => {
     setFeaturedState((prev) => {
       const next = typeof newEntries === 'function' ? newEntries(prev) : newEntries
       saveToStorage(STORAGE_KEYS.featured, next)
+      savePortfolio({ featured: next })
       return next
     })
   }, [])
@@ -53,6 +98,7 @@ function PortfolioProvider({ children }) {
     setArchiveState((prev) => {
       const next = typeof newEntries === 'function' ? newEntries(prev) : newEntries
       saveToStorage(STORAGE_KEYS.archive, next)
+      savePortfolio({ archive: next })
       return next
     })
   }, [])
@@ -61,6 +107,7 @@ function PortfolioProvider({ children }) {
     setHeroState((prev) => {
       const next = typeof updates === 'function' ? updates(prev) : { ...prev, ...updates }
       saveToStorage(STORAGE_KEYS.hero, next)
+      savePortfolio({ hero: next })
       return next
     })
   }, [])
@@ -69,6 +116,7 @@ function PortfolioProvider({ children }) {
     setContactState((prev) => {
       const next = typeof updates === 'function' ? updates(prev) : { ...prev, ...updates }
       saveToStorage(STORAGE_KEYS.contact, next)
+      savePortfolio({ contact: next })
       return next
     })
   }, [])
@@ -110,6 +158,7 @@ function PortfolioProvider({ children }) {
     archiveEntries,
     hero,
     contact,
+    loaded,
     setFeaturedEntries,
     setArchiveEntries,
     setHero,
@@ -117,7 +166,7 @@ function PortfolioProvider({ children }) {
     addEntry,
     updateEntry,
     deleteEntry,
-  }), [featuredEntries, archiveEntries, hero, contact, setFeaturedEntries, setArchiveEntries, setHero, setContact, addEntry, updateEntry, deleteEntry])
+  }), [featuredEntries, archiveEntries, hero, contact, loaded, setFeaturedEntries, setArchiveEntries, setHero, setContact, addEntry, updateEntry, deleteEntry])
 
   return (
     <PortfolioContext.Provider value={value}>
