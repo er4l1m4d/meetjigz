@@ -67,6 +67,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-4);
+  position: relative;
 }
 
 .links {
@@ -76,6 +77,23 @@
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+/* Mobile: show links when open */
+.links.open {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 16px 24px;
+  gap: 16px;
+  min-width: 160px;
+  box-shadow: var(--shadow-soft);
+  z-index: 100;
 }
 
 .link {

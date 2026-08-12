@@ -1,7 +1,12 @@
 import { renderHook, act } from '@testing-library/react'
 import { describe, it, expect, beforeEach } from 'vitest'
+import { PortfolioProvider } from '../context/PortfolioContext.jsx'
 import { usePortfolioData } from './usePortfolioData.js'
 import { FEATURED_ENTRIES } from '../data/defaults.js'
+
+function wrapper({ children }) {
+  return <PortfolioProvider>{children}</PortfolioProvider>
+}
 
 describe('usePortfolioData', () => {
   beforeEach(() => {
@@ -9,12 +14,12 @@ describe('usePortfolioData', () => {
   })
 
   it('returns default featured entries on first load', () => {
-    const { result } = renderHook(() => usePortfolioData())
+    const { result } = renderHook(() => usePortfolioData(), { wrapper })
     expect(result.current.featuredEntries).toEqual(FEATURED_ENTRIES)
   })
 
   it('adds an entry with a generated id', () => {
-    const { result } = renderHook(() => usePortfolioData())
+    const { result } = renderHook(() => usePortfolioData(), { wrapper })
 
     act(() => {
       result.current.addEntry({
@@ -32,7 +37,7 @@ describe('usePortfolioData', () => {
   })
 
   it('updates an entry by id', () => {
-    const { result } = renderHook(() => usePortfolioData())
+    const { result } = renderHook(() => usePortfolioData(), { wrapper })
     const firstId = FEATURED_ENTRIES[0].id
 
     act(() => {
@@ -44,7 +49,7 @@ describe('usePortfolioData', () => {
   })
 
   it('deletes an entry by id', () => {
-    const { result } = renderHook(() => usePortfolioData())
+    const { result } = renderHook(() => usePortfolioData(), { wrapper })
     const firstId = FEATURED_ENTRIES[0].id
 
     act(() => {
@@ -55,7 +60,7 @@ describe('usePortfolioData', () => {
   })
 
   it('persists featured entries to localStorage', () => {
-    const { result } = renderHook(() => usePortfolioData())
+    const { result } = renderHook(() => usePortfolioData(), { wrapper })
 
     act(() => {
       result.current.addEntry({
@@ -71,7 +76,7 @@ describe('usePortfolioData', () => {
   })
 
   it('returns default contact info', () => {
-    const { result } = renderHook(() => usePortfolioData())
+    const { result } = renderHook(() => usePortfolioData(), { wrapper })
     expect(result.current.contact.name).toBe('Jigz')
     expect(result.current.contact.socials).toHaveLength(3)
   })

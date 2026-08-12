@@ -9,11 +9,6 @@ describe('BootScreen', () => {
     expect(screen.getByRole('region', { name: /loading/i })).toBeInTheDocument()
   })
 
-  it('renders the logo text', () => {
-    renderWithProviders(<BootScreen />)
-    expect(screen.getByText('Jigz')).toBeInTheDocument()
-  })
-
   it('renders the progress bar', () => {
     renderWithProviders(<BootScreen />)
     expect(screen.getByRole('progressbar')).toBeInTheDocument()

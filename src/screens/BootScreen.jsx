@@ -5,14 +5,14 @@ const BOOT_DURATION_MS = 2000
 
 function BootScreen({ isExiting = false, onComplete, onExitComplete }) {
   const [progress, setProgress] = useState(0)
-  const [showLogo, setShowLogo] = useState(false)
+  const [showBar, setShowBar] = useState(false)
 
   useEffect(() => {
     let isMounted = true
     const startTime = Date.now()
 
-    const logoTimeout = window.setTimeout(() => {
-      if (isMounted) setShowLogo(true)
+    const barTimeout = window.setTimeout(() => {
+      if (isMounted) setShowBar(true)
     }, 200)
 
     const ticker = window.setInterval(() => {
@@ -29,7 +29,7 @@ function BootScreen({ isExiting = false, onComplete, onExitComplete }) {
 
     return () => {
       isMounted = false
-      clearTimeout(logoTimeout)
+      clearTimeout(barTimeout)
       clearInterval(ticker)
       clearTimeout(done)
     }
@@ -44,11 +44,8 @@ function BootScreen({ isExiting = false, onComplete, onExitComplete }) {
       }}
     >
       <div className={styles.content}>
-        <div className={`${styles.logo} ${showLogo ? styles.isVisible : ''}`}>
-          Jigz
-        </div>
         <div
-          className={`${styles.progress} ${showLogo ? styles.isVisible : ''}`}
+          className={`${styles.progress} ${showBar ? styles.isVisible : ''}`}
           role="progressbar"
           aria-valuemin={0}
           aria-valuemax={100}

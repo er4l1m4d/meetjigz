@@ -5,6 +5,7 @@ import BootScreen from './screens/BootScreen.jsx'
 import DesktopScreen from './screens/DesktopScreen.jsx'
 import ArchivePage from './screens/ArchivePage.jsx'
 import ConsolePage from './screens/ConsolePage.jsx'
+import PasswordGate from './components/PasswordGate.jsx'
 
 const pageVariants = {
   initial: { opacity: 0 },
@@ -53,7 +54,7 @@ function App() {
           <Routes>
             <Route path="/" element={<DesktopScreen />} />
             <Route path="/archive" element={<ArchivePage />} />
-            <Route path="/console" element={<ConsolePage />} />
+            <Route path="/console" element={<PasswordGate><ConsolePage /></PasswordGate>} />
           </Routes>
         </motion.div>
       </AnimatePresence>
