@@ -358,13 +358,85 @@ textarea {
   border-radius: 2px;
 }
 
+/* Case study badge */
+.caseStudyBadge {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pop);
+  background: var(--surface);
+  border: 1px solid var(--pop);
+  border-radius: var(--radius-pill);
+  padding: 1px 6px;
+}
+
+/* Toggle row */
+.toggleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--status-live);
+  cursor: pointer;
+}
+
+/* Category block (skills) */
+.categoryBlock {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.categoryHeader {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.categoryHeader .input {
+  flex: 1;
+}
+
+.skillRow {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.skillRow .input {
+  flex: 1;
+}
+
+/* Case study editor */
+.caseStudyEditor {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
 /* Mobile */
 @media (max-width: 600px) {
   .formRow {
     flex-direction: column;
   }
 
-  .socialRow {
+  .socialRow,
+  .skillRow {
     flex-wrap: wrap;
   }
 

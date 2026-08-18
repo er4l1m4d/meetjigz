@@ -91,3 +91,21 @@
   position: relative;
   z-index: 1;
 }
+
+.caseStudyLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-top: var(--space-4);
+  transition: gap 200ms ease;
+}
+
+.caseStudyLink:hover {
+  gap: 10px;
+}

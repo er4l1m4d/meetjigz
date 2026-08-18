@@ -1,42 +1,114 @@
 .hero {
   position: relative;
   padding: var(--space-6) 0 var(--space-8);
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-7);
 }
 
-.eyebrow {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-muted);
-  margin-bottom: var(--space-4);
-}
-
-.headline {
+.name {
   font-family: var(--font-mono);
   font-size: clamp(2.75rem, 9vw, 6.5rem);
   font-weight: 700;
   line-height: 0.98;
   letter-spacing: -0.02em;
   color: var(--ink);
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-3);
   max-width: 100%;
   overflow-wrap: break-word;
 }
 
-.pop {
-  color: var(--pop);
+.role {
+  font-family: var(--font-mono);
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  margin-bottom: var(--space-4);
 }
 
-.support {
+.tagline {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.6;
   color: var(--ink-muted);
-  max-width: 260px;
-  margin-left: auto;
+  max-width: 420px;
+  margin-bottom: var(--space-6);
+}
+
+.ctas {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.ctaPrimary,
+.ctaSecondary {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.ctaPrimary {
+  background: var(--ink);
+  color: var(--bg);
+  border: 1px solid var(--ink);
+}
+
+.ctaPrimary:hover {
+  opacity: 0.85;
+}
+
+.ctaSecondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+}
+
+.ctaSecondary:hover {
+  border-color: var(--ink);
+}
+
+.currentBuild {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink-muted);
+}
+
+.buildLabel {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-right: var(--space-2);
+}
+
+.buildProject {
+  font-weight: 600;
+  color: var(--pop);
+}
+
+.buildDesc {
+  color: var(--ink-muted);
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: var(--space-5) 0 var(--space-6);
+  }
+
+  .ctas {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .ctaPrimary,
+  .ctaSecondary {
+    width: 100%;
+    text-align: center;
+  }
 }

@@ -1,14 +1,5 @@
 export const FEATURED_ENTRIES = [
   {
-    id: 'about',
-    kind: 'about',
-    title: 'About',
-    bio: 'I build digital experiences that live at the intersection of design and technology. Focused on clean interfaces, thoughtful interactions, and products that feel effortless.',
-    skills: ['React', 'TypeScript', 'Node.js', 'Figma', 'Motion Design', 'System Design'],
-    tools: ['VS Code', 'Figma', 'Git', 'Vercel', 'Linear', 'Notion'],
-    hobbies: 'Photography, mechanical keyboards, and exploring new coffee shops.',
-  },
-  {
     id: 'ciphra',
     kind: 'build',
     title: 'Ciphra',
@@ -17,6 +8,30 @@ export const FEATURED_ENTRIES = [
     tags: ['React', 'TypeScript', 'D3.js', 'Node.js'],
     href: '#',
     graphic: 'ciphra-chip',
+    thumbnail: { src: '/images/placeholder.svg', alt: 'Ciphra data visualization dashboard' },
+    year: '2025',
+    client: 'Personal',
+    duration: '4 months',
+    order: 1,
+    caseStudy: {
+      heroImage: { src: '/images/placeholder.svg', alt: 'Ciphra hero screenshot' },
+      sections: {
+        context: '[Placeholder: Describe the landscape, market, or situation that led to this project.]',
+        problem: '[Placeholder: What specific problem needed solving? Who was affected?]',
+        role: '[Placeholder: Your specific responsibilities, team context, scope.]',
+        thinking: '[Placeholder: Design strategy, technical approach, key decisions.]',
+        build: '[Placeholder: Architecture, tech stack choices, implementation details.]',
+        challenges: '[Placeholder: What went wrong? What was harder than expected? How did you adapt?]',
+        result: '[Placeholder: Outcomes, metrics, lessons learned, impact.]',
+      },
+      evidence: [
+        { src: '/images/placeholder.svg', alt: 'Ciphra screenshot 1', caption: '[Placeholder: caption]' },
+      ],
+      links: [
+        { label: 'Live Site', href: '#' },
+        { label: 'GitHub', href: '#' },
+      ],
+    },
   },
   {
     id: 'design-1',
@@ -27,7 +42,29 @@ export const FEATURED_ENTRIES = [
       { src: '/images/placeholder.svg', alt: 'Logo variations on dark and light backgrounds' },
     ],
     tools: ['Figma', 'Illustrator'],
-    caseStudy: null,
+    thumbnail: { src: '/images/placeholder.svg', alt: 'Nebula brand identity' },
+    year: '2024',
+    client: 'Nebula',
+    duration: '6 weeks',
+    order: 2,
+    caseStudy: {
+      heroImage: { src: '/images/placeholder.svg', alt: 'Nebula brand hero' },
+      sections: {
+        context: '[Placeholder]',
+        problem: '[Placeholder]',
+        role: '[Placeholder]',
+        thinking: '[Placeholder]',
+        build: '[Placeholder: Design system, brand guidelines, deliverables.]',
+        challenges: '[Placeholder]',
+        result: '[Placeholder]',
+      },
+      evidence: [
+        { src: '/images/placeholder.svg', alt: 'Brand overview', caption: '[Placeholder]' },
+      ],
+      links: [
+        { label: 'Brand Guidelines', href: '#' },
+      ],
+    },
   },
   {
     id: 'verge',
@@ -38,6 +75,31 @@ export const FEATURED_ENTRIES = [
     tags: ['Next.js', 'Supabase', 'WebSocket'],
     href: '#',
     graphic: 'verge-gate',
+    thumbnail: { src: '/images/placeholder.svg', alt: 'Verge prediction market dashboard' },
+    year: '2025',
+    client: 'Personal',
+    duration: 'Ongoing',
+    order: 3,
+    caseStudy: {
+      heroImage: { src: '/images/placeholder.svg', alt: 'Verge hero screenshot' },
+      sections: {
+        context: '[Placeholder: The prediction market landscape and why it matters.]',
+        problem: '[Placeholder: Market data from different sources did not align reliably.]',
+        role: '[Placeholder: Full-stack ownership — data pipeline, execution engine, UI.]',
+        thinking: '[Placeholder: Why paper-trading over backtesting. Why real-time matters.]',
+        build: '[Placeholder: Source normalization layer, WebSocket pipeline, gate bar visualization.]',
+        challenges: '[Placeholder: Timestamp/strike discrepancies between providers.]',
+        result: '[Placeholder: What works, what failed, what you learned.]',
+      },
+      evidence: [
+        { src: '/images/placeholder.svg', alt: 'Verge dashboard', caption: '[Placeholder: dashboard overview]' },
+        { src: '/images/placeholder.svg', alt: 'Verge pipeline', caption: '[Placeholder: data pipeline]' },
+      ],
+      links: [
+        { label: 'Live Demo', href: '#' },
+        { label: 'GitHub', href: '#' },
+      ],
+    },
   },
   {
     id: 'design-2',
@@ -48,6 +110,11 @@ export const FEATURED_ENTRIES = [
       { src: '/images/placeholder.svg', alt: 'Dashboard overview with dark theme' },
     ],
     tools: ['Figma'],
+    thumbnail: { src: '/images/placeholder.svg', alt: 'Flux dashboard redesign' },
+    year: '2024',
+    client: 'Flux',
+    duration: '3 weeks',
+    order: 4,
     caseStudy: null,
   },
   {
@@ -59,6 +126,11 @@ export const FEATURED_ENTRIES = [
       { src: '/images/placeholder.svg', alt: 'Mobile app screens showing portfolio view' },
     ],
     tools: ['Figma', 'Protopie'],
+    thumbnail: { src: '/images/placeholder.svg', alt: 'Orbit mobile app' },
+    year: '2024',
+    client: 'Orbit',
+    duration: '5 weeks',
+    order: 5,
     caseStudy: null,
   },
 ]
@@ -73,6 +145,12 @@ export const ARCHIVE_ENTRIES = [
     tags: ['React Native', 'Node.js', 'PostgreSQL'],
     href: '#',
     graphic: null,
+    thumbnail: { src: '/images/placeholder.svg', alt: 'Pulse health app' },
+    year: '2023',
+    client: 'Personal',
+    duration: '3 months',
+    order: 1,
+    caseStudy: null,
   },
   {
     id: 'archive-2',
@@ -83,15 +161,78 @@ export const ARCHIVE_ENTRIES = [
       { src: '/images/placeholder.svg', alt: 'Icon grid showing various categories' },
     ],
     tools: ['Illustrator'],
+    thumbnail: { src: '/images/placeholder.svg', alt: 'Prism icon set' },
+    year: '2023',
+    client: 'Prism',
+    duration: '4 weeks',
+    order: 2,
     caseStudy: null,
   },
 ]
 
 export const DEFAULT_HERO = {
-  eyebrow: 'portfolio2026',
-  headline: 'I design and build digital products',
-  highlight: 'design',
-  support: 'Full-stack developer and graphic designer. I work across code and canvas to ship things that feel deliberate.',
+  name: 'Damilare Ogo-Oluwade',
+  role: 'Designer + Developer',
+  tagline: 'I build digital products where technology, systems, and interface meet.',
+  ctas: [
+    { id: 'work', label: 'View Work', target: 'works' },
+    { id: 'contact', label: 'Contact', target: 'contact' },
+  ],
+  currentBuild: {
+    text: 'Currently building',
+    project: 'Verge',
+    description: 'prediction market intelligence & paper trading',
+  },
+}
+
+export const DEFAULT_ABOUT = {
+  bio: 'I build digital experiences that live at the intersection of design and technology. Focused on clean interfaces, thoughtful interactions, and products that feel effortless.',
+  interests: 'Photography, mechanical keyboards, and exploring new coffee shops.',
+  availableFor: ['Full-time roles', 'Freelance projects', 'Open source collaboration'],
+}
+
+export const DEFAULT_SKILLS = {
+  categories: [
+    {
+      id: 'languages',
+      label: 'Languages',
+      items: [
+        { name: 'TypeScript', proficiency: 'daily-driver', projectIds: ['ciphra', 'verge'] },
+        { name: 'JavaScript', proficiency: 'daily-driver', projectIds: ['ciphra', 'verge', 'archive-1'] },
+        { name: 'Python', proficiency: 'comfortable', projectIds: [] },
+      ],
+    },
+    {
+      id: 'frameworks',
+      label: 'Frameworks & Libraries',
+      items: [
+        { name: 'React', proficiency: 'daily-driver', projectIds: ['ciphra'] },
+        { name: 'Next.js', proficiency: 'daily-driver', projectIds: ['verge'] },
+        { name: 'Node.js', proficiency: 'daily-driver', projectIds: ['ciphra', 'archive-1'] },
+        { name: 'D3.js', proficiency: 'comfortable', projectIds: ['ciphra'] },
+        { name: 'Framer Motion', proficiency: 'daily-driver', projectIds: [] },
+      ],
+    },
+    {
+      id: 'design',
+      label: 'Design',
+      items: [
+        { name: 'Figma', proficiency: 'daily-driver', projectIds: ['design-1', 'design-2', 'design-3'] },
+        { name: 'Illustrator', proficiency: 'comfortable', projectIds: ['design-1', 'archive-2'] },
+        { name: 'Prototyping', proficiency: 'daily-driver', projectIds: ['design-3'] },
+      ],
+    },
+    {
+      id: 'tools',
+      label: 'Tools & Platforms',
+      items: [
+        { name: 'Git', proficiency: 'daily-driver', projectIds: [] },
+        { name: 'Vercel', proficiency: 'daily-driver', projectIds: ['ciphra', 'verge'] },
+        { name: 'PostgreSQL', proficiency: 'daily-driver', projectIds: ['ciphra', 'archive-1'] },
+        { name: 'Linear', proficiency: 'daily-driver', projectIds: [] },
+      ],
+    },
+  ],
 }
 
 export const DEFAULT_CONTACT = {

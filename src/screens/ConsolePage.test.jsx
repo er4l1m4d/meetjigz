@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest'
-import { screen, within } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderWithProviders } from '../test/renderWithProviders.jsx'
 import ConsolePage from './ConsolePage.jsx'
@@ -17,14 +17,12 @@ describe('ConsolePage', () => {
   it('renders hero section with default values', () => {
     renderWithProviders(<ConsolePage />)
     expect(screen.getByText('$ hero --edit')).toBeInTheDocument()
-    expect(screen.getByDisplayValue('portfolio2026')).toBeInTheDocument()
-    expect(screen.getByDisplayValue('I design and build digital products')).toBeInTheDocument()
+    expect(screen.getByDisplayValue('Damilare Ogo-Oluwade')).toBeInTheDocument()
   })
 
   it('renders entry list with default entries', () => {
     renderWithProviders(<ConsolePage />)
     expect(screen.getByText('$ entries --list')).toBeInTheDocument()
-    expect(screen.getByText('About')).toBeInTheDocument()
     expect(screen.getByText('Ciphra')).toBeInTheDocument()
   })
 

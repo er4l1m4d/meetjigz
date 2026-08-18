@@ -60,3 +60,21 @@ export const slideFromRight = {
     transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
   },
 }
+
+export const slideFromBottom = {
+  hidden: { opacity: 0, y: 60 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+  },
+}
+
+export const sectionReveal = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
+}

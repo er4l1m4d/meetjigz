@@ -11,12 +11,12 @@ describe('DesktopScreen', () => {
 
   it('renders the hero headline', () => {
     renderWithProviders(<DesktopScreen />)
-    expect(screen.getByRole('heading', { name: /i design and build/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /damilare/i })).toBeInTheDocument()
   })
 
-  it('renders the about entry', () => {
+  it('renders the about section', () => {
     renderWithProviders(<DesktopScreen />)
-    expect(screen.getByRole('heading', { name: /about/i })).toBeInTheDocument()
+    expect(screen.getAllByText('about').length).toBeGreaterThanOrEqual(2)
   })
 
   it('renders the contact section', () => {

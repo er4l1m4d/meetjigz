@@ -1,0 +1,180 @@
+.card {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color 200ms ease;
+}
+
+.card:hover {
+  border-color: var(--ink-muted);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.numeral {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  opacity: 0.5;
+}
+
+.title {
+  font-family: var(--font-mono);
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 700;
+  color: var(--ink);
+  flex: 1;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.badge.live .dot {
+  background: var(--status-live);
+}
+
+.badge.in-progress .dot {
+  background: var(--status-progress);
+}
+
+.badge.shadow .dot {
+  background: var(--status-shadow);
+}
+
+.badge.design {
+  color: var(--pop);
+  border-color: var(--pop);
+}
+
+.thumbnail {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.body {
+  padding: var(--space-5);
+}
+
+.description {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ink);
+  margin-bottom: 0;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: var(--space-4);
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+}
+
+.ctas {
+  margin-top: var(--space-4);
+}
+
+.caseStudyLink,
+.projectLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: gap 200ms ease;
+}
+
+.caseStudyLink:hover,
+.projectLink:hover {
+  gap: 10px;
+}
+
+.imageGrid {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-4) 0;
+}
+
+.imageButton {
+  width: 100%;
+  background: none;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 200ms ease;
+}
+
+.imageButton:hover {
+  border-color: var(--ink-muted);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: var(--space-3) var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .body {
+    padding: var(--space-4);
+  }
+}

@@ -1,0 +1,46 @@
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  margin: var(--space-6) 0;
+}
+
+.item {
+  margin: 0;
+}
+
+.imageButton {
+  width: 100%;
+  background: none;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 200ms ease;
+}
+
+.imageButton:hover {
+  border-color: var(--ink-muted);
+}
+
+.imageButton:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.caption {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink-muted);
+  margin-top: var(--space-2);
+  text-align: center;
+}

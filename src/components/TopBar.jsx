@@ -43,6 +43,11 @@ function TopBar() {
               </button>
             </li>
             <li>
+              <button type="button" className={styles.link} onClick={() => scrollTo('stack')}>
+                stack
+              </button>
+            </li>
+            <li>
               <button type="button" className={styles.link} onClick={() => scrollTo('works')}>
                 works
               </button>

@@ -1,5 +1,8 @@
 import { createContext, useContext, useState, useCallback, useMemo, useEffect } from 'react'
-import { FEATURED_ENTRIES, ARCHIVE_ENTRIES, DEFAULT_CONTACT, DEFAULT_HERO } from '../data/defaults.js'
+import {
+  FEATURED_ENTRIES, ARCHIVE_ENTRIES, DEFAULT_CONTACT, DEFAULT_HERO,
+  DEFAULT_ABOUT, DEFAULT_SKILLS,
+} from '../data/defaults.js'
 
 const PortfolioContext = createContext(null)
 
@@ -8,6 +11,8 @@ const STORAGE_KEYS = {
   archive: 'jigz-archive-entries',
   hero: 'jigz-hero',
   contact: 'jigz-contact',
+  about: 'jigz-about',
+  skills: 'jigz-skills',
 }
 
 function loadFromStorage(key, fallback) {
@@ -58,6 +63,12 @@ function PortfolioProvider({ children }) {
   const [contact, setContactState] = useState(() =>
     loadFromStorage(STORAGE_KEYS.contact, DEFAULT_CONTACT),
   )
+  const [about, setAboutState] = useState(() =>
+    loadFromStorage(STORAGE_KEYS.about, DEFAULT_ABOUT),
+  )
+  const [skills, setSkillsState] = useState(() =>
+    loadFromStorage(STORAGE_KEYS.skills, DEFAULT_SKILLS),
+  )
   const [loaded, setLoaded] = useState(false)
 
   // On mount: fetch from API and override localStorage cache
@@ -79,6 +90,14 @@ function PortfolioProvider({ children }) {
         if (data.contact) {
           setContactState(data.contact)
           saveToStorage(STORAGE_KEYS.contact, data.contact)
+        }
+        if (data.about) {
+          setAboutState(data.about)
+          saveToStorage(STORAGE_KEYS.about, data.about)
+        }
+        if (data.skills) {
+          setSkillsState(data.skills)
+          saveToStorage(STORAGE_KEYS.skills, data.skills)
         }
       }
       setLoaded(true)
@@ -121,6 +140,24 @@ function PortfolioProvider({ children }) {
     })
   }, [])
 
+  const setAbout = useCallback((updates) => {
+    setAboutState((prev) => {
+      const next = typeof updates === 'function' ? updates(prev) : { ...prev, ...updates }
+      saveToStorage(STORAGE_KEYS.about, next)
+      savePortfolio({ about: next })
+      return next
+    })
+  }, [])
+
+  const setSkills = useCallback((updates) => {
+    setSkillsState((prev) => {
+      const next = typeof updates === 'function' ? updates(prev) : { ...prev, ...updates }
+      saveToStorage(STORAGE_KEYS.skills, next)
+      savePortfolio({ skills: next })
+      return next
+    })
+  }, [])
+
   const addEntry = useCallback(
     (entry, target = 'featured') => {
       const newEntry = { ...entry, id: entry.id || crypto.randomUUID() }
@@ -158,15 +195,19 @@ function PortfolioProvider({ children }) {
     archiveEntries,
     hero,
     contact,
+    about,
+    skills,
     loaded,
     setFeaturedEntries,
     setArchiveEntries,
     setHero,
     setContact,
+    setAbout,
+    setSkills,
     addEntry,
     updateEntry,
     deleteEntry,
-  }), [featuredEntries, archiveEntries, hero, contact, loaded, setFeaturedEntries, setArchiveEntries, setHero, setContact, addEntry, updateEntry, deleteEntry])
+  }), [featuredEntries, archiveEntries, hero, contact, about, skills, loaded, setFeaturedEntries, setArchiveEntries, setHero, setContact, setAbout, setSkills, addEntry, updateEntry, deleteEntry])
 
   return (
     <PortfolioContext.Provider value={value}>

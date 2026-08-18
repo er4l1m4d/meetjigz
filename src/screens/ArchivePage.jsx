@@ -11,7 +11,7 @@ function ArchiveEntryContent({ entry }) {
         <p className={styles.description}>{entry.description}</p>
         <div className={styles.tagGroup}>
           <div className={styles.tags}>
-            {entry.tags.map((tag) => (
+            {entry.tags?.map((tag) => (
               <span key={tag} className={styles.tag}>{tag}</span>
             ))}
           </div>
@@ -35,7 +35,7 @@ function ArchiveEntryContent({ entry }) {
         )}
         <div className={styles.tagGroup}>
           <div className={styles.tags}>
-            {entry.tools.map((tool) => (
+            {entry.tools?.map((tool) => (
               <span key={tool} className={styles.tag}>{tool}</span>
             ))}
           </div>
@@ -48,7 +48,7 @@ function ArchiveEntryContent({ entry }) {
 }
 
 function ArchivePage() {
-  const { archiveEntries, contact } = usePortfolioData()
+  const { archiveEntries } = usePortfolioData()
 
   return (
     <>
@@ -60,7 +60,14 @@ function ArchivePage() {
         </header>
 
         {archiveEntries.map((entry, index) => (
-          <Entry key={entry.id} index={index} title={entry.title} status={entry.status} kind={entry.kind}>
+          <Entry
+            key={entry.id}
+            index={index + 1}
+            title={entry.title}
+            status={entry.status}
+            kind={entry.kind}
+            caseStudyLink={entry.caseStudy ? entry.id : null}
+          >
             <ArchiveEntryContent entry={entry} />
           </Entry>
         ))}
@@ -69,7 +76,7 @@ function ArchivePage() {
           <a href="/" className={styles.backLink}>← back to main</a>
         </div>
       </main>
-      <Footer contact={contact} />
+      <Footer />
     </>
   )
 }

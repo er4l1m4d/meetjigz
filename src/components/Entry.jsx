@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styles from './Entry.module.css'
 
 function StatusBadge({ status }) {
@@ -26,7 +27,7 @@ function DesignBadge() {
   )
 }
 
-function Entry({ index, title, status, kind, children }) {
+function Entry({ index, title, status, kind, caseStudyLink, children }) {
   const paddedIndex = String(index).padStart(2, '0')
 
   return (
@@ -46,6 +47,11 @@ function Entry({ index, title, status, kind, children }) {
 
       <div className={styles.content}>
         {children}
+        {caseStudyLink && (
+          <Link to={`/project/${caseStudyLink}`} className={styles.caseStudyLink}>
+            read case study →
+          </Link>
+        )}
       </div>
     </article>
   )
