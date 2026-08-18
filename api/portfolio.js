@@ -1,43 +1,42 @@
-import { kv } from '@vercel/kv'
+import { neon } from '@neondatabase/serverless'
 
-const STORAGE_KEYS = {
-  featured: 'jigz-featured-entries',
-  archive: 'jigz-archive-entries',
-  hero: 'jigz-hero',
-  contact: 'jigz-contact',
+const sql = neon(process.env.DATABASE_URL)
+
+async function ensureTable() {
+  await sql`
+    CREATE TABLE IF NOT EXISTS portfolio (
+      id TEXT PRIMARY KEY DEFAULT 'main',
+      data JSONB NOT NULL DEFAULT '{}',
+      updated_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `
 }
 
 export default async function handler(req, res) {
-  if (req.method === 'GET') {
-    try {
-      const [featured, archive, hero, contact] = await Promise.all([
-        kv.get(STORAGE_KEYS.featured),
-        kv.get(STORAGE_KEYS.archive),
-        kv.get(STORAGE_KEYS.hero),
-        kv.get(STORAGE_KEYS.contact),
-      ])
-      return res.status(200).json({ featured, archive, hero, contact })
-    } catch (err) {
-      return res.status(500).json({ error: 'Failed to read portfolio data' })
+  try {
+    await ensureTable()
+
+    if (req.method === 'GET') {
+      const rows = await sql`SELECT data FROM portfolio WHERE id = 'main'`
+      const data = rows.length > 0 ? rows[0].data : null
+      return res.status(200).json(data || {})
     }
-  }
 
-  if (req.method === 'PUT') {
-    try {
-      const { featured, archive, hero, contact } = req.body
-
-      const promises = []
-      if (featured !== undefined) promises.push(kv.set(STORAGE_KEYS.featured, featured))
-      if (archive !== undefined) promises.push(kv.set(STORAGE_KEYS.archive, archive))
-      if (hero !== undefined) promises.push(kv.set(STORAGE_KEYS.hero, hero))
-      if (contact !== undefined) promises.push(kv.set(STORAGE_KEYS.contact, contact))
-
-      await Promise.all(promises)
+    if (req.method === 'PUT') {
+      const payload = req.body
+      await sql`
+        INSERT INTO portfolio (id, data, updated_at)
+        VALUES ('main', ${JSON.stringify(payload)}, NOW())
+        ON CONFLICT (id) DO UPDATE SET
+          data = portfolio.data || ${JSON.stringify(payload)},
+          updated_at = NOW()
+      `
       return res.status(200).json({ ok: true })
-    } catch (err) {
-      return res.status(500).json({ error: 'Failed to save portfolio data' })
     }
-  }
 
-  return res.status(405).json({ error: 'Method not allowed' })
+    return res.status(405).json({ error: 'Method not allowed' })
+  } catch (err) {
+    console.error('Portfolio API error:', err)
+    return res.status(500).json({ error: 'Internal server error' })
+  }
 }
