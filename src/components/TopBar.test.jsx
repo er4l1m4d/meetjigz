@@ -21,11 +21,6 @@ describe('TopBar', () => {
     expect(screen.getByRole('button', { name: /contact/i })).toBeInTheDocument()
   })
 
-  it('renders archive link', () => {
-    renderWithProviders(<TopBar />)
-    expect(screen.getByRole('link', { name: /archive/i })).toBeInTheDocument()
-  })
-
   it('renders theme toggle', () => {
     renderWithProviders(<TopBar />)
     expect(screen.getByRole('button', { name: /switch to.*mode/i })).toBeInTheDocument()

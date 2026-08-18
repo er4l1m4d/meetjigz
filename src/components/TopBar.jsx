@@ -1,21 +1,15 @@
 import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useTheme } from '../context/ThemeContext.jsx'
 import styles from './TopBar.module.css'
 
 function TopBar() {
   const { theme, toggleTheme } = useTheme()
   const isDark = theme === 'dark'
-  const location = useLocation()
-  const isArchive = location.pathname === '/archive'
   const [menuOpen, setMenuOpen] = useState(false)
 
   const scrollTo = (id) => {
     setMenuOpen(false)
-    if (isArchive) {
-      window.location.href = `/#${id}`
-      return
-    }
     const el = document.getElementById(id)
     if (el) {
       const y = el.getBoundingClientRect().top + window.scrollY - 60
@@ -56,9 +50,6 @@ function TopBar() {
               <button type="button" className={styles.link} onClick={() => scrollTo('contact')}>
                 contact
               </button>
-            </li>
-            <li>
-              <Link to="/archive" className={styles.link} onClick={() => setMenuOpen(false)}>archive</Link>
             </li>
           </ul>
 

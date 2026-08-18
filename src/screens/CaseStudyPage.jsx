@@ -15,11 +15,10 @@ const SECTION_KEYS = ['context', 'problem', 'role', 'thinking', 'build', 'challe
 
 function CaseStudyPage() {
   const { id } = useParams()
-  const { featuredEntries, archiveEntries } = usePortfolioData()
+  const { featuredEntries } = usePortfolioData()
 
-  const allEntries = [...featuredEntries, ...archiveEntries]
-  const entry = allEntries.find((e) => e.id === id)
-  const caseStudyEntries = allEntries.filter((e) => e.caseStudy != null)
+  const entry = featuredEntries.find((e) => e.id === id)
+  const caseStudyEntries = featuredEntries.filter((e) => e.caseStudy != null)
   const currentIndex = caseStudyEntries.findIndex((e) => e.id === id)
   const prev = currentIndex > 0 ? caseStudyEntries[currentIndex - 1] : null
   const next = currentIndex < caseStudyEntries.length - 1 ? caseStudyEntries[currentIndex + 1] : null

@@ -536,22 +536,18 @@ function ContactForm({ contact, onSave }) {
 }
 
 function ConsolePage() {
-  const { hero, contact, about, skills, featuredEntries, archiveEntries, setHero, setContact, setAbout, setSkills, addEntry, updateEntry, deleteEntry } = usePortfolioData()
+  const { hero, contact, about, skills, featuredEntries, setHero, setContact, setAbout, setSkills, addEntry, updateEntry, deleteEntry } = usePortfolioData()
   const { showToast } = useToast()
   const [editingEntry, setEditingEntry] = useState(null)
   const [showNewForm, setShowNewForm] = useState(false)
 
-  const allEntries = [...featuredEntries, ...archiveEntries]
+  const allEntries = featuredEntries
 
   const handleDeleteEntry = (entry) => {
     deleteEntry(entry.id)
     showToast(`deleted "${entry.title}"`, {
       onUndo: () => {
-        if (featuredEntries.some((e) => e.id === entry.id)) {
-          addEntry(entry, 'featured')
-        } else {
-          addEntry(entry, 'archive')
-        }
+        addEntry(entry, 'featured')
       },
     })
   }

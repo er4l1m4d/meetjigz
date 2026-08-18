@@ -135,41 +135,6 @@ export const FEATURED_ENTRIES = [
   },
 ]
 
-export const ARCHIVE_ENTRIES = [
-  {
-    id: 'archive-1',
-    kind: 'build',
-    title: 'Pulse',
-    status: 'live',
-    description: 'Health tracking app that makes complex data feel simple and actionable.',
-    tags: ['React Native', 'Node.js', 'PostgreSQL'],
-    href: '#',
-    graphic: null,
-    thumbnail: { src: '/images/placeholder.svg', alt: 'Pulse health app' },
-    year: '2023',
-    client: 'Personal',
-    duration: '3 months',
-    order: 1,
-    caseStudy: null,
-  },
-  {
-    id: 'archive-2',
-    kind: 'design',
-    title: 'Icon Set — Prism',
-    brief: 'Custom icon set for a developer tools platform. 200+ icons, consistent 24px grid, optimized for small sizes.',
-    images: [
-      { src: '/images/placeholder.svg', alt: 'Icon grid showing various categories' },
-    ],
-    tools: ['Illustrator'],
-    thumbnail: { src: '/images/placeholder.svg', alt: 'Prism icon set' },
-    year: '2023',
-    client: 'Prism',
-    duration: '4 weeks',
-    order: 2,
-    caseStudy: null,
-  },
-]
-
 export const DEFAULT_HERO = {
   name: 'Damilare Ogo-Oluwade',
   role: 'Designer + Developer',
@@ -198,7 +163,7 @@ export const DEFAULT_SKILLS = {
       label: 'Languages',
       items: [
         { name: 'TypeScript', proficiency: 'daily-driver', projectIds: ['ciphra', 'verge'] },
-        { name: 'JavaScript', proficiency: 'daily-driver', projectIds: ['ciphra', 'verge', 'archive-1'] },
+        { name: 'JavaScript', proficiency: 'daily-driver', projectIds: ['ciphra', 'verge'] },
         { name: 'Python', proficiency: 'comfortable', projectIds: [] },
       ],
     },
@@ -208,7 +173,7 @@ export const DEFAULT_SKILLS = {
       items: [
         { name: 'React', proficiency: 'daily-driver', projectIds: ['ciphra'] },
         { name: 'Next.js', proficiency: 'daily-driver', projectIds: ['verge'] },
-        { name: 'Node.js', proficiency: 'daily-driver', projectIds: ['ciphra', 'archive-1'] },
+        { name: 'Node.js', proficiency: 'daily-driver', projectIds: ['ciphra'] },
         { name: 'D3.js', proficiency: 'comfortable', projectIds: ['ciphra'] },
         { name: 'Framer Motion', proficiency: 'daily-driver', projectIds: [] },
       ],
@@ -218,7 +183,7 @@ export const DEFAULT_SKILLS = {
       label: 'Design',
       items: [
         { name: 'Figma', proficiency: 'daily-driver', projectIds: ['design-1', 'design-2', 'design-3'] },
-        { name: 'Illustrator', proficiency: 'comfortable', projectIds: ['design-1', 'archive-2'] },
+        { name: 'Illustrator', proficiency: 'comfortable', projectIds: ['design-1'] },
         { name: 'Prototyping', proficiency: 'daily-driver', projectIds: ['design-3'] },
       ],
     },
@@ -228,7 +193,7 @@ export const DEFAULT_SKILLS = {
       items: [
         { name: 'Git', proficiency: 'daily-driver', projectIds: [] },
         { name: 'Vercel', proficiency: 'daily-driver', projectIds: ['ciphra', 'verge'] },
-        { name: 'PostgreSQL', proficiency: 'daily-driver', projectIds: ['ciphra', 'archive-1'] },
+        { name: 'PostgreSQL', proficiency: 'daily-driver', projectIds: ['ciphra'] },
         { name: 'Linear', proficiency: 'daily-driver', projectIds: [] },
       ],
     },

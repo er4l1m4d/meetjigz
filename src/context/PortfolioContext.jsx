@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useCallback, useMemo, useEffect } from 'react'
 import {
-  FEATURED_ENTRIES, ARCHIVE_ENTRIES, DEFAULT_CONTACT, DEFAULT_HERO,
+  FEATURED_ENTRIES, DEFAULT_CONTACT, DEFAULT_HERO,
   DEFAULT_ABOUT, DEFAULT_SKILLS,
 } from '../data/defaults.js'
 
@@ -8,7 +8,6 @@ const PortfolioContext = createContext(null)
 
 const STORAGE_KEYS = {
   featured: 'jigz-featured-entries',
-  archive: 'jigz-archive-entries',
   hero: 'jigz-hero',
   contact: 'jigz-contact',
   about: 'jigz-about',
@@ -54,9 +53,6 @@ function PortfolioProvider({ children }) {
   const [featuredEntries, setFeaturedState] = useState(() =>
     loadFromStorage(STORAGE_KEYS.featured, FEATURED_ENTRIES),
   )
-  const [archiveEntries, setArchiveState] = useState(() =>
-    loadFromStorage(STORAGE_KEYS.archive, ARCHIVE_ENTRIES),
-  )
   const [hero, setHeroState] = useState(() =>
     loadFromStorage(STORAGE_KEYS.hero, DEFAULT_HERO),
   )
@@ -78,10 +74,6 @@ function PortfolioProvider({ children }) {
         if (data.featured) {
           setFeaturedState(data.featured)
           saveToStorage(STORAGE_KEYS.featured, data.featured)
-        }
-        if (data.archive) {
-          setArchiveState(data.archive)
-          saveToStorage(STORAGE_KEYS.archive, data.archive)
         }
         if (data.hero) {
           setHeroState(data.hero)
@@ -109,15 +101,6 @@ function PortfolioProvider({ children }) {
       const next = typeof newEntries === 'function' ? newEntries(prev) : newEntries
       saveToStorage(STORAGE_KEYS.featured, next)
       savePortfolio({ featured: next })
-      return next
-    })
-  }, [])
-
-  const setArchiveEntries = useCallback((newEntries) => {
-    setArchiveState((prev) => {
-      const next = typeof newEntries === 'function' ? newEntries(prev) : newEntries
-      saveToStorage(STORAGE_KEYS.archive, next)
-      savePortfolio({ archive: next })
       return next
     })
   }, [])
@@ -159,15 +142,11 @@ function PortfolioProvider({ children }) {
   }, [])
 
   const addEntry = useCallback(
-    (entry, target = 'featured') => {
+    (entry) => {
       const newEntry = { ...entry, id: entry.id || crypto.randomUUID() }
-      if (target === 'featured') {
-        setFeaturedEntries((prev) => [...prev, newEntry])
-      } else {
-        setArchiveEntries((prev) => [...prev, newEntry])
-      }
+      setFeaturedEntries((prev) => [...prev, newEntry])
     },
-    [setFeaturedEntries, setArchiveEntries],
+    [setFeaturedEntries],
   )
 
   const updateEntry = useCallback(
@@ -175,31 +154,25 @@ function PortfolioProvider({ children }) {
       setFeaturedEntries((prev) =>
         prev.map((e) => (e.id === id ? { ...e, ...updates } : e)),
       )
-      setArchiveEntries((prev) =>
-        prev.map((e) => (e.id === id ? { ...e, ...updates } : e)),
-      )
     },
-    [setFeaturedEntries, setArchiveEntries],
+    [setFeaturedEntries],
   )
 
   const deleteEntry = useCallback(
     (id) => {
       setFeaturedEntries((prev) => prev.filter((e) => e.id !== id))
-      setArchiveEntries((prev) => prev.filter((e) => e.id !== id))
     },
-    [setFeaturedEntries, setArchiveEntries],
+    [setFeaturedEntries],
   )
 
   const value = useMemo(() => ({
     featuredEntries,
-    archiveEntries,
     hero,
     contact,
     about,
     skills,
     loaded,
     setFeaturedEntries,
-    setArchiveEntries,
     setHero,
     setContact,
     setAbout,
@@ -207,7 +180,7 @@ function PortfolioProvider({ children }) {
     addEntry,
     updateEntry,
     deleteEntry,
-  }), [featuredEntries, archiveEntries, hero, contact, about, skills, loaded, setFeaturedEntries, setArchiveEntries, setHero, setContact, setAbout, setSkills, addEntry, updateEntry, deleteEntry])
+  }), [featuredEntries, hero, contact, about, skills, loaded, setFeaturedEntries, setHero, setContact, setAbout, setSkills, addEntry, updateEntry, deleteEntry])
 
   return (
     <PortfolioContext.Provider value={value}>

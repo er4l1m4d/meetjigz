@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { usePortfolioData } from '../hooks/usePortfolioData.js'
 import { staggerContainer } from '../components/animations/variants.js'
@@ -40,13 +39,6 @@ function DesktopScreen() {
                 <ProjectCard key={entry.id} entry={entry} index={i + 1} />
               ))}
           </motion.div>
-
-          {featuredEntries.length > 0 && (
-            <div className={styles.archiveCta}>
-              <p className={styles.archiveCtaText}>want to see more of my work?</p>
-              <Link to="/archive" className={styles.archiveCtaLink}>head over to the archive →</Link>
-            </div>
-          )}
         </div>
       </main>
       <div id="contact">

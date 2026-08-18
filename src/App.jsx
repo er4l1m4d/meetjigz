@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import BootScreen from './screens/BootScreen.jsx'
 import DesktopScreen from './screens/DesktopScreen.jsx'
-import ArchivePage from './screens/ArchivePage.jsx'
 import CaseStudyPage from './screens/CaseStudyPage.jsx'
 import ConsolePage from './screens/ConsolePage.jsx'
 import PasswordGate from './components/PasswordGate.jsx'
@@ -55,7 +54,6 @@ function App() {
           <Routes>
             <Route path="/" element={<DesktopScreen />} />
             <Route path="/project/:id" element={<CaseStudyPage />} />
-            <Route path="/archive" element={<ArchivePage />} />
             <Route path="/console" element={<PasswordGate><ConsolePage /></PasswordGate>} />
           </Routes>
         </motion.div>
