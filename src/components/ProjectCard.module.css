@@ -1,12 +1,15 @@
 .card {
-  border: 1px solid var(--hairline);
+  border: 1px solid var(--cyc-cobalt);
   border-radius: var(--radius-md);
   overflow: hidden;
-  transition: border-color 200ms ease;
+  background: rgba(10, 10, 26, 0.6);
+  backdrop-filter: blur(10px);
+  transition: all 200ms ease;
 }
 
 .card:hover {
-  border-color: var(--ink-muted);
+  border-color: var(--cyc-rose);
+  box-shadow: 0 8px 32px rgba(27, 58, 107, 0.3);
 }
 
 .header {
@@ -14,22 +17,22 @@
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-4) var(--space-5);
-  border-bottom: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--cyc-cobalt);
 }
 
 .numeral {
   font-family: var(--font-mono);
   font-size: 0.65rem;
   font-weight: 500;
-  color: var(--ink-muted);
-  opacity: 0.5;
+  color: var(--cyc-rose);
+  opacity: 0.7;
 }
 
 .title {
   font-family: var(--font-mono);
   font-size: clamp(1.25rem, 3vw, 1.75rem);
   font-weight: 700;
-  color: var(--ink);
+  color: var(--cyc-day);
   flex: 1;
 }
 
@@ -44,9 +47,9 @@
   text-transform: uppercase;
   padding: 4px 10px;
   border-radius: var(--radius-pill);
-  background: var(--surface);
-  border: 1px solid var(--hairline);
-  color: var(--ink-muted);
+  background: rgba(27, 58, 107, 0.3);
+  border: 1px solid var(--cyc-cobalt);
+  color: var(--cyc-day);
   white-space: nowrap;
 }
 
@@ -69,15 +72,15 @@
 }
 
 .badge.design {
-  color: var(--pop);
-  border-color: var(--pop);
+  color: var(--cyc-rose);
+  border-color: var(--cyc-rose);
 }
 
 .thumbnail {
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: var(--surface);
+  background: var(--cyc-night);
 }
 
 .thumbnail img {
@@ -94,7 +97,7 @@
 .description {
   font-size: 1rem;
   line-height: 1.65;
-  color: var(--ink);
+  color: var(--cyc-day);
   margin-bottom: 0;
 }
 
@@ -111,10 +114,11 @@
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink-muted);
-  border: 1px solid var(--hairline);
+  color: var(--cyc-day);
+  border: 1px solid var(--cyc-cobalt);
   border-radius: var(--radius-pill);
   padding: 4px 12px;
+  opacity: 0.8;
 }
 
 .ctas {
@@ -129,7 +133,7 @@
   font-family: var(--font-mono);
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--link);
+  color: var(--cyc-rose);
   text-decoration: underline;
   text-underline-offset: 3px;
   transition: gap 200ms ease;
@@ -149,7 +153,7 @@
 .imageButton {
   width: 100%;
   background: none;
-  border: 1px solid var(--hairline);
+  border: 1px solid var(--cyc-cobalt);
   border-radius: var(--radius-md);
   overflow: hidden;
   cursor: pointer;
@@ -158,7 +162,7 @@
 }
 
 .imageButton:hover {
-  border-color: var(--ink-muted);
+  border-color: var(--cyc-rose);
 }
 
 .image {

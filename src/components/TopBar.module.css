@@ -3,14 +3,14 @@
   top: 0;
   width: 100%;
   z-index: 50;
-  background: rgba(20, 23, 28, 0.85);
+  background: rgba(10, 10, 26, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--cyc-cobalt);
 }
 
 [data-theme="light"] .nav {
-  background: rgba(250, 250, 250, 0.85);
+  background: rgba(245, 240, 232, 0.85);
 }
 
 .inner {
@@ -32,7 +32,7 @@
   font-family: var(--font-mono);
   font-size: 14px;
   font-weight: 700;
-  color: var(--ink);
+  color: var(--cyc-day);
   text-decoration: none;
   letter-spacing: -0.02em;
 }
@@ -42,7 +42,8 @@
 }
 
 .separator {
-  color: var(--ink-muted);
+  color: var(--cyc-day);
+  opacity: 0.5;
   font-size: 14px;
 }
 
@@ -50,7 +51,7 @@
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 500;
-  color: var(--ink-muted);
+  color: var(--cyc-rose);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -86,8 +87,8 @@
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  background: var(--surface);
-  border: 1px solid var(--hairline);
+  background: var(--cyc-night);
+  border: 1px solid var(--cyc-cobalt);
   border-radius: var(--radius-md);
   padding: 16px 24px;
   gap: 16px;
@@ -102,7 +103,8 @@
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink-muted);
+  color: var(--cyc-day);
+  opacity: 0.7;
   background: none;
   border: 0;
   padding: 0;
@@ -112,7 +114,8 @@
 }
 
 .link:hover {
-  color: var(--ink);
+  color: var(--cyc-rose);
+  opacity: 1;
 }
 
 .link:focus-visible {
@@ -126,17 +129,17 @@
   align-items: center;
   justify-content: center;
   background: none;
-  border: 1px solid var(--hairline);
+  border: 1px solid var(--cyc-cobalt);
   border-radius: var(--radius-md);
-  color: var(--ink-muted);
+  color: var(--cyc-day);
   cursor: pointer;
   padding: 6px;
   transition: color 200ms ease, border-color 200ms ease;
 }
 
 .themeToggle:hover {
-  color: var(--ink);
-  border-color: var(--ink-muted);
+  color: var(--cyc-rose);
+  border-color: var(--cyc-rose);
 }
 
 .themeToggle:focus-visible {
@@ -151,7 +154,7 @@
   justify-content: center;
   gap: 5px;
   background: none;
-  border: 1px solid var(--hairline);
+  border: 1px solid var(--cyc-cobalt);
   border-radius: var(--radius-md);
   padding: 8px;
   cursor: pointer;
@@ -159,7 +162,7 @@
 }
 
 .hamburger:hover {
-  border-color: var(--ink-muted);
+  border-color: var(--cyc-rose);
 }
 
 .hamburger:focus-visible {
@@ -171,7 +174,7 @@
   display: block;
   width: 14px;
   height: 1.5px;
-  background: var(--ink-muted);
+  background: var(--cyc-day);
   border-radius: 1px;
   transition: transform 200ms ease, opacity 200ms ease;
 }

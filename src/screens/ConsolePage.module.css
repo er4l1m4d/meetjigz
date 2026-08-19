@@ -6,6 +6,7 @@
   position: relative;
   z-index: 10;
   padding: 120px 24px 80px;
+  overflow-x: hidden;
 }
 
 .header {
@@ -54,6 +55,7 @@
   flex-direction: column;
   gap: var(--space-1);
   flex: 1;
+  min-width: 0;
 }
 
 .label {
@@ -77,6 +79,9 @@ textarea {
   padding: 8px 12px;
   outline: none;
   transition: border-color 200ms ease;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .input:focus,
@@ -97,6 +102,7 @@ textarea {
 .formRow {
   display: flex;
   gap: var(--space-4);
+  flex-wrap: wrap;
 }
 
 .formActions {
@@ -292,10 +298,12 @@ textarea {
   display: flex;
   gap: var(--space-2);
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .socialRow .input {
   flex: 1;
+  min-width: 120px;
 }
 
 .removeBtn {
@@ -412,10 +420,12 @@ textarea {
   display: flex;
   gap: var(--space-2);
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .skillRow .input {
   flex: 1;
+  min-width: 120px;
 }
 
 /* Case study editor */

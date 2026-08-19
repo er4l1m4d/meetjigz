@@ -1,6 +1,8 @@
 .section {
   width: 100%;
-  margin-top: var(--space-8);
+  margin-top: 0;
+  padding: var(--space-8) 0;
+  background: var(--cyc-day);
 }
 
 .inner {
@@ -14,17 +16,17 @@
   font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 700;
   line-height: 1.1;
-  color: var(--ink);
+  color: var(--cyc-night);
   margin-bottom: var(--space-6);
 }
 
 .pop {
-  color: var(--pop);
+  color: var(--cyc-cobalt);
 }
 
 /* Terminal block */
 .terminal {
-  border: 1px solid var(--hairline);
+  border: 1px solid var(--cyc-cobalt);
   border-radius: var(--radius-md);
   overflow: hidden;
   max-width: 480px;
@@ -35,20 +37,20 @@
   align-items: center;
   gap: 6px;
   padding: 10px 14px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--hairline);
+  background: var(--cyc-night);
+  border-bottom: 1px solid var(--cyc-cobalt);
 }
 
 .dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--hairline);
+  background: var(--cyc-cobalt);
 }
 
 .terminalBody {
   padding: 16px;
-  background: var(--bg);
+  background: var(--cyc-night);
 }
 
 .line {
@@ -61,7 +63,7 @@
   font-family: var(--font-mono);
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--status-live);
+  color: var(--cyc-rose);
   user-select: none;
 }
 
@@ -69,27 +71,28 @@
   font-family: var(--font-mono);
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--ink);
+  color: var(--cyc-day);
 }
 
 .output {
   font-family: var(--font-mono);
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--ink-muted);
+  color: var(--cyc-day);
+  opacity: 0.6;
   min-width: 60px;
 }
 
 .value {
   font-family: var(--font-mono);
   font-size: 0.875rem;
-  color: var(--ink);
+  color: var(--cyc-day);
 }
 
 .link {
   font-family: var(--font-mono);
   font-size: 0.875rem;
-  color: var(--link);
+  color: var(--cyc-cobalt);
   text-decoration: none;
 }
 

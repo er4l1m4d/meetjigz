@@ -1,0 +1,89 @@
+{
+  "title": "Choose your portfolio's visual world",
+  "question": "The roll assigned Dada Assemblage. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Dada Assemblage",
+      "kicker": "THE ROLL",
+      "lineage": "1920s Merz collage pages",
+      "thesis": "A portfolio built from tram tickets, torn newsprint, and mixed type — a found object rather than a layout.",
+      "palette": ["#e8d5b7", "#2a2520", "#c44536", "#f5f0e8"],
+      "materials": ["aged ticket stock", "newsprint gray", "mixed type cases"],
+      "viewport": "A full-bleed collage of scraps at angles, the product name assembled from raid type, a printer's fist pointing at nothing in particular.",
+      "risk": "Reads chaotic when the angles are not calibrated; the composition must feel found, not random.",
+      "hero": "https://impeccable.style/worlds/cards/design-canon-merz-collage-page-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/design-canon-merz-collage-page.webp"
+    },
+    {
+      "id": "emission-line",
+      "label": "Emission Line Rail",
+      "kicker": "CHALLENGER",
+      "lineage": "Glass spectrograms at 3am",
+      "thesis": "A working plate where every element registers against one off-centre calibrated rail, colour survives only as hairline emission lines.",
+      "palette": ["#1a1a1a", "#e8e8e8", "#ff3d81", "#3ddc84"],
+      "materials": ["procedural charcoal continuum", "bone legends", "hairline emission lines"],
+      "viewport": "A charcoal continuum crossed by needle-thin bright lines, every legend at the same tiny size, one sodium pair doubled and standing brighter than anything near it.",
+      "risk": "Requires precise calibration; the rail must feel scientific, not decorative.",
+      "hero": "https://impeccable.style/worlds/cards/operate-c-emission-line-rail-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/operate-c-emission-line-rail.webp"
+    },
+    {
+      "id": "night-instruments",
+      "label": "Night Instruments",
+      "kicker": "CHALLENGER",
+      "lineage": "Aircraft night instrument six-pack",
+      "thesis": "Six luminous gauges hold a pilot's trust through cloud with nothing outside the glass.",
+      "palette": ["#0a0a0a", "#f0f0f0", "#3ddc84", "#f2a93b"],
+      "materials": ["matte black panel", "luminous white markings", "radium-green glow"],
+      "viewport": "A fixed constellation of instruments, each owning one truth; the cross-check sweep is the reading order.",
+      "risk": "Reads as novelty when the gauges are not functional; each must show real data.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-night-flight-six-pack-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/signals-instruments-night-flight-six-pack.webp"
+    },
+    {
+      "id": "cyclorama",
+      "label": "Cyclorama Dawn",
+      "kicker": "CHALLENGER",
+      "lineage": "Theater lighting cyclorama",
+      "thesis": "A seamless cyclorama passing from black night through cobalt and rose into white day, where light alone creates an infinite horizon.",
+      "palette": ["#0a0a1a", "#1b3a6b", "#d4856b", "#f5f0e8"],
+      "materials": ["depthless cyc black", "cobalt horizon band", "rose gathering"],
+      "viewport": "The curved wall begins as depthless black; a low cobalt band appears, rose gathers above it, and the actors acquire shadows before the stage becomes day.",
+      "risk": "Requires careful gradient work; the transitions must feel atmospheric, not gradient-template.",
+      "hero": "https://impeccable.style/worlds/cards/stagecraft-theater-lighting-cyclorama-dawn-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/stagecraft-theater-lighting-cyclorama-dawn.webp"
+    },
+    {
+      "id": "illuminated",
+      "label": "Illuminated Initial",
+      "kicker": "CHALLENGER",
+      "lineage": "Medieval illuminated manuscripts",
+      "thesis": "A single illuminated initial growing into a margin of gold leaf, blue vine, beasts, and tiny narrative scenes.",
+      "palette": ["#f5f0e8", "#c9a227", "#1b3a6b", "#8b2500"],
+      "materials": ["burnished gold leaf", "vellum cream", "lapis blue vine"],
+      "viewport": "A red letter opens into a gold chamber; a blue vine escapes its stem, circles three lines of text, and ends in a fox playing a lute.",
+      "risk": "Requires intricate vector work; the ornament must feel hand-crafted, not clip-art.",
+      "hero": "https://impeccable.style/worlds/cards/typography-calligraphy-writing-illuminated-initial-vine-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/typography-calligraphy-writing-illuminated-initial-vine.webp"
+    },
+    {
+      "id": "canon",
+      "label": "The category standard",
+      "kicker": "CANON",
+      "thesis": "What this category ships, executed impeccably.",
+      "palette": ["#ffffff", "#111827", "#2563eb"],
+      "materials": ["clean grid", "product photography"],
+      "viewport": "The arrangement a visitor expects, at full craft.",
+      "risk": "Indistinguishable from the competition by design."
+    }
+  ],
+  "reroll": {
+    "registers": ["safer", "bolder"]
+  },
+  "buildPath": {
+    "value": "comp",
+    "toggle": true
+  },
+  "canon": true
+}

@@ -2,17 +2,25 @@
   --font-mono: 'IBM Plex Mono', monospace;
   --font-body: 'IBM Plex Sans', sans-serif;
 
-  --bg: #14171C;
-  --surface: #1C2027;
-  --surface-raised: #20242C;
-  --ink: #E4E7EC;
-  --ink-muted: #8B93A1;
-  --hairline: #2A2F38;
-  --status-live: #3DDC84;
-  --status-progress: #F2A93B;
-  --status-shadow: #6B7280;
-  --link: #5B8DEF;
-  --pop: #FF3D81;
+  /* Cyclorama Dawn palette */
+  --bg: #0a0a1a;
+  --surface: #0f0f24;
+  --surface-raised: #14142e;
+  --ink: #f5f0e8;
+  --ink-muted: #a8b4c8;
+  --hairline: #1e2a4a;
+  --status-live: #3ddc84;
+  --status-progress: #f2a93b;
+  --status-shadow: #6b7280;
+  --link: #5b8def;
+  --pop: #d4856b;
+
+  /* Cyclorama horizon bands */
+  --cyc-night: #0a0a1a;
+  --cyc-cobalt: #1b3a6b;
+  --cyc-rose: #d4856b;
+  --cyc-day: #f5f0e8;
+  --cyc-transition: linear-gradient(180deg, var(--cyc-night) 0%, var(--cyc-cobalt) 35%, var(--cyc-rose) 65%, var(--cyc-day) 100%);
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -31,18 +39,24 @@
 }
 
 [data-theme="light"] {
-  --bg: #FAFAFA;
-  --surface: #FFFFFF;
-  --surface-raised: #F0F0F0;
-  --ink: #1A1D23;
-  --ink-muted: #6B7280;
-  --hairline: #E5E7EB;
-  --status-live: #22A65A;
-  --status-progress: #D48A1E;
-  --status-shadow: #9CA3AF;
-  --link: #3B6FD4;
-  --pop: #E0366D;
+  --bg: #f5f0e8;
+  --surface: #ffffff;
+  --surface-raised: #ebe5db;
+  --ink: #1a1d23;
+  --ink-muted: #6b7280;
+  --hairline: #d4cfc5;
+  --status-live: #22a65a;
+  --status-progress: #d48a1e;
+  --status-shadow: #9ca3af;
+  --link: #3b6fd4;
+  --pop: #1b3a6b;
   --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.08);
+
+  /* Cyclorama Dawn light palette */
+  --cyc-night: #f5f0e8;
+  --cyc-cobalt: #1b3a6b;
+  --cyc-rose: #d4856b;
+  --cyc-day: #1a1d23;
 }
 
 html {

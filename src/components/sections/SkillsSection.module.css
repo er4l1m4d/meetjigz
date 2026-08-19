@@ -1,5 +1,11 @@
 .section {
-  margin-bottom: var(--space-8);
+  margin-bottom: 0;
+  padding: var(--space-8) 0;
+  background: linear-gradient(
+    180deg,
+    var(--cyc-rose) 0%,
+    var(--cyc-day) 100%
+  );
 }
 
 .heading {
@@ -9,8 +15,9 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink-muted);
+  color: var(--cyc-night);
   margin-bottom: var(--space-5);
+  opacity: 0.6;
 }
 
 .categories {
@@ -31,7 +38,7 @@
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--ink-muted);
+  color: var(--cyc-cobalt);
 }
 
 .grid {
@@ -48,18 +55,20 @@
   font-size: 0.7rem;
   font-weight: 500;
   padding: var(--space-2) var(--space-3);
-  border: 1px solid var(--hairline);
+  border: 1px solid var(--cyc-cobalt);
   border-radius: var(--radius-sm);
-  color: var(--ink);
-  transition: border-color 200ms ease;
+  color: var(--cyc-night);
+  transition: all 200ms ease;
 }
 
 .skillTag:hover {
-  border-color: var(--ink-muted);
+  background: var(--cyc-cobalt);
+  color: var(--cyc-day);
+  border-color: var(--cyc-cobalt);
 }
 
 .skillName {
-  color: var(--ink);
+  color: var(--cyc-night);
 }
 
 .proficiency {
@@ -71,15 +80,16 @@
 }
 
 .daily-driver {
-  color: var(--status-live);
+  color: var(--cyc-cobalt);
   opacity: 1;
 }
 
 .comfortable {
-  color: var(--status-progress);
+  color: var(--cyc-rose);
   opacity: 0.9;
 }
 
 .familiar {
-  color: var(--status-shadow);
+  color: var(--cyc-night);
+  opacity: 0.5;
 }

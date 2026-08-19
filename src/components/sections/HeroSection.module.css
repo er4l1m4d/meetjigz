@@ -1,7 +1,18 @@
 .hero {
   position: relative;
-  padding: var(--space-6) 0 var(--space-8);
-  margin-bottom: var(--space-7);
+  padding: var(--space-8) 0 var(--space-8);
+  margin-bottom: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(
+    180deg,
+    var(--cyc-night) 0%,
+    var(--cyc-cobalt) 35%,
+    var(--cyc-rose) 65%,
+    var(--cyc-day) 100%
+  );
 }
 
 .name {
@@ -10,10 +21,11 @@
   font-weight: 700;
   line-height: 0.98;
   letter-spacing: -0.02em;
-  color: var(--ink);
+  color: var(--cyc-day);
   margin-bottom: var(--space-3);
   max-width: 100%;
   overflow-wrap: break-word;
+  text-shadow: 0 2px 40px rgba(27, 58, 107, 0.5);
 }
 
 .role {
@@ -22,7 +34,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--ink-muted);
+  color: var(--cyc-rose);
   margin-bottom: var(--space-4);
 }
 
@@ -31,9 +43,10 @@
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.6;
-  color: var(--ink-muted);
+  color: var(--cyc-day);
   max-width: 420px;
   margin-bottom: var(--space-6);
+  opacity: 0.9;
 }
 
 .ctas {
@@ -56,29 +69,31 @@
 }
 
 .ctaPrimary {
-  background: var(--ink);
-  color: var(--bg);
-  border: 1px solid var(--ink);
+  background: var(--cyc-day);
+  color: var(--cyc-night);
+  border: 1px solid var(--cyc-day);
 }
 
 .ctaPrimary:hover {
-  opacity: 0.85;
+  background: var(--cyc-rose);
+  border-color: var(--cyc-rose);
 }
 
 .ctaSecondary {
   background: transparent;
-  color: var(--ink);
-  border: 1px solid var(--hairline);
+  color: var(--cyc-day);
+  border: 1px solid rgba(245, 240, 232, 0.3);
 }
 
 .ctaSecondary:hover {
-  border-color: var(--ink);
+  border-color: var(--cyc-day);
 }
 
 .currentBuild {
   font-family: var(--font-mono);
   font-size: 0.7rem;
-  color: var(--ink-muted);
+  color: var(--cyc-day);
+  opacity: 0.7;
 }
 
 .buildLabel {
@@ -89,11 +104,12 @@
 
 .buildProject {
   font-weight: 600;
-  color: var(--pop);
+  color: var(--cyc-rose);
 }
 
 .buildDesc {
-  color: var(--ink-muted);
+  color: var(--cyc-day);
+  opacity: 0.7;
 }
 
 @media (max-width: 600px) {
