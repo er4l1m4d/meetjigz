@@ -11,12 +11,12 @@ describe('DesktopScreen', () => {
 
   it('renders the hero headline', () => {
     renderWithProviders(<DesktopScreen />)
-    expect(screen.getByRole('heading', { name: /damilare/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /design.*build digital.*products/i })).toBeInTheDocument()
   })
 
   it('renders the about section', () => {
     renderWithProviders(<DesktopScreen />)
-    expect(screen.getAllByText('about').length).toBeGreaterThanOrEqual(2)
+    expect(screen.getByRole('heading', { name: /from idea to launch/i })).toBeInTheDocument()
   })
 
   it('renders the contact section', () => {
@@ -26,7 +26,7 @@ describe('DesktopScreen', () => {
 
   it('renders the footer', () => {
     renderWithProviders(<DesktopScreen />)
-    expect(screen.getByText(/© 2026 jigz/i)).toBeInTheDocument()
+    expect(screen.getByText(/© 2026 damilare ogo-oluwade/i)).toBeInTheDocument()
   })
 
   it('renders entry titles from data', () => {

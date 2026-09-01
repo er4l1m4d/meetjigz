@@ -1,5 +1,5 @@
 .section {
-  margin-bottom: var(--space-7);
+  margin-bottom: 68px;
 }
 
 .label {
@@ -9,8 +9,8 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink-muted);
-  margin-bottom: var(--space-3);
+  color: var(--blue);
+  margin-bottom: 18px;
 }
 
 .content {
@@ -21,8 +21,8 @@
 
 .content p {
   font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.7;
-  color: var(--ink);
-  max-width: 640px;
+  font-size: clamp(1.08rem, 1.7vw, 1.35rem);
+  line-height: 1.6;
+  color: var(--navy);
+  max-width: 66ch;
 }

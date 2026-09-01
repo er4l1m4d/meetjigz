@@ -7,8 +7,10 @@ import EvidenceGallery from '../components/casestudy/EvidenceGallery.jsx'
 import ProjectLinks from '../components/casestudy/ProjectLinks.jsx'
 import CaseStudyNav from '../components/casestudy/CaseStudyNav.jsx'
 import ProgressBar from '../components/casestudy/ProgressBar.jsx'
+import { hasRealCaseStudy, isPlaceholderSection } from '../lib/caseStudy.js'
 import Footer from '../components/Footer.jsx'
 import TopBar from '../components/TopBar.jsx'
+import ProjectVisual from '../components/ProjectVisual.jsx'
 import styles from './CaseStudyPage.module.css'
 
 const SECTION_KEYS = ['context', 'problem', 'role', 'thinking', 'build', 'challenges', 'result']
@@ -18,12 +20,12 @@ function CaseStudyPage() {
   const { featuredEntries } = usePortfolioData()
 
   const entry = featuredEntries.find((e) => e.id === id)
-  const caseStudyEntries = featuredEntries.filter((e) => e.caseStudy != null)
+  const caseStudyEntries = featuredEntries.filter(hasRealCaseStudy)
   const currentIndex = caseStudyEntries.findIndex((e) => e.id === id)
   const prev = currentIndex > 0 ? caseStudyEntries[currentIndex - 1] : null
   const next = currentIndex < caseStudyEntries.length - 1 ? caseStudyEntries[currentIndex + 1] : null
 
-  if (!entry || !entry.caseStudy) {
+  if (!entry || !hasRealCaseStudy(entry)) {
     return (
       <>
         <TopBar />
@@ -40,7 +42,9 @@ function CaseStudyPage() {
   }
 
   const { caseStudy } = entry
-  const sections = SECTION_KEYS.filter((key) => caseStudy.sections?.[key])
+  const sections = SECTION_KEYS.filter(
+    (key) => caseStudy.sections?.[key] && !isPlaceholderSection(caseStudy.sections[key]),
+  )
   const sectionProgress = sections.length > 0 ? sections : []
 
   return (
@@ -55,7 +59,11 @@ function CaseStudyPage() {
           variants={scaleIn}
           className={styles.heroImage}
         >
-          <img src={caseStudy.heroImage.src} alt={caseStudy.heroImage.alt} />
+          {caseStudy.heroImage?.src && !caseStudy.heroImage.src.includes('placeholder') ? (
+            <img src={caseStudy.heroImage.src} alt={caseStudy.heroImage.alt} />
+          ) : (
+            <ProjectVisual entry={entry} />
+          )}
         </motion.div>
 
         <motion.div

@@ -5,7 +5,9 @@ const prefersReduced =
   typeof window.matchMedia === 'function' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-function Reveal({ children, variants, className, style, ...props }) {
+function Reveal({ children, variants, variant, className, style, ...props }) {
+  const animationVariants = variants || variant
+
   if (prefersReduced) {
     return (
       <div className={className} style={style} {...props}>
@@ -21,7 +23,7 @@ function Reveal({ children, variants, className, style, ...props }) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-60px' }}
-      variants={variants}
+      variants={animationVariants}
       {...props}
     >
       {children}

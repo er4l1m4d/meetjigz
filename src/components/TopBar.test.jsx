@@ -6,12 +6,7 @@ import TopBar from './TopBar.jsx'
 describe('TopBar', () => {
   it('renders the brand name', () => {
     renderWithProviders(<TopBar />)
-    expect(screen.getByText('Jigz')).toBeInTheDocument()
-  })
-
-  it('renders the role', () => {
-    renderWithProviders(<TopBar />)
-    expect(screen.getByText('Full-Stack Developer')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /jigz/i })).toBeInTheDocument()
   })
 
   it('renders navigation links', () => {
@@ -21,8 +16,8 @@ describe('TopBar', () => {
     expect(screen.getByRole('button', { name: /contact/i })).toBeInTheDocument()
   })
 
-  it('renders theme toggle', () => {
+  it('renders the mobile menu control', () => {
     renderWithProviders(<TopBar />)
-    expect(screen.getByRole('button', { name: /switch to.*mode/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /toggle menu/i })).toBeInTheDocument()
   })
 })

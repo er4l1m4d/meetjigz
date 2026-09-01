@@ -32,16 +32,18 @@ function ProgressBar({ sections }) {
   if (sections.length === 0) return null
 
   return (
-    <div className={styles.bar}>
+    <nav className={styles.bar} aria-label="Case study sections">
       {sections.map((section, i) => (
         <button
           key={section}
+          type="button"
           className={`${styles.dot} ${i === active ? styles.active : ''}`}
           onClick={() => scrollTo(i)}
-          aria-label={`Go to ${section}`}
+          aria-label={`Go to ${section} section`}
+          aria-current={i === active ? 'true' : undefined}
         />
       ))}
-    </div>
+    </nav>
   )
 }
 

@@ -1,107 +1,11 @@
-.section {
-  width: 100%;
-  margin-top: 0;
-  padding: var(--space-8) 0;
-  background: var(--cyc-day);
+.section { position:relative; overflow:hidden; min-height:720px; padding:140px 24px 70px; color:#fff; background:linear-gradient(145deg,#315cf0,#173fcf 70%); }
+.section::after { content:'JIGZ'; position:absolute; left:50%; bottom:-.2em; transform:translateX(-50%); color:rgba(144,174,255,.28); font:800 clamp(10rem,28vw,25rem)/.75 var(--font-body); letter-spacing:-.08em; }
+.inner { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; max-width:1180px; min-height:500px; margin:0 auto; text-align:center; }
+.orb { position:absolute; z-index:-1; top:-100px; left:50%; width:min(520px,80vw); aspect-ratio:1; transform:translateX(-50%); border-radius:44% 56% 61% 39% / 49% 36% 64% 51%; background:linear-gradient(145deg,rgba(134,170,255,.9),rgba(51,88,234,.16)); filter:blur(2px); animation:drift 10s ease-in-out infinite alternate; }.orb span{position:absolute;inset:15%;border:1px solid rgba(255,255,255,.13);border-radius:inherit}.orb span:nth-child(2){inset:28%}.orb span:nth-child(3){inset:41%}
+.headline { max-width:800px; margin-top:45px; font-size:clamp(3.2rem,7vw,7rem); line-height:.87; letter-spacing:-.055em; text-wrap:balance; }.subhead{max-width:560px;margin-top:25px;color:rgba(255,255,255,.72);font-size:.95rem}.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:30px}.primary,.secondary{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 19px;border-radius:999px;font-size:.68rem;font-weight:700;text-decoration:none}.primary{color:var(--navy);background:var(--pop)}.secondary{color:#fff;border:1px solid rgba(255,255,255,.42)}.primary:hover,.secondary:hover{text-decoration:none;transform:translateY(-2px)}
+.contactLine { display:flex; justify-content:space-between; gap:30px; width:100%; margin-top:auto; padding-top:24px; border-top:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.6); font:.58rem var(--font-mono); text-transform:uppercase; }.contactLine a{color:#fff}
+@keyframes drift{to{transform:translateX(-50%) rotate(7deg) scale(1.05)}}
+@media (prefers-reduced-motion: reduce) {
+  .orb { animation: none; }
 }
-
-.inner {
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-.headline {
-  font-family: var(--font-mono);
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--cyc-night);
-  margin-bottom: var(--space-6);
-}
-
-.pop {
-  color: var(--cyc-cobalt);
-}
-
-/* Terminal block */
-.terminal {
-  border: 1px solid var(--cyc-cobalt);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  max-width: 480px;
-}
-
-.terminalBar {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 14px;
-  background: var(--cyc-night);
-  border-bottom: 1px solid var(--cyc-cobalt);
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--cyc-cobalt);
-}
-
-.terminalBody {
-  padding: 16px;
-  background: var(--cyc-night);
-}
-
-.line {
-  display: flex;
-  gap: 8px;
-  line-height: 1.8;
-}
-
-.prompt {
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--cyc-rose);
-  user-select: none;
-}
-
-.command {
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--cyc-day);
-}
-
-.output {
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--cyc-day);
-  opacity: 0.6;
-  min-width: 60px;
-}
-
-.value {
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  color: var(--cyc-day);
-}
-
-.link {
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  color: var(--cyc-cobalt);
-  text-decoration: none;
-}
-
-.link:hover {
-  text-decoration: underline;
-}
-
-.link:focus-visible {
-  outline: 2px solid var(--link);
-  outline-offset: 2px;
-  border-radius: 2px;
-}
+@media(max-width:700px){.section{min-height:680px;padding:105px 16px 45px}.inner{min-height:530px}.headline{font-size:4.1rem}.contactLine{flex-direction:column;align-items:center;gap:8px}.orb{top:-20px}}

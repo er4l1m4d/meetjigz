@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import BootScreen from './screens/BootScreen.jsx'
 import DesktopScreen from './screens/DesktopScreen.jsx'
 import CaseStudyPage from './screens/CaseStudyPage.jsx'
 import ConsolePage from './screens/ConsolePage.jsx'
@@ -14,33 +12,6 @@ const pageVariants = {
 }
 
 function App() {
-  const [activeScreen, setActiveScreen] = useState('boot')
-  const [isBootExiting, setIsBootExiting] = useState(false)
-
-  if (activeScreen === 'boot') {
-    return (
-      <AnimatePresence mode="wait">
-        <motion.div
-          key="boot"
-          variants={pageVariants}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-        >
-          <BootScreen
-            isExiting={isBootExiting}
-            onComplete={() => {
-              setIsBootExiting(true)
-            }}
-            onExitComplete={() => {
-              setActiveScreen('desktop')
-            }}
-          />
-        </motion.div>
-      </AnimatePresence>
-    )
-  }
-
   return (
     <BrowserRouter>
       <AnimatePresence mode="wait">

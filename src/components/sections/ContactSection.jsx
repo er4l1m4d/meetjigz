@@ -1,49 +1,22 @@
-import Reveal from '../animations/Reveal.jsx'
-import { fadeIn } from '../animations/variants.js'
 import styles from './ContactSection.module.css'
 
 function ContactSection({ contact }) {
   return (
     <section id="contact" className={styles.section}>
-      <Reveal variants={fadeIn}>
-        <div className={styles.inner}>
-          <h2 className={styles.headline}>
-            Let&apos;s build something <span className={styles.pop}>together</span>.
-          </h2>
-
-          <div className={styles.terminal}>
-            <div className={styles.terminalBar}>
-              <span className={styles.dot} />
-              <span className={styles.dot} />
-              <span className={styles.dot} />
-            </div>
-            <div className={styles.terminalBody}>
-              <div className={styles.line}>
-                <span className={styles.prompt}>$</span>
-                <span className={styles.command}>contact --block</span>
-              </div>
-              <div className={styles.line}>
-                <span className={styles.output}>name:</span>
-                <span className={styles.value}>{contact.name}</span>
-              </div>
-              <div className={styles.line}>
-                <span className={styles.output}>role:</span>
-                <span className={styles.value}>{contact.role}</span>
-              </div>
-              <div className={styles.line}>
-                <span className={styles.output}>email:</span>
-                <a href={`mailto:${contact.email}`} className={styles.link}>{contact.email}</a>
-              </div>
-              {contact.socials.map((social) => (
-                <div key={social.id} className={styles.line}>
-                  <span className={styles.output}>{social.id}:</span>
-                  <a href={social.href} className={styles.link} target="_blank" rel="noreferrer noopener">{social.label}</a>
-                </div>
-              ))}
-            </div>
-          </div>
+      <div className={styles.inner}>
+        <div className={styles.orb} aria-hidden="true"><span /><span /><span /></div>
+        <h2 className={styles.headline}>
+          Let&apos;s Build Something<br />That Performs.
+        </h2>
+        <p className={styles.subhead}>Tell me about your product, interface, or identity. I&apos;ll bring design thinking and production code to the same table.</p>
+        <div className={styles.actions}>
+          <a href={`mailto:${contact.email}`} className={styles.primary}>Start a project</a>
+          {contact.socials.slice(0, 2).map((social) => (
+            <a key={social.id} href={social.href} className={styles.secondary} target="_blank" rel="noreferrer noopener">{social.label}</a>
+          ))}
         </div>
-      </Reveal>
+        <div className={styles.contactLine}><span>{contact.name}</span><span>{contact.role}</span><a href={`mailto:${contact.email}`}>{contact.email}</a></div>
+      </div>
     </section>
   )
 }

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { fadeUp, fadeIn } from '../animations/variants'
+import ProjectVisual from '../ProjectVisual.jsx'
 import styles from './HeroSection.module.css'
 
 function scrollTo(id) {
@@ -10,47 +11,24 @@ function scrollTo(id) {
   }
 }
 
-function HeroSection({ hero }) {
+function HeroSection({ hero, projects = [] }) {
   if (!hero) return null
 
   return (
     <section className={styles.hero}>
-      <motion.h1
-        className={styles.name}
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-      >
-        {hero.name}
-      </motion.h1>
-
-      <motion.p
-        className={styles.role}
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-        transition={{ delay: 0.1 }}
-      >
-        {hero.role}
-      </motion.p>
-
-      <motion.p
-        className={styles.tagline}
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-        transition={{ delay: 0.2 }}
-      >
-        {hero.tagline}
-      </motion.p>
-
+      <div className={styles.ghostWord} aria-hidden="true">JIGZ</div>
+      <div className={styles.heroInner}>
       <motion.div
-        className={styles.ctas}
+        className={styles.copy}
         variants={fadeUp}
         initial="hidden"
         animate="visible"
-        transition={{ delay: 0.3 }}
       >
+        <p className={styles.role}>{hero.role}</p>
+        <h1 className={styles.headline}>I design &amp;<br />build digital<br />products.</h1>
+        <p className={styles.tagline}>{hero.tagline}</p>
+
+        <div className={styles.ctas}>
         {hero.ctas?.map((cta) => (
           <button
             key={cta.id}
@@ -60,6 +38,13 @@ function HeroSection({ hero }) {
             {cta.label}
           </button>
         ))}
+        </div>
+      </motion.div>
+
+      <motion.div className={styles.montage} variants={fadeIn} initial="hidden" animate="visible" transition={{ delay: 0.2 }}>
+        <div className={styles.visualMain}>{projects[0] && <ProjectVisual entry={projects[0]} compact />}</div>
+        <div className={styles.visualSide}>{projects[2] && <ProjectVisual entry={projects[2]} compact />}</div>
+        <div className={styles.identityBadge}><span>JIGZ</span><small>design + code</small></div>
       </motion.div>
 
       {hero.currentBuild && (
@@ -75,6 +60,8 @@ function HeroSection({ hero }) {
           <span className={styles.buildDesc}> — {hero.currentBuild.description}</span>
         </motion.div>
       )}
+      </div>
+      <p className={styles.signature}>{hero.name}</p>
     </section>
   )
 }

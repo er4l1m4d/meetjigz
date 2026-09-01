@@ -2,10 +2,11 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { staggerItem } from './animations/variants.js'
-import SeeMore from './SeeMore.jsx'
+import { hasRealCaseStudy } from '../lib/caseStudy.js'
 import Lightbox from './Lightbox.jsx'
 import CiphraChip from './graphics/CiphraChip.jsx'
 import VergeGate from './graphics/VergeGate.jsx'
+import ProjectVisual from './ProjectVisual.jsx'
 import styles from './ProjectCard.module.css'
 
 const GRAPHICS = {
@@ -16,7 +17,7 @@ const GRAPHICS = {
 function ProjectCard({ entry, index }) {
   const [lightbox, setLightbox] = useState(null)
   const Graphic = entry.graphic ? GRAPHICS[entry.graphic] : null
-  const hasCaseStudy = entry.caseStudy != null
+  const hasCaseStudy = hasRealCaseStudy(entry)
 
   return (
     <motion.article className={styles.card} variants={staggerItem}>
@@ -36,18 +37,18 @@ function ProjectCard({ entry, index }) {
         )}
       </div>
 
-      {entry.thumbnail && (
-        <div className={styles.thumbnail}>
+      <div className={styles.thumbnail}>
+        {entry.thumbnail?.src && !entry.thumbnail.src.includes('placeholder') ? (
           <img src={entry.thumbnail.src} alt={entry.thumbnail.alt} loading="lazy" />
-        </div>
-      )}
+        ) : (
+          <ProjectVisual entry={entry} />
+        )}
+      </div>
 
       <div className={styles.body}>
         {entry.kind === 'build' && (
           <>
-            <SeeMore>
-              <p className={styles.description}>{entry.description}</p>
-            </SeeMore>
+            <p className={styles.description}>{entry.description}</p>
             {Graphic && <Graphic />}
             {entry.tags?.length > 0 && (
               <div className={styles.tags}>
@@ -61,9 +62,7 @@ function ProjectCard({ entry, index }) {
 
         {entry.kind === 'design' && (
           <>
-            <SeeMore>
-              <p className={styles.description}>{entry.brief}</p>
-            </SeeMore>
+            <p className={styles.description}>{entry.brief}</p>
             {entry.images?.length > 0 && (
               <div className={styles.imageGrid}>
                 {entry.images.map((img, i) => (

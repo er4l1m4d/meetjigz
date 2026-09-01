@@ -9,12 +9,12 @@
   font-family: var(--font-mono);
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--link);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  padding: var(--space-3) var(--space-5);
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-sm);
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 18px;
+  border: 0;
+  background:var(--blue);
+  border-radius: 999px;
   transition: border-color 200ms ease, color 200ms ease;
 }
 

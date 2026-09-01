@@ -1,130 +1,25 @@
-.hero {
-  position: relative;
-  padding: var(--space-8) 0 var(--space-8);
-  margin-bottom: 0;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: linear-gradient(
-    180deg,
-    var(--cyc-night) 0%,
-    var(--cyc-cobalt) 35%,
-    var(--cyc-rose) 65%,
-    var(--cyc-day) 100%
-  );
-}
-
-.name {
-  font-family: var(--font-mono);
-  font-size: clamp(2.75rem, 9vw, 6.5rem);
-  font-weight: 700;
-  line-height: 0.98;
-  letter-spacing: -0.02em;
-  color: var(--cyc-day);
-  margin-bottom: var(--space-3);
-  max-width: 100%;
-  overflow-wrap: break-word;
-  text-shadow: 0 2px 40px rgba(27, 58, 107, 0.5);
-}
-
-.role {
-  font-family: var(--font-mono);
-  font-size: clamp(1rem, 2.5vw, 1.5rem);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--cyc-rose);
-  margin-bottom: var(--space-4);
-}
-
-.tagline {
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  font-weight: 400;
-  line-height: 1.6;
-  color: var(--cyc-day);
-  max-width: 420px;
-  margin-bottom: var(--space-6);
-  opacity: 0.9;
-}
-
-.ctas {
-  display: flex;
-  gap: var(--space-3);
-  margin-bottom: var(--space-6);
-}
-
-.ctaPrimary,
-.ctaSecondary {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  padding: var(--space-3) var(--space-5);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: all 200ms ease;
-}
-
-.ctaPrimary {
-  background: var(--cyc-day);
-  color: var(--cyc-night);
-  border: 1px solid var(--cyc-day);
-}
-
-.ctaPrimary:hover {
-  background: var(--cyc-rose);
-  border-color: var(--cyc-rose);
-}
-
-.ctaSecondary {
-  background: transparent;
-  color: var(--cyc-day);
-  border: 1px solid rgba(245, 240, 232, 0.3);
-}
-
-.ctaSecondary:hover {
-  border-color: var(--cyc-day);
-}
-
-.currentBuild {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--cyc-day);
-  opacity: 0.7;
-}
-
-.buildLabel {
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-right: var(--space-2);
-}
-
-.buildProject {
-  font-weight: 600;
-  color: var(--cyc-rose);
-}
-
-.buildDesc {
-  color: var(--cyc-day);
-  opacity: 0.7;
-}
-
-@media (max-width: 600px) {
-  .hero {
-    padding: var(--space-5) 0 var(--space-6);
-  }
-
-  .ctas {
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .ctaPrimary,
-  .ctaSecondary {
-    width: 100%;
-    text-align: center;
-  }
+.hero { position:relative; min-height:760px; overflow:hidden; color:#fff; background:linear-gradient(145deg,#173cce 0%,#2e5bf1 56%,#1740d5 100%); }
+.hero::after { content:''; position:absolute; inset:auto -15% -42% 28%; height:65%; background:rgba(118,156,255,.55); filter:blur(85px); border-radius:50%; }
+.heroInner { position:relative; z-index:2; display:grid; grid-template-columns:.88fr 1.12fr; align-items:center; width:min(1180px,calc(100% - 48px)); min-height:760px; margin:0 auto; padding:120px 0 82px; }
+.ghostWord { position:absolute; z-index:0; left:50%; top:45%; transform:translate(-50%,-50%); color:rgba(139,174,255,.36); font:800 clamp(10rem,24vw,22rem)/.8 var(--font-body); letter-spacing:-.08em; white-space:nowrap; }
+.copy { position:relative; z-index:4; align-self:center; }
+.role { margin-bottom:18px; color:var(--pop); font:500 .72rem var(--font-mono); letter-spacing:.11em; text-transform:uppercase; }
+.headline { max-width:610px; font-size:clamp(3rem,5.5vw,5.4rem); line-height:.91; letter-spacing:-.04em; text-wrap:balance; }
+.tagline { max-width:450px; margin-top:24px; color:rgba(255,255,255,.82); font-size:1rem; line-height:1.55; }
+.ctas { display:flex; gap:10px; margin-top:28px; }
+.ctaPrimary,.ctaSecondary { min-height:44px; padding:0 20px; border-radius:999px; cursor:pointer; font:600 .7rem var(--font-body); transition:transform 220ms ease,background 220ms ease; }
+.ctaPrimary { border:0; color:var(--navy); background:var(--pop); }.ctaSecondary { border:1px solid rgba(255,255,255,.5); color:#fff; background:transparent; }
+.ctaPrimary:hover,.ctaSecondary:hover { transform:translateY(-2px); }.ctaSecondary:hover { background:#fff; color:var(--blue); }
+.montage { position:relative; z-index:3; height:500px; margin-left:-8%; }
+.visualMain,.visualSide { position:absolute; overflow:hidden; border-radius:20px; box-shadow:15px 34px 70px rgba(4,23,95,.34); }
+.visualMain { width:78%; height:56%; top:18%; right:0; transform:rotate(2.5deg); }
+.visualSide { width:45%; height:43%; left:2%; bottom:6%; transform:rotate(-7deg); }
+.identityBadge { position:absolute; display:grid; place-items:center; width:145px; aspect-ratio:1; top:1%; left:18%; border-radius:50%; color:var(--navy); background:var(--pop); transform:rotate(-8deg); box-shadow:8px 18px 35px rgba(4,23,95,.22); }
+.identityBadge span { font-size:2rem; font-weight:800; letter-spacing:-.06em; }.identityBadge small { margin-top:-40px; font:.52rem var(--font-mono); text-transform:uppercase; }
+.currentBuild { position:absolute; z-index:5; right:0; bottom:42px; display:flex; align-items:center; gap:7px; color:rgba(255,255,255,.68); font:.62rem var(--font-mono); }
+.buildLabel { text-transform:uppercase; letter-spacing:.08em; }.buildProject { color:var(--pop); font-weight:500; }.buildDesc { color:rgba(255,255,255,.68); }
+.signature { position:absolute; z-index:3; left:50%; bottom:30px; transform:translateX(-50%); color:rgba(255,255,255,.48); font:.58rem var(--font-mono); letter-spacing:.08em; text-transform:uppercase; }
+@media (max-width:900px){.hero,.heroInner{min-height:700px}.heroInner{grid-template-columns:1fr 1fr}.montage{height:420px}.headline{font-size:clamp(2.8rem,7vw,4.5rem)}}
+@media (max-width:700px){
+  .hero { min-height:850px; }.heroInner{grid-template-columns:1fr; align-content:start; width:calc(100% - 32px); min-height:850px; padding:110px 0 50px}.ghostWord{top:43%;font-size:48vw}.headline{font-size:clamp(3rem,15vw,4.6rem)}.tagline{max-width:33ch}.montage{height:340px;margin:18px 0 0}.visualMain{width:83%;height:58%;top:16%;}.visualSide{width:48%;height:44%;bottom:0}.identityBadge{width:100px;left:4%;top:2%}.identityBadge span{font-size:1.4rem}.identityBadge small{margin-top:-28px}.currentBuild{left:0;right:auto;bottom:25px;max-width:90%;flex-wrap:wrap}.signature{display:none}
 }

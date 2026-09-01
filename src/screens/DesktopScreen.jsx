@@ -16,14 +16,21 @@ function DesktopScreen() {
   return (
     <>
       <TopBar />
+      <HeroSection hero={hero} projects={featuredEntries} />
       <main className={styles.page}>
-        <HeroSection hero={hero} />
-        <AboutSection about={about} />
-        <SkillsSection skills={skills} />
+        <div className={styles.skillStrip} aria-label="Core capabilities">
+          {skills.categories.flatMap((category) => category.items).slice(0, 8).map((skill) => (
+            <span key={skill.name}>{skill.name}</span>
+          ))}
+        </div>
 
-        <div id="works">
+        <section id="works" className={styles.works}>
           {featuredEntries.length > 0 && (
-            <h2 className={styles.sectionHeader}>featured works</h2>
+            <div className={styles.worksHeading}>
+              <p>Portfolio</p>
+              <h2>Selected Work</h2>
+              <span>Products and identities shaped from first idea to final interface.</span>
+            </div>
           )}
 
           <motion.div
@@ -39,11 +46,11 @@ function DesktopScreen() {
                 <ProjectCard key={entry.id} entry={entry} index={i + 1} />
               ))}
           </motion.div>
-        </div>
+        </section>
+        <SkillsSection skills={skills} />
+        <AboutSection about={about} />
       </main>
-      <div id="contact">
-        <ContactSection contact={contact} />
-      </div>
+      <ContactSection contact={contact} />
       <Footer />
     </>
   )

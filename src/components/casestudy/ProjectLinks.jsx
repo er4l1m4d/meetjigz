@@ -3,12 +3,15 @@ import { fadeIn } from '../animations/variants'
 import styles from './ProjectLinks.module.css'
 
 function ProjectLinks({ links }) {
-  if (!links?.length) return null
+  const realLinks = (links || []).filter(
+    (link) => link?.href && link.href !== '#' && link.href.trim() !== '',
+  )
+  if (realLinks.length === 0) return null
 
   return (
     <Reveal variant={fadeIn}>
       <div className={styles.links}>
-        {links.map((link) => (
+        {realLinks.map((link) => (
           <a
             key={link.label}
             href={link.href}

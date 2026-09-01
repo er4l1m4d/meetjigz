@@ -1,8 +1,8 @@
 .gallery {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-  margin: var(--space-6) 0;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:24px;
+  margin:24px 0 80px;
 }
 
 .item {
@@ -12,17 +12,19 @@
 .imageButton {
   width: 100%;
   background: none;
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-md);
+  border: 0;
+  border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
   padding: 0;
-  transition: border-color 200ms ease;
+  transition: transform 250ms ease;
 }
 
 .imageButton:hover {
-  border-color: var(--ink-muted);
+  transform:translateY(-4px);
 }
+
+@media(max-width:650px){.gallery{grid-template-columns:1fr}}
 
 .imageButton:focus-visible {
   outline: 2px solid var(--link);

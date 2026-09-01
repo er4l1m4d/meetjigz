@@ -1,26 +1,27 @@
 :root {
-  --font-mono: 'IBM Plex Mono', monospace;
-  --font-body: 'IBM Plex Sans', sans-serif;
-
-  /* Cyclorama Dawn palette */
-  --bg: #0a0a1a;
-  --surface: #0f0f24;
-  --surface-raised: #14142e;
-  --ink: #f5f0e8;
-  --ink-muted: #a8b4c8;
-  --hairline: #1e2a4a;
-  --status-live: #3ddc84;
-  --status-progress: #f2a93b;
-  --status-shadow: #6b7280;
-  --link: #5b8def;
-  --pop: #d4856b;
-
-  /* Cyclorama horizon bands */
-  --cyc-night: #0a0a1a;
-  --cyc-cobalt: #1b3a6b;
-  --cyc-rose: #d4856b;
-  --cyc-day: #f5f0e8;
-  --cyc-transition: linear-gradient(180deg, var(--cyc-night) 0%, var(--cyc-cobalt) 35%, var(--cyc-rose) 65%, var(--cyc-day) 100%);
+  --font-mono: 'DM Mono', monospace;
+  --font-body: 'Bricolage Grotesque', sans-serif;
+  --bg: #f8f9ff;
+  --surface: #ffffff;
+  --surface-raised: #edf1ff;
+  --ink: #092064;
+  --ink-muted: #66719b;
+  --hairline: #dbe1f7;
+  --status-live: #58df78;
+  --status-progress: #f3ed66;
+  --status-shadow: #98a4c9;
+  --link: #2448e8;
+  --pop: #eff45a;
+  --blue: #2448e8;
+  --blue-deep: #1236bc;
+  --blue-soft: #dce6ff;
+  --cream: #fbfce9;
+  --white: #ffffff;
+  --navy: #071c5c;
+  --cyc-night: var(--navy);
+  --cyc-cobalt: var(--blue);
+  --cyc-rose: var(--pop);
+  --cyc-day: var(--white);
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -31,32 +32,15 @@
   --space-7: 3rem;
   --space-8: 6rem;
 
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
   --radius-pill: 9999px;
 
-  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-soft: 0 24px 70px rgba(18, 54, 188, 0.16);
 }
 
 [data-theme="light"] {
-  --bg: #f5f0e8;
-  --surface: #ffffff;
-  --surface-raised: #ebe5db;
-  --ink: #1a1d23;
-  --ink-muted: #6b7280;
-  --hairline: #d4cfc5;
-  --status-live: #22a65a;
-  --status-progress: #d48a1e;
-  --status-shadow: #9ca3af;
-  --link: #3b6fd4;
-  --pop: #1b3a6b;
-  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.08);
-
-  /* Cyclorama Dawn light palette */
-  --cyc-night: #f5f0e8;
-  --cyc-cobalt: #1b3a6b;
-  --cyc-rose: #d4856b;
-  --cyc-day: #1a1d23;
+  color-scheme: light;
 }
 
 html {
@@ -76,7 +60,7 @@ body {
   min-height: 100vh;
   font-family: var(--font-body);
   font-size: 16px;
-  line-height: 1.65;
+  line-height: 1.55;
   background: var(--bg);
   color: var(--ink);
   font-synthesis: none;
@@ -86,9 +70,22 @@ body {
   overflow-x: hidden;
 }
 
+::selection {
+  color: var(--navy);
+  background: var(--pop);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scrollbar-color: var(--blue) var(--blue-soft);
+}
+
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
 }
 
 p {
@@ -101,7 +98,13 @@ a {
 }
 
 a:hover {
-  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--pop);
+  outline-offset: 3px;
 }
 
 button,
