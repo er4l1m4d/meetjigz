@@ -135,39 +135,6 @@
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(6px); }
 }
-.cta {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: var(--sink);
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  width: max-content;
-  margin: 0 auto;
-  min-height: 36px;
-  padding: 0 20px;
-  border: 1px solid var(--hairline);
-  border-radius: 999px;
-  color: var(--ink);
-  background: color-mix(in srgb, var(--surface) 82%, transparent);
-  cursor: pointer;
-  font: 500 .64rem var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 400ms ease 500ms, background 220ms ease, color 220ms ease, border-color 220ms ease;
-}
-.ctaVisible {
-  opacity: 1;
-  pointer-events: auto;
-}
-.cta:hover {
-  background: var(--ink);
-  color: var(--bg);
-  border-color: var(--ink);
-}
 @media (max-width: 900px) {
   .hero {
     --name-top: 12%;
