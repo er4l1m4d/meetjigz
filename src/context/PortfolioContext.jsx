@@ -51,12 +51,26 @@ async function savePortfolio(data) {
 }
 
 const mergeWithDefaults = (defaults, ...sources) => {
+  const isObject = (v) => v && typeof v === 'object' && !Array.isArray(v)
+  const deepMerge = (target, source) => {
+    for (const [key, value] of Object.entries(source || {})) {
+      if (value === null || value === undefined || value === '') continue
+      if (isObject(value) && isObject(target[key])) {
+        deepMerge(target[key], value)
+      } else {
+        target[key] = value
+      }
+    }
+    return target
+  }
+
   let result = { ...defaults }
   for (const source of sources) {
     if (!source || typeof source !== 'object') continue
-    for (const [key, value] of Object.entries(source)) {
-      if (value === null || value === undefined) continue
-      result[key] = value
+    if (Array.isArray(source)) {
+      if (source.length > 0) result = { ...result, ...source.reduce((acc, v) => ({ ...acc, ...v }), {}) }
+    } else {
+      deepMerge(result, source)
     }
   }
   return result
