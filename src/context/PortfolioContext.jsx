@@ -80,24 +80,29 @@ function PortfolioProvider({ children }) {
           saveToStorage(STORAGE_KEYS.featured, data.featured)
         }
         if (data.hero) {
-          setHeroState(data.hero)
-          saveToStorage(STORAGE_KEYS.hero, data.hero)
+          const merged = { ...DEFAULT_HERO, ...loadFromStorage(STORAGE_KEYS.hero, DEFAULT_HERO), ...data.hero }
+          setHeroState(merged)
+          saveToStorage(STORAGE_KEYS.hero, merged)
         }
         if (data.contact) {
-          setContactState(data.contact)
-          saveToStorage(STORAGE_KEYS.contact, data.contact)
+          const merged = { ...DEFAULT_CONTACT, ...loadFromStorage(STORAGE_KEYS.contact, DEFAULT_CONTACT), ...data.contact }
+          setContactState(merged)
+          saveToStorage(STORAGE_KEYS.contact, merged)
         }
         if (data.about) {
-          setAboutState(data.about)
-          saveToStorage(STORAGE_KEYS.about, data.about)
+          const merged = { ...DEFAULT_ABOUT, ...loadFromStorage(STORAGE_KEYS.about, DEFAULT_ABOUT), ...data.about }
+          setAboutState(merged)
+          saveToStorage(STORAGE_KEYS.about, merged)
         }
         if (data.skills) {
-          setSkillsState(data.skills)
-          saveToStorage(STORAGE_KEYS.skills, data.skills)
+          const merged = { ...DEFAULT_SKILLS, ...loadFromStorage(STORAGE_KEYS.skills, DEFAULT_SKILLS), ...data.skills }
+          setSkillsState(merged)
+          saveToStorage(STORAGE_KEYS.skills, merged)
         }
         if (data.settings) {
-          setSettingsState(data.settings)
-          saveToStorage(STORAGE_KEYS.settings, data.settings)
+          const merged = { ...DEFAULT_SETTINGS, ...loadFromStorage(STORAGE_KEYS.settings, DEFAULT_SETTINGS), ...data.settings }
+          setSettingsState(merged)
+          saveToStorage(STORAGE_KEYS.settings, merged)
         }
       }
       setLoaded(true)
