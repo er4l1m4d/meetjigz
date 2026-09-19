@@ -48,6 +48,17 @@ function HeroSection({ hero }) {
               <span key={i} className={styles.roleLine}>{line}</span>
             ))}
           </p>
+          {workCta && (
+            <button
+              type="button"
+              className={`${styles.cta} ${revealed ? styles.ctaVisible : ''}`}
+              onClick={() => scrollTo(workCta.target)}
+              aria-hidden={revealed ? undefined : 'true'}
+              tabIndex={revealed ? 0 : -1}
+            >
+              {workCta.label}
+            </button>
+          )}
         </div>
 
         {hero.portrait?.src && (
@@ -74,17 +85,6 @@ function HeroSection({ hero }) {
           <CaretDown size={18} weight="bold" />
         </button>
 
-        {workCta && (
-          <button
-            type="button"
-            className={`${styles.cta} ${revealed ? styles.ctaVisible : ''}`}
-            onClick={() => scrollTo(workCta.target)}
-            aria-hidden={revealed ? undefined : 'true'}
-            tabIndex={revealed ? 0 : -1}
-          >
-            {workCta.label}
-          </button>
-        )}
       </div>
     </section>
   )
