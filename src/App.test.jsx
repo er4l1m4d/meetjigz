@@ -14,6 +14,6 @@ describe('App', () => {
         </PortfolioProvider>
       </ThemeProvider>,
     )
-    expect(screen.getByRole('heading', { name: /design.*build digital.*products/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /designer/i })).toBeInTheDocument()
   })
 })

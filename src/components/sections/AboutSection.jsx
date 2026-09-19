@@ -2,46 +2,49 @@ import { fadeUp } from '../animations/variants'
 import Reveal from '../animations/Reveal'
 import styles from './AboutSection.module.css'
 
+function scrollTo(id) {
+  const el = document.getElementById(id)
+  if (el) {
+    const y = el.getBoundingClientRect().top + window.scrollY - 60
+    window.scrollTo({ top: y, behavior: 'smooth' })
+  }
+}
+
 function AboutSection({ about }) {
   if (!about) return null
+
+  const eyebrow = about.eyebrow || '// Intro'
+  const statement = about.statement || "I'm a versatile designer who partners with founders to turn ideas into real products. I focus on clear interfaces, sharp decisions, and fast execution."
+  const ctaText = about.ctaText || 'See my Work'
 
   return (
     <section id="about" className={styles.section}>
       <div className={styles.inner}>
         <Reveal variant={fadeUp}>
-          <div className={styles.headingBlock}>
-            <p>How I work</p>
-            <h2>From Idea To Launch</h2>
-          </div>
+          <p className={styles.eyebrow}>{eyebrow}</p>
         </Reveal>
-        <div className={styles.story}>
-          <Reveal variant={fadeUp} transition={{ delay: 0.1 }}>
-            <p className={styles.statement}>I move between product thinking, interface design and code without losing the thread.</p>
-          </Reveal>
-          <div className={styles.details}>
-            <Reveal variant={fadeUp} transition={{ delay: 0.15 }}>
-              <p className={styles.bio}>{about.bio}</p>
-            </Reveal>
-            {about.interests && (
-              <Reveal variant={fadeUp} transition={{ delay: 0.18 }}>
-                <p className={styles.interests}>{about.interests}</p>
-              </Reveal>
-            )}
-          </div>
-        </div>
 
-        {about.availableFor?.length > 0 && (
-        <Reveal variant={fadeUp} transition={{ delay: 0.2 }}>
-          <div className={styles.availability}>
-            <span className={styles.availLabel}>Open to</span>
-            <div className={styles.availBadges}>
-              {about.availableFor.map((item) => (
-                <span key={item} className={styles.availBadge}>{item}</span>
-              ))}
-            </div>
-          </div>
+        <Reveal variant={fadeUp} transition={{ delay: 0.06 }}>
+          <h2 className={styles.statement}>
+            {statement}
+          </h2>
         </Reveal>
+
+        {about.bio && (
+          <Reveal variant={fadeUp} transition={{ delay: 0.12 }}>
+            <p className={styles.body}>{about.bio}</p>
+          </Reveal>
         )}
+
+        <Reveal variant={fadeUp} transition={{ delay: 0.18 }}>
+          <button
+            type="button"
+            className={styles.cta}
+            onClick={() => scrollTo('works')}
+          >
+            {ctaText}
+          </button>
+        </Reveal>
       </div>
     </section>
   )

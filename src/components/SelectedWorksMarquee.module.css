@@ -1,0 +1,94 @@
+/* ============================================================================
+   SelectedWorksMarquee — continuous horizontal marquee with 3 visible cards
+   Shows exactly 3 cards at a time; scrolls seamlessly with pause-on-hover.
+   Glassmorphism card treatment with dark theme.
+   ========================================================================== */
+
+:root {
+  --marquee-card-width: 340px;
+  --marquee-card-gap: 24px;
+  --marquee-duration: 60s;
+  --marquee-edge: 56px;
+}
+
+.marqueeRoot {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.marqueeTrack {
+  display: flex;
+  align-items: stretch;
+  gap: var(--marquee-card-gap);
+  width: max-content;
+  animation: marqueeScroll var(--marquee-duration, 60s) linear infinite;
+}
+
+.marqueeRoot:hover .marqueeTrack {
+  animation-play-state: paused;
+}
+
+.marqueeCard {
+  flex: none;
+  display: flex;
+  width: var(--marquee-card-width);
+}
+
+/* ---- soft edge zones: pure dissolve fade ------------------------------------
+   Symmetric left/right gradients into the section surface. No blur — cards
+   simply melt into the background and vanish fully at the extreme edge.
+   The zones intentionally intercept the pointer so partially-visible edge
+   cards aren't clickable; hovering them still pauses the marquee because
+   they sit inside .marqueeRoot.                                */
+
+.edgeLeft,
+.edgeRight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--marquee-edge);
+  z-index: 2;
+}
+
+.edgeLeft {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    var(--surface) 0%,
+    transparent 100%
+  );
+}
+
+.edgeRight {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    var(--surface) 0%,
+    transparent 100%
+  );
+}
+
+@keyframes marqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --marquee-card-width: 290px;
+    --marquee-card-gap: 18px;
+  }
+}
+
+@media (max-width: 760px) {
+  :root {
+    --marquee-card-width: 260px;
+    --marquee-card-gap: 14px;
+  }
+}

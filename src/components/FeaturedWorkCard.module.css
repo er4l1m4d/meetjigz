@@ -1,0 +1,71 @@
+.root {
+  position: relative;
+  width: 100%;
+}
+
+.media {
+  aspect-ratio: 3 / 2;
+  min-height: 260px;
+}
+
+.stagger {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.zoomHit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.insetLabelText {
+  display: block;
+  font: 600 10px/1.4 var(--font-mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.labelCorner {
+  color: var(--surface);
+}
+
+.pinCorner {
+  color: var(--blue);
+}
+
+.title {
+  margin: 0;
+  font: 700 clamp(1.45rem, 2.2vw, 1.75rem) var(--font-body);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  text-wrap: balance;
+  color: var(--ink);
+}
+
+.description {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+  color: var(--ink-muted);
+}
+
+.metaGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}

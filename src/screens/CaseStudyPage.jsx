@@ -17,7 +17,7 @@ const SECTION_KEYS = ['context', 'problem', 'role', 'thinking', 'build', 'challe
 
 function CaseStudyPage() {
   const { id } = useParams()
-  const { featuredEntries } = usePortfolioData()
+  const { featuredEntries, settings } = usePortfolioData()
 
   const entry = featuredEntries.find((e) => e.id === id)
   const caseStudyEntries = featuredEntries.filter(hasRealCaseStudy)
@@ -49,7 +49,7 @@ function CaseStudyPage() {
 
   return (
     <>
-      <TopBar />
+      <TopBar navLinks={settings?.navLinks} />
       <ProgressBar sections={sectionProgress} />
 
       <main className={styles.page}>
@@ -82,9 +82,9 @@ function CaseStudyPage() {
         </motion.div>
 
         <div className={styles.sections}>
-          {sections.map((key) => (
+          {sections.map((key, i) => (
             <div key={key} id={`cs-${key}`}>
-              <CaseStudySection sectionKey={key} content={caseStudy.sections[key]} />
+              <CaseStudySection sectionKey={key} content={caseStudy.sections[key]} index={i} />
             </div>
           ))}
         </div>

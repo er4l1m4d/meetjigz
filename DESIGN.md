@@ -3,7 +3,7 @@
 Design documentation for the built site. Ground truth is the CSS in `src/` — tokens in `src/index.css`, per-component rules in CSS Modules.
 
 ## Overview
-A cobalt-and-white studio-style portfolio. Saturated cobalt hero and contact fields, white editorial works section, cream skills band, deep-cobalt about band. Acid-lime is reserved for primary actions, punctuation, and focus. Oversized ghost display lettering (JIGZ / SELECTED / IDEAS) binds each view. Bricolage Grotesque display with tight negative tracking; DM Mono for small uppercase metadata. One authored motion moment per view.
+A MILAR-inspired portfolio for Damilare "JIGZ" Ogo-Oluwade: off-white editorial surfaces, full-bleed cobalt capability and manifesto bands, oversized Bricolage display type, a grayscale pixel avatar woven into the hero, and a forced-light hero scope. Acid-lime is reserved for actions and emphasis. DM Mono handles metadata, labels, and technical detail. The design supports a deliberate light/dark mode switch through the shared theme context (hero region excepted — always light).
 
 ## Color Tokens
 | Variable | Hex | Usage |
@@ -24,15 +24,18 @@ A cobalt-and-white studio-style portfolio. Saturated cobalt hero and contact fie
 | `--status-progress` | `#f3ed66` | Badge dot: in-progress (rendered `#dbb809`) |
 | `--status-shadow` | `#98a4c9` | Badge dot: shadow (rendered `#7e89ae`) |
 
-Hero/contact gradients are hardcoded: `linear-gradient(145deg,#173cce,#2e5bf1,#1740d5)` and `(#315cf0,#173fcf)`. `--shadow-soft: 0 24px 70px rgba(18,54,188,.16)`; cards use tighter variants of the same blue shadow.
+Dark mode overrides the surface, ink, muted ink, border, cobalt, and shadow tokens under `[data-theme="dark"]`. `--pop` remains the shared acid-lime action color and `--navy` remains the dark text color used on lime and white pills.
+
+Hero gradient is hardcoded: `linear-gradient(145deg,#173cce,#2e5bf1,#1740d5)`. `--shadow-soft: 0 24px 70px rgba(18,54,188,.16)`; cards use tighter variants of the same blue shadow.
 
 ## Typography
 | Role | Face | Size | Tracking |
 |---|---|---|---|
 | Body | Bricolage Grotesque 400 | 16px / 1.55 | normal |
 | Hero headline | Bricolage 800 | `clamp(3rem,5.5vw,5.4rem)` / .91 | -.04em |
+| Hero accent | Newsreader italic 400–600 | responsive | restrained |
 | Section h2 | Bricolage | `clamp(2.3rem,5vw,5rem)` / ~.92 | -.04em |
-| Contact / about statement | Bricolage 600 | up to `7rem` | -.055em |
+| About statement | Bricolage 600 | up to `7rem` | -.055em |
 | Case-study title | Bricolage | `clamp(4rem,10vw,9rem)` / .8 | -.065em |
 | Ghost words | Bricolage 800 | `clamp(6rem,28vw,25rem)` / .75 | -.07 to -.08em |
 | Project title | Bricolage | `clamp(1.3rem,2.4vw,2rem)` | -.03em |
@@ -49,18 +52,22 @@ Hero/contact gradients are hardcoded: `linear-gradient(145deg,#173cce,#2e5bf1,#1
 ## Components
 - **Buttons** — pills (999px), min-height 44px; primary lime bg + navy text, secondary ghost with white/navy border; hover lifts -2px.
 - **Badges** — mono uppercase pills on `--blue-soft` with 5px status dot (live / in-progress / shadow); `.design` variant navy-on-lime.
-- **Tags** — mono uppercase pills, `--blue` on `#edf1ff` (works) or navy on white (skills, with proficiency note).
+- **Tags** — mono uppercase pills, `--blue` on `#edf1ff` (works). Stack skills are tiles: brand glyph (react-icons, monochrome `--blue`, auto-matched by name or overridden in console) + name + `n/10` mono, over a 10-segment proficiency bar (`--blue` filled / `--hairline` empty) that staggers in on reveal.
 - **Project cards** — 1.35 aspect media, 16px radius, blue soft shadow; hover lifts -6px with deeper shadow.
 - **Nav (TopBar)** — absolute, transparent over hero, white links, lime hover; `.innerPage` flips to navy-on-light for inner routes; mobile hamburger opens navy dropdown.
 - **Progress dots** — fixed right rail (case study); 9px ring, active fills cobalt and scales 1.35.
+- **Needs section** — cobalt full-bleed capability block with rotated white skill pills and a single project CTA.
 - **Project visuals** — designed placeholder compositions (dashboard / brand orbit / mobile) built from layout primitives, no raster required.
+- **Theme toggle** — TopBar exposes the existing ThemeContext as a compact “change the mode” pill; all primary surfaces use semantic tokens.
+- **Footer** — full-viewport-width deep-cobalt `--blue-deep` band, fixed in both themes: centered container with mono “say hello” eyebrow + mailto with ↗, mono uppercase anchor links (about/stack/works/contact, deep-linking `/#anchor` from inner routes), a hairline meta strip (mono copyright/credit, white-outline social pills, circular back-to-top), and a JIGZ wordmark rendered as an SVG `<text>` in Bricolage Grotesque 800 at 85% white, `textLength` + `lengthAdjust="spacingAndGlyphs"` (viewBox `0 0 1280 620`) so it always spans the section edge-to-edge, flush on the bottom edge, with a gradient mask dissolve (`linear-gradient(to bottom, #000 55%, transparent)`). Entry reveal only (`fadeUp`); no mode toggle lives here. The footer carries the `#contact` anchor — the hero CTA, TopBar, and footer nav “contact” links land on its say-hello block (the standalone ContactSection was removed).
 
 ## Imagery Rules
+- The hero uses `/images/portrait.png`, sourced from the owner’s supplied upscaled transparent pixel avatar. It renders in grayscale (`filter: grayscale(1)` on `.portraitImg`) per the monotone direction; the underlying file stays untouched in full color. The hero region is forced light via `.heroScope` token overrides in `DesktopScreen.module.css`, regardless of the global theme.
 - Until real screenshots exist, `ProjectVisual.jsx` renders dashboard, brand-board, and mobile compositions in tokens (cobalt/lime/navy), 16–20px rounded, soft blue shadows.
 - When a project supplies a real image (`heroImage`, card thumbnail), it renders `object-fit: cover` in the same rounded frame — placeholder and real imagery are drop-in interchangeable; never stretch or hard-crop outside the frame.
 
 ## Motion
-- One authored moment per view: hero content fades up on load; contact orb drifts (`drift` 10s alternate, rotate 7deg / scale 1.05).
+- One authored moment per view: hero content and avatar fade up on load; needs pills reveal on entry; footer card reveals on entry (`fadeUp`).
 - Micro-interactions only elsewhere: hover lifts, 200–350ms eases; hamburger bar rotation.
 - `prefers-reduced-motion: reduce` — orb animation off; global rule in `index.css` clamps all transitions/animations to 0.01ms.
 
@@ -68,6 +75,6 @@ Hero/contact gradients are hardcoded: `linear-gradient(145deg,#173cce,#2e5bf1,#1
 `src/lib/caseStudy.js`: `isPlaceholderSection` suppresses empty or `[placeholder…` text; `hasRealCaseStudy` requires at least one real section before a case-study page or link is published. Unfinished CMS content never reaches the UI.
 
 ## Do / Don't
-**Do** — use CSS variables, not new hex values; DM Mono for all metadata/labels; lime only for primary actions, punctuation, and focus; navy ink on light surfaces; 16–20px radii on media; 44px minimum touch targets; keep exactly one motion moment per view.
+**Do** — use CSS variables, not new hex values; DM Mono for all metadata/labels; Newsreader only for intentional editorial accents; lime only for primary actions and emphasis; semantic ink tokens across both themes; 16–20px radii on media; 44px minimum touch targets; keep exactly one motion moment per view.
 
 **Don't** — introduce colors outside the token set (gradients excepted); use Bricolage for small caps metadata or DM Mono for display; add decorative animations beyond the micro-interactions; publish placeholder-tagged content; break the works grid rhythm with symmetric spans.

@@ -2,7 +2,10 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { usePortfolioData } from '../hooks/usePortfolioData.js'
 import { useToast } from '../context/ToastContext.jsx'
+import { resolveLevel } from '../lib/skillIcons.js'
 import TopBar from '../components/TopBar.jsx'
+import IconPicker from '../components/ui/IconPicker.jsx'
+import SocialIconPicker from '../components/ui/SocialIconPicker.jsx'
 import styles from './ConsolePage.module.css'
 
 function TextInput({ label, value, onChange, multiline, placeholder }) {
@@ -20,9 +23,13 @@ function TextInput({ label, value, onChange, multiline, placeholder }) {
 
 function HeroForm({ hero, onSave }) {
   const [form, setForm] = useState({
-    name: hero.name || '',
+    firstName: hero.firstName || '',
+    lastName: hero.lastName || '',
     role: hero.role || '',
     tagline: hero.tagline || '',
+    revealText: hero.revealText || '',
+    portraitSrc: hero.portrait?.src || '',
+    portraitAlt: hero.portrait?.alt || '',
     ctas: hero.ctas || [],
     currentBuild: hero.currentBuild || { text: '', project: '', description: '' },
   })
@@ -43,13 +50,33 @@ function HeroForm({ hero, onSave }) {
     }))
   }
 
+  const handleSave = () => {
+    const parsed = {
+      ...form,
+      portrait: form.portraitSrc ? { src: form.portraitSrc, alt: form.portraitAlt } : undefined,
+    }
+    delete parsed.portraitSrc
+    delete parsed.portraitAlt
+    onSave(parsed)
+  }
+
   return (
     <section className={styles.section}>
       <h2 className={styles.sectionTitle}>$ hero --edit</h2>
       <div className={styles.form}>
-        <TextInput label="name" value={form.name} onChange={set('name')} />
+        <div className={styles.formRow}>
+          <TextInput label="first name" value={form.firstName} onChange={set('firstName')} />
+          <TextInput label="last name" value={form.lastName} onChange={set('lastName')} />
+        </div>
         <TextInput label="role" value={form.role} onChange={set('role')} />
         <TextInput label="tagline" value={form.tagline} onChange={set('tagline')} multiline />
+        <TextInput label="reveal button text" value={form.revealText} onChange={set('revealText')} placeholder="Who is he?" />
+
+        <div className={styles.subsection}>
+          <span className={styles.label}>portrait image</span>
+          <TextInput label="src" value={form.portraitSrc} onChange={set('portraitSrc')} placeholder="/images/portrait.png" />
+          <TextInput label="alt" value={form.portraitAlt} onChange={set('portraitAlt')} placeholder="Portrait description" />
+        </div>
 
         <div className={styles.subsection}>
           <span className={styles.label}>CTAs</span>
@@ -68,7 +95,7 @@ function HeroForm({ hero, onSave }) {
           <TextInput label="description" value={form.currentBuild.description} onChange={(v) => updateBuild('description', v)} />
         </div>
 
-        <button type="button" className={styles.saveBtn} onClick={() => onSave(form)}>
+        <button type="button" className={styles.saveBtn} onClick={handleSave}>
           save
         </button>
       </div>
@@ -81,6 +108,9 @@ function AboutForm({ about, onSave }) {
     bio: about.bio || '',
     interests: about.interests || '',
     availableFor: about.availableFor?.join(', ') || '',
+    eyebrow: about.eyebrow || '',
+    statement: about.statement || '',
+    ctaText: about.ctaText || '',
   })
 
   const set = (key) => (val) => setForm((prev) => ({ ...prev, [key]: val }))
@@ -99,6 +129,9 @@ function AboutForm({ about, onSave }) {
         <TextInput label="bio" value={form.bio} onChange={set('bio')} multiline />
         <TextInput label="interests" value={form.interests} onChange={set('interests')} />
         <TextInput label="available for (comma-separated)" value={form.availableFor} onChange={set('availableFor')} placeholder="Full-time roles, Freelance projects" />
+        <TextInput label="eyebrow" value={form.eyebrow} onChange={set('eyebrow')} placeholder="// Intro" />
+        <TextInput label="statement" value={form.statement} onChange={set('statement')} multiline placeholder="I'm a versatile designer..." />
+        <TextInput label="cta button text" value={form.ctaText} onChange={set('ctaText')} placeholder="See my Work" />
         <button type="button" className={styles.saveBtn} onClick={handleSave}>
           save
         </button>
@@ -109,11 +142,19 @@ function AboutForm({ about, onSave }) {
 
 function SkillsForm({ skills, onSave }) {
   const [form, setForm] = useState({
+    heading: skills.heading || '',
+    subtext: skills.subtext || '',
     categories: skills.categories?.map((cat) => ({
       ...cat,
-      items: cat.items.map((item) => ({ ...item, projectIds: item.projectIds?.join(', ') || '' })),
+      items: cat.items.map((item) => ({
+        ...item,
+        level: resolveLevel(item) ?? 5,
+        projectIds: item.projectIds?.join(', ') || '',
+      })),
     })) || [],
   })
+
+  const set = (key) => (val) => setForm((prev) => ({ ...prev, [key]: val }))
 
   const updateCategory = (catIndex, key, val) => {
     setForm((prev) => ({
@@ -137,7 +178,7 @@ function SkillsForm({ skills, onSave }) {
     setForm((prev) => ({
       ...prev,
       categories: prev.categories.map((c, i) =>
-        i === catIndex ? { ...c, items: [...c.items, { name: '', proficiency: 'daily-driver', projectIds: '' }] } : c
+        i === catIndex ? { ...c, items: [...c.items, { name: '', level: 5, icon: '', projectIds: '' }] } : c
       ),
     }))
   }
@@ -167,12 +208,19 @@ function SkillsForm({ skills, onSave }) {
 
   const handleSave = () => {
     onSave({
+      heading: form.heading,
+      subtext: form.subtext,
       categories: form.categories.map((cat) => ({
         ...cat,
-        items: cat.items.map((item) => ({
-          ...item,
-          projectIds: item.projectIds ? item.projectIds.split(',').map((s) => s.trim()).filter(Boolean) : [],
-        })),
+        items: cat.items.map((item) => {
+          const level = Math.min(10, Math.max(1, Math.round(Number(item.level) || 0)))
+          return {
+            name: item.name,
+            level,
+            ...(item.icon ? { icon: item.icon } : {}),
+            projectIds: item.projectIds ? item.projectIds.split(',').map((s) => s.trim()).filter(Boolean) : [],
+          }
+        }),
       })),
     })
   }
@@ -181,6 +229,9 @@ function SkillsForm({ skills, onSave }) {
     <section className={styles.section}>
       <h2 className={styles.sectionTitle}>$ skills --edit</h2>
       <div className={styles.form}>
+        <TextInput label="heading" value={form.heading} onChange={set('heading')} placeholder="Design meets development." />
+        <TextInput label="subtext" value={form.subtext} onChange={set('subtext')} multiline placeholder="A focused toolkit..." />
+
         {form.categories.map((cat, catIndex) => (
           <div key={catIndex} className={styles.categoryBlock}>
             <div className={styles.categoryHeader}>
@@ -190,12 +241,23 @@ function SkillsForm({ skills, onSave }) {
 
             {cat.items.map((skill, skillIndex) => (
               <div key={skillIndex} className={styles.skillRow}>
+                <IconPicker
+                  skill={{ name: skill.name, icon: skill.icon }}
+                  value={skill.icon || ''}
+                  onChange={(v) => updateSkill(catIndex, skillIndex, 'icon', v)}
+                />
                 <input className={styles.input} type="text" placeholder="name" value={skill.name} onChange={(e) => updateSkill(catIndex, skillIndex, 'name', e.target.value)} />
-                <select className={styles.select} value={skill.proficiency} onChange={(e) => updateSkill(catIndex, skillIndex, 'proficiency', e.target.value)}>
-                  <option value="daily-driver">daily driver</option>
-                  <option value="comfortable">comfortable</option>
-                  <option value="familiar">familiar</option>
-                </select>
+                <input
+                  className={styles.levelInput}
+                  type="number"
+                  min="1"
+                  max="10"
+                  step="1"
+                  value={skill.level}
+                  onChange={(e) => updateSkill(catIndex, skillIndex, 'level', e.target.value)}
+                  title="proficiency (1–10)"
+                  aria-label="proficiency (1 to 10)"
+                />
                 <input className={styles.input} type="text" placeholder="project ids (comma-separated)" value={skill.projectIds} onChange={(e) => updateSkill(catIndex, skillIndex, 'projectIds', e.target.value)} />
                 <button type="button" className={styles.removeBtn} onClick={() => removeSkill(catIndex, skillIndex)}>×</button>
               </div>
@@ -316,6 +378,36 @@ function CaseStudyEditor({ caseStudy, onChange }) {
   )
 }
 
+function ImagesEditor({ images, onChange }) {
+  const updateImage = (index, key, val) => {
+    onChange(images.map((img, i) => (i === index ? { ...img, [key]: val } : img)))
+  }
+
+  const addImage = () => {
+    onChange([...images, { src: '', alt: '' }])
+  }
+
+  const removeImage = (index) => {
+    onChange(images.filter((_, i) => i !== index))
+  }
+
+  if (!images || !Array.isArray(images)) return null
+
+  return (
+    <div className={styles.subsection}>
+      <span className={styles.label}>images</span>
+      {images.map((img, i) => (
+        <div key={i} className={styles.skillRow}>
+          <input className={styles.input} type="text" placeholder="src" value={img.src} onChange={(e) => updateImage(i, 'src', e.target.value)} />
+          <input className={styles.input} type="text" placeholder="alt" value={img.alt} onChange={(e) => updateImage(i, 'alt', e.target.value)} />
+          <button type="button" className={styles.removeBtn} onClick={() => removeImage(i)}>×</button>
+        </div>
+      ))}
+      <button type="button" className={styles.addBtn} onClick={addImage}>+ add image</button>
+    </div>
+  )
+}
+
 function EntryForm({ entry, onSave, onCancel }) {
   const [form, setForm] = useState(() => {
     if (entry) {
@@ -325,6 +417,7 @@ function EntryForm({ entry, onSave, onCancel }) {
         tools: entry.tools?.join(', ') || '',
         thumbnailSrc: entry.thumbnail?.src || '',
         thumbnailAlt: entry.thumbnail?.alt || '',
+        images: entry.images || [],
         hasCaseStudy: entry.caseStudy != null,
         caseStudy: entry.caseStudy || null,
       }
@@ -341,6 +434,7 @@ function EntryForm({ entry, onSave, onCancel }) {
       tools: '',
       thumbnailSrc: '',
       thumbnailAlt: '',
+      images: [],
       year: '',
       client: '',
       duration: '',
@@ -426,6 +520,7 @@ function EntryForm({ entry, onSave, onCancel }) {
         <>
           <TextInput label="brief" value={form.brief} onChange={set('brief')} multiline />
           <TextInput label="tools (comma-separated)" value={form.tools} onChange={set('tools')} />
+          <ImagesEditor images={form.images} onChange={(imgs) => set('images')(imgs)} />
         </>
       )}
 
@@ -458,7 +553,7 @@ function EntryForm({ entry, onSave, onCancel }) {
   )
 }
 
-function EntryItem({ entry, onEdit, onDelete }) {
+function EntryItem({ entry, onEdit, onDelete, onMoveUp, onMoveDown, isFirst, isLast }) {
   return (
     <div className={styles.entryItem}>
       <div className={styles.entryInfo}>
@@ -467,6 +562,8 @@ function EntryItem({ entry, onEdit, onDelete }) {
         {entry.caseStudy && <span className={styles.caseStudyBadge}>cs</span>}
       </div>
       <div className={styles.entryActions}>
+        <button type="button" className={styles.actionBtn} onClick={() => onMoveUp(entry)} disabled={isFirst} title="move up">↑</button>
+        <button type="button" className={styles.actionBtn} onClick={() => onMoveDown(entry)} disabled={isLast} title="move down">↓</button>
         <button type="button" className={styles.actionBtn} onClick={() => onEdit(entry)}>
           edit
         </button>
@@ -495,7 +592,7 @@ function ContactForm({ contact, onSave }) {
   const addSocial = () => {
     setForm((prev) => ({
       ...prev,
-      socials: [...prev.socials, { id: '', label: '', href: '' }],
+      socials: [...prev.socials, { id: '', label: '', href: '', icon: '' }],
     }))
   }
 
@@ -518,9 +615,13 @@ function ContactForm({ contact, onSave }) {
           <span className={styles.label}>socials</span>
           {form.socials.map((social, i) => (
             <div key={i} className={styles.socialRow}>
-              <input className={styles.input} type="text" placeholder="id" value={social.id} onChange={(e) => updateSocial(i, 'id', e.target.value)} />
-              <input className={styles.input} type="text" placeholder="label" value={social.label} onChange={(e) => updateSocial(i, 'label', e.target.value)} />
-              <input className={styles.input} type="text" placeholder="href" value={social.href} onChange={(e) => updateSocial(i, 'href', e.target.value)} />
+               <input className={styles.input} type="text" placeholder="id" value={social.id} onChange={(e) => updateSocial(i, 'id', e.target.value)} />
+               <input className={styles.input} type="text" placeholder="label" value={social.label} onChange={(e) => updateSocial(i, 'label', e.target.value)} />
+               <SocialIconPicker
+                 value={social.icon || ''}
+                 onChange={(val) => updateSocial(i, 'icon', val)}
+               />
+               <input className={styles.input} type="text" placeholder="href" value={social.href} onChange={(e) => updateSocial(i, 'href', e.target.value)} />
               <button type="button" className={styles.removeBtn} onClick={() => removeSocial(i)}>×</button>
             </div>
           ))}
@@ -535,8 +636,179 @@ function ContactForm({ contact, onSave }) {
   )
 }
 
+function NavLinksEditor({ links, onChange, label }) {
+  const updateLink = (index, key, val) => {
+    onChange(links.map((l, i) => (i === index ? { ...l, [key]: val } : l)))
+  }
+
+  const addLink = () => {
+    onChange([...links, { id: '', label: '' }])
+  }
+
+  const removeLink = (index) => {
+    onChange(links.filter((_, i) => i !== index))
+  }
+
+  if (!links || !Array.isArray(links)) return null
+
+  return (
+    <div className={styles.subsection}>
+      <span className={styles.label}>{label}</span>
+      {links.map((link, i) => (
+        <div key={i} className={styles.socialRow}>
+          <input className={styles.input} type="text" placeholder="id" value={link.id} onChange={(e) => updateLink(i, 'id', e.target.value)} />
+          <input className={styles.input} type="text" placeholder={label === 'footer nav links' ? 'label (capitals)' : 'label'} value={link.label} onChange={(e) => updateLink(i, 'label', e.target.value)} />
+          <button type="button" className={styles.removeBtn} onClick={() => removeLink(i)}>×</button>
+        </div>
+      ))}
+      <button type="button" className={styles.addBtn} onClick={addLink}>+ add link</button>
+    </div>
+  )
+}
+
+function InterestTagsEditor({ tags, onChange }) {
+  const [inputValue, setInputValue] = useState('')
+
+  if (!tags || !Array.isArray(tags)) return null
+
+  const handleAdd = () => {
+    if (inputValue.trim()) {
+      onChange([...tags, inputValue.trim()])
+      setInputValue('')
+    }
+  }
+
+  const handleRemove = (index) => {
+    onChange(tags.filter((_, i) => i !== index))
+  }
+
+  return (
+    <div className={styles.subsection}>
+      <span className={styles.label}>interest tags</span>
+      <div className={styles.socialRow}>
+        <input
+          className={styles.input}
+          type="text"
+          placeholder="add tag"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleAdd() } }}
+        />
+        <button type="button" className={styles.actionBtn} onClick={handleAdd}>add</button>
+      </div>
+      <div className={styles.socialRow}>
+        {tags.map((tag, i) => (
+          <span key={i} className={styles.entryKind}>{tag}</span>
+        ))}
+      </div>
+      {tags.map((tag, i) => (
+        <button key={i} type="button" className={styles.removeBtn} onClick={() => handleRemove(i)}>×</button>
+      ))}
+    </div>
+  )
+}
+
+function SettingsForm({ settings, onSave }) {
+  const [form, setForm] = useState({
+    navLinks: settings.navLinks || [],
+    copyright: {
+      year: settings.copyright?.year || '',
+      name: settings.copyright?.name || '',
+      credit: settings.copyright?.credit || '',
+    },
+    works: {
+      heading: settings.works?.heading || '',
+      subtext: settings.works?.subtext || '',
+    },
+    contactForm: {
+      headline: settings.contactForm?.headline || '',
+      subhead: settings.contactForm?.subhead || '',
+      title: settings.contactForm?.title || '',
+      subtitle: settings.contactForm?.subtitle || '',
+      interestTags: settings.contactForm?.interestTags || [],
+    },
+  })
+
+  const set = (key) => (val) => setForm((prev) => ({ ...prev, [key]: val }))
+
+  const updateNavLinks = (links) => set('navLinks')(links)
+
+  const updateCopyright = (key, val) => {
+    set('copyright')({ ...form.copyright, [key]: val })
+  }
+
+  const updateWorks = (key, val) => {
+    set('works')({ ...form.works, [key]: val })
+  }
+
+  const updateContactForm = (key, val) => {
+    set('contactForm')({ ...form.contactForm, [key]: val })
+  }
+
+  const handleSave = () => {
+    onSave({
+      navLinks: form.navLinks,
+      copyright: {
+        year: form.copyright.year,
+        name: form.copyright.name,
+        credit: form.copyright.credit,
+      },
+      works: {
+        heading: form.works.heading,
+        subtext: form.works.subtext,
+      },
+      contactForm: {
+        headline: form.contactForm.headline,
+        subhead: form.contactForm.subhead,
+        title: form.contactForm.title,
+        subtitle: form.contactForm.subtitle,
+        interestTags: form.contactForm.interestTags,
+      },
+    })
+  }
+
+  return (
+    <section className={styles.section}>
+      <h2 className={styles.sectionTitle}>$ settings --edit</h2>
+      <div className={styles.form}>
+        <div className={styles.subsection}>
+          <span className={styles.label}>navigation links (top bar & footer)</span>
+          <NavLinksEditor links={form.navLinks} onChange={updateNavLinks} label="nav links" />
+        </div>
+
+        <div className={styles.subsection}>
+          <span className={styles.label}>copyright</span>
+          <TextInput label="year" value={form.copyright.year} onChange={(v) => updateCopyright('year', v)} placeholder="2026" />
+          <TextInput label="name" value={form.copyright.name} onChange={(v) => updateCopyright('name', v)} placeholder="Damilare Ogo-Oluwade" />
+          <TextInput label="credit" value={form.copyright.credit} onChange={(v) => updateCopyright('credit', v)} placeholder="designed & built by me" />
+        </div>
+
+        <div className={styles.subsection}>
+          <span className={styles.label}>works section</span>
+          <TextInput label="heading" value={form.works.heading} onChange={(v) => updateWorks('heading', v)} placeholder="Selected Work" />
+          <TextInput label="subtext" value={form.works.subtext} onChange={(v) => updateWorks('subtext', v)} multiline />
+        </div>
+
+        <div className={styles.subsection}>
+          <span className={styles.label}>contact form</span>
+          <TextInput label="headline" value={form.contactForm.headline} onChange={(v) => updateContactForm('headline', v)} placeholder="Have a project?" />
+          <TextInput label="subhead" value={form.contactForm.subhead} onChange={(v) => updateContactForm('subhead', v)} multiline />
+          <TextInput label="title" value={form.contactForm.title} onChange={(v) => updateContactForm('title', v)} placeholder="Start a project" />
+          <TextInput label="subtitle" value={form.contactForm.subtitle} onChange={(v) => updateContactForm('subtitle', v)} placeholder="Fill in the form below..." />
+        </div>
+
+        <InterestTagsEditor tags={form.contactForm.interestTags} onChange={(tags) => updateContactForm('interestTags', tags)} />
+
+        <button type="button" className={styles.saveBtn} onClick={handleSave}>
+          save
+        </button>
+      </div>
+    </section>
+  )
+}
+
 function ConsolePage() {
-  const { hero, contact, about, skills, featuredEntries, setHero, setContact, setAbout, setSkills, addEntry, updateEntry, deleteEntry } = usePortfolioData()
+  const { hero, contact, about, skills, settings, featuredEntries, setHero, setContact, setAbout, setSkills, setSettings, addEntry, updateEntry, deleteEntry, reorderEntries } = usePortfolioData()
   const { showToast } = useToast()
   const [editingEntry, setEditingEntry] = useState(null)
   const [showNewForm, setShowNewForm] = useState(false)
@@ -547,9 +819,24 @@ function ConsolePage() {
     deleteEntry(entry.id)
     showToast(`deleted "${entry.title}"`, {
       onUndo: () => {
-        addEntry(entry, 'featured')
+        addEntry(entry)
       },
     })
+  }
+
+  const handleMoveEntry = (entry, direction) => {
+    const currentIndex = allEntries.findIndex((e) => e.id === entry.id)
+    if (currentIndex === -1) return
+    const newIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1
+    if (newIndex < 0 || newIndex >= allEntries.length) return
+
+    const sorted = [...allEntries]
+    const [removed] = sorted.splice(currentIndex, 1)
+    sorted.splice(newIndex, 0, removed)
+
+    const newOrder = sorted.map((e) => e.id)
+    reorderEntries(newOrder)
+    showToast(`moved "${entry.title}" ${direction === 'up' ? 'up' : 'down'}`)
   }
 
   const handleSaveEntry = (form) => {
@@ -557,7 +844,7 @@ function ConsolePage() {
       updateEntry(editingEntry.id, form)
       showToast(`updated "${form.title}"`)
     } else {
-      addEntry(form, 'featured')
+      addEntry(form)
       showToast(`created "${form.title}"`)
     }
     setEditingEntry(null)
@@ -580,12 +867,16 @@ function ConsolePage() {
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>$ entries --list</h2>
 
-          {allEntries.map((entry) => (
+          {allEntries.map((entry, index) => (
             <EntryItem
               key={entry.id}
               entry={entry}
               onEdit={setEditingEntry}
               onDelete={handleDeleteEntry}
+              onMoveUp={(e) => handleMoveEntry(e, 'up')}
+              onMoveDown={(e) => handleMoveEntry(e, 'down')}
+              isFirst={index === 0}
+              isLast={index === allEntries.length - 1}
             />
           ))}
 
@@ -603,6 +894,8 @@ function ConsolePage() {
             </button>
           )}
         </section>
+
+        <SettingsForm settings={settings} onSave={(data) => { setSettings(data); showToast('settings updated') }} />
 
         <ContactForm contact={contact} onSave={(data) => { setContact(data); showToast('contact updated') }} />
 

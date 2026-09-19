@@ -14,7 +14,7 @@ const GRAPHICS = {
   'verge-gate': VergeGate,
 }
 
-function ProjectCard({ entry, index }) {
+function ProjectCard({ entry }) {
   const [lightbox, setLightbox] = useState(null)
   const Graphic = entry.graphic ? GRAPHICS[entry.graphic] : null
   const hasCaseStudy = hasRealCaseStudy(entry)
@@ -22,13 +22,9 @@ function ProjectCard({ entry, index }) {
   return (
     <motion.article className={styles.card} variants={staggerItem}>
       <div className={styles.header}>
-        <span className={styles.numeral}>
-          {String(index).padStart(2, '0')}
-        </span>
         <h3 className={styles.title}>{entry.title}</h3>
         {entry.status && (
           <span className={`${styles.badge} ${styles[entry.status]}`}>
-            <span className={styles.dot} />
             {entry.status.replace('-', ' ')}
           </span>
         )}

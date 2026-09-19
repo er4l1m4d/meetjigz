@@ -5,20 +5,24 @@ function ProgressBar({ sections }) {
   const [active, setActive] = useState(0)
 
   useEffect(() => {
-    function onScroll() {
-      const scrollY = window.scrollY + 200
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(`cs-${sections[i]}`)
-        if (el && el.offsetTop <= scrollY) {
-          setActive(i)
-          return
-        }
-      }
-      setActive(0)
-    }
+    if (sections.length === 0) return undefined
 
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue
+          const idx = sections.indexOf(entry.target.id.replace('cs-', ''))
+          if (idx !== -1) setActive(idx)
+        }
+      },
+      { rootMargin: '-40% 0px -55% 0px' }
+    )
+
+    const els = sections
+      .map((s) => document.getElementById(`cs-${s}`))
+      .filter(Boolean)
+    els.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
   }, [sections])
 
   function scrollTo(index) {

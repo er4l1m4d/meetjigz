@@ -2,10 +2,18 @@ import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import styles from './TopBar.module.css'
 
-function TopBar() {
+const DEFAULT_NAV_LINKS = [
+  { id: 'about', label: 'about' },
+  { id: 'stack', label: 'stack' },
+  { id: 'works', label: 'works' },
+  { id: 'contact', label: 'contact' },
+]
+
+function TopBar({ navLinks }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
   const isHome = location.pathname === '/'
+  const links = navLinks || DEFAULT_NAV_LINKS
 
   const scrollTo = (id) => {
     setMenuOpen(false)
@@ -30,29 +38,6 @@ function TopBar() {
         </div>
 
         <div className={styles.right}>
-          <ul className={`${styles.links} ${menuOpen ? styles.open : ''}`}>
-            <li>
-              <button type="button" className={styles.link} onClick={() => scrollTo('about')}>
-                about
-              </button>
-            </li>
-            <li>
-              <button type="button" className={styles.link} onClick={() => scrollTo('stack')}>
-                stack
-              </button>
-            </li>
-            <li>
-              <button type="button" className={styles.link} onClick={() => scrollTo('works')}>
-                works
-              </button>
-            </li>
-            <li>
-              <button type="button" className={styles.link} onClick={() => scrollTo('contact')}>
-                contact
-              </button>
-            </li>
-          </ul>
-
           <button
             type="button"
             className={styles.hamburger}
@@ -63,6 +48,16 @@ function TopBar() {
             <span className={`${styles.bar} ${menuOpen ? styles.barOpen : ''}`} />
             <span className={`${styles.bar} ${menuOpen ? styles.barOpen : ''}`} />
           </button>
+
+          <ul className={`${styles.links} ${menuOpen ? styles.open : ''}`}>
+            {links.map((item) => (
+              <li key={item.id}>
+                <button type="button" className={styles.link} onClick={() => scrollTo(item.id)}>
+                  {item.label}
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </nav>

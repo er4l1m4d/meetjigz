@@ -1,67 +1,71 @@
-import { motion } from 'framer-motion'
-import { fadeUp, fadeIn } from '../animations/variants'
-import ProjectVisual from '../ProjectVisual.jsx'
+import { useState } from 'react'
+import { CaretDown } from '@phosphor-icons/react'
 import styles from './HeroSection.module.css'
 
 function scrollTo(id) {
   const el = document.getElementById(id)
   if (el) {
-    const y = el.getBoundingClientRect().top + window.scrollY - 80
-    window.scrollTo({ top: y, behavior: 'auto' })
+    const y = el.getBoundingClientRect().top + window.scrollY - 60
+    window.scrollTo({ top: y, behavior: 'smooth' })
   }
 }
 
-function HeroSection({ hero, projects = [] }) {
+function HeroSection({ hero }) {
+  const [revealed, setRevealed] = useState(false)
+
   if (!hero) return null
+
+  const contactCta = hero.ctas?.find((cta) => cta.id === 'contact') ?? hero.ctas?.[0]
+  const firstName = hero.firstName || ''
+  const lastName = hero.lastName || ''
 
   return (
     <section className={styles.hero}>
-      <div className={styles.ghostWord} aria-hidden="true">JIGZ</div>
       <div className={styles.heroInner}>
-      <motion.div
-        className={styles.copy}
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-      >
-        <p className={styles.role}>{hero.role}</p>
-        <h1 className={styles.headline}>I design &amp;<br />build digital<br />products.</h1>
-        <p className={styles.tagline}>{hero.tagline}</p>
-
-        <div className={styles.ctas}>
-        {hero.ctas?.map((cta) => (
-          <button
-            key={cta.id}
-            className={cta.id === 'work' ? styles.ctaPrimary : styles.ctaSecondary}
-            onClick={() => scrollTo(cta.target)}
-          >
-            {cta.label}
-          </button>
-        ))}
+        <div className={`${styles.nameBlock} ${revealed ? styles.nameBlockRevealed : ''}`}>
+          <h1 className={styles.headline}>
+            <span className={styles.firstName}>{firstName || 'Oluwadamilare'}</span>
+            <span className={styles.lastName}>{lastName || 'Ogo-Oluwade'}</span>
+          </h1>
+          <p className={styles.role}>{hero.role}</p>
         </div>
-      </motion.div>
 
-      <motion.div className={styles.montage} variants={fadeIn} initial="hidden" animate="visible" transition={{ delay: 0.2 }}>
-        <div className={styles.visualMain}>{projects[0] && <ProjectVisual entry={projects[0]} compact />}</div>
-        <div className={styles.visualSide}>{projects[2] && <ProjectVisual entry={projects[2]} compact />}</div>
-        <div className={styles.identityBadge}><span>JIGZ</span><small>design + code</small></div>
-      </motion.div>
+        {hero.portrait?.src && (
+          <div className={`${styles.portrait} ${revealed ? styles.portraitRevealed : ''}`}>
+            <img
+              className={styles.portraitImg}
+              src={hero.portrait.src}
+              alt={hero.portrait.alt || `${firstName} ${lastName}`}
+              width="520"
+              height="520"
+            />
+          </div>
+        )}
 
-      {hero.currentBuild && (
-        <motion.div
-          className={styles.currentBuild}
-          variants={fadeIn}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.5 }}
+        <button
+          type="button"
+          className={`${styles.revealBtn} ${revealed ? styles.revealBtnHidden : ''}`}
+          onClick={() => setRevealed(true)}
+          aria-label="Reveal name"
+          aria-hidden={revealed ? 'true' : undefined}
+          tabIndex={revealed ? -1 : 0}
         >
-          <span className={styles.buildLabel}>{hero.currentBuild.text}</span>
-          <span className={styles.buildProject}>{hero.currentBuild.project}</span>
-          <span className={styles.buildDesc}> — {hero.currentBuild.description}</span>
-        </motion.div>
-      )}
+          <span className={styles.revealLabel}>{hero.revealText || 'Who is he?'}</span>
+          <CaretDown size={18} weight="bold" />
+        </button>
+
+        {contactCta && (
+          <button
+            type="button"
+            className={`${styles.cta} ${revealed ? styles.ctaVisible : ''}`}
+            onClick={() => scrollTo(contactCta.target)}
+            aria-hidden={revealed ? undefined : 'true'}
+            tabIndex={revealed ? 0 : -1}
+          >
+            {contactCta.label}
+          </button>
+        )}
       </div>
-      <p className={styles.signature}>{hero.name}</p>
     </section>
   )
 }

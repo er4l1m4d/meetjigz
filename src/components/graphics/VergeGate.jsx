@@ -28,7 +28,7 @@ function VergeGate({ count = 0, className }) {
 
         {/* Label */}
         <text x="160" y="56" textAnchor="middle" className={styles.label}>
-          VERGE — {count} positions
+          VERGE · {count} positions
         </text>
       </svg>
     </div>

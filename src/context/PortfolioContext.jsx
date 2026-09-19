@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useCallback, useMemo, useEffect } from 'react'
 import {
   FEATURED_ENTRIES, DEFAULT_CONTACT, DEFAULT_HERO,
-  DEFAULT_ABOUT, DEFAULT_SKILLS,
+  DEFAULT_ABOUT, DEFAULT_SKILLS, DEFAULT_SETTINGS,
 } from '../data/defaults.js'
 
 const PortfolioContext = createContext(null)
@@ -12,6 +12,7 @@ const STORAGE_KEYS = {
   contact: 'jigz-contact',
   about: 'jigz-about',
   skills: 'jigz-skills',
+  settings: 'jigz-settings',
 }
 
 function loadFromStorage(key, fallback) {
@@ -65,6 +66,9 @@ function PortfolioProvider({ children }) {
   const [skills, setSkillsState] = useState(() =>
     loadFromStorage(STORAGE_KEYS.skills, DEFAULT_SKILLS),
   )
+  const [settings, setSettingsState] = useState(() =>
+    loadFromStorage(STORAGE_KEYS.settings, DEFAULT_SETTINGS),
+  )
   const [loaded, setLoaded] = useState(false)
 
   // On mount: fetch from API and override localStorage cache
@@ -90,6 +94,10 @@ function PortfolioProvider({ children }) {
         if (data.skills) {
           setSkillsState(data.skills)
           saveToStorage(STORAGE_KEYS.skills, data.skills)
+        }
+        if (data.settings) {
+          setSettingsState(data.settings)
+          saveToStorage(STORAGE_KEYS.settings, data.settings)
         }
       }
       setLoaded(true)
@@ -141,6 +149,15 @@ function PortfolioProvider({ children }) {
     })
   }, [])
 
+  const setSettings = useCallback((updates) => {
+    setSettingsState((prev) => {
+      const next = typeof updates === 'function' ? updates(prev) : { ...prev, ...updates }
+      saveToStorage(STORAGE_KEYS.settings, next)
+      savePortfolio({ settings: next })
+      return next
+    })
+  }, [])
+
   const addEntry = useCallback(
     (entry) => {
       const newEntry = { ...entry, id: entry.id || crypto.randomUUID() }
@@ -165,22 +182,37 @@ function PortfolioProvider({ children }) {
     [setFeaturedEntries],
   )
 
+  const reorderEntries = useCallback(
+    (newOrder) => {
+      setFeaturedEntries((prev) => {
+        const byId = {}
+        prev.forEach((e) => { byId[e.id] = e })
+        const reordered = newOrder.map((id) => byId[id]).filter(Boolean)
+        return reordered
+      })
+    },
+    [setFeaturedEntries],
+  )
+
   const value = useMemo(() => ({
     featuredEntries,
     hero,
     contact,
     about,
     skills,
+    settings,
     loaded,
     setFeaturedEntries,
     setHero,
     setContact,
     setAbout,
     setSkills,
+    setSettings,
     addEntry,
     updateEntry,
     deleteEntry,
-  }), [featuredEntries, hero, contact, about, skills, loaded, setFeaturedEntries, setHero, setContact, setAbout, setSkills, addEntry, updateEntry, deleteEntry])
+    reorderEntries,
+  }), [featuredEntries, hero, contact, about, skills, settings, loaded, setFeaturedEntries, setHero, setContact, setAbout, setSkills, setSettings, addEntry, updateEntry, deleteEntry, reorderEntries])
 
   return (
     <PortfolioContext.Provider value={value}>

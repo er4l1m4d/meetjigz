@@ -1,13 +1,151 @@
-.section { padding:120px 24px; color:var(--navy); background:var(--cream); }
-.inner { max-width:1180px; margin:0 auto; }
-.heading { display:grid; grid-template-columns:1fr 1.2fr; column-gap:60px; align-items:end; margin-bottom:68px; }
-.heading p { grid-column:1/-1; margin-bottom:12px; color:#7f89a8; font:.62rem var(--font-mono); text-transform:uppercase; }
-.heading h2 { font-size:clamp(2.5rem,5vw,5rem); line-height:.92; letter-spacing:-.04em; text-wrap:balance; }
-.heading span { max-width:45ch; color:#657096; font-size:1rem; }
-.categories { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; overflow:hidden; border-radius:16px; background:#dfe3cf; }
-.category { height:100%; padding:32px; background:var(--cream); }
-.categoryLabel { display:block; margin-bottom:22px; color:var(--blue); font-size:1.25rem; font-weight:700; }
-.grid { display:flex; flex-wrap:wrap; gap:8px; }
-.skillTag { display:inline-flex; align-items:center; gap:8px; padding:8px 11px; border-radius:999px; color:var(--navy); background:#fff; font:.65rem var(--font-mono); }
-.proficiency { color:#8390b6; font-size:.48rem; text-transform:uppercase; }.daily-driver{color:var(--blue)}.comfortable{color:#68759c}.familiar{color:#98a0b9}
-@media(max-width:700px){.section{padding:82px 16px}.heading{display:block;margin-bottom:40px}.heading h2{font-size:3rem;margin-bottom:20px}.categories{grid-template-columns:1fr}.category{padding:24px}}
+.section {
+  padding: 130px 24px;
+  background: var(--bg);
+  color: var(--ink);
+}
+.inner {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.heading {
+  max-width: 640px;
+  margin-bottom: 72px;
+}
+.heading h2 {
+  font-size: clamp(2.5rem, 5vw, 4.6rem);
+  line-height: .92;
+  letter-spacing: -.04em;
+  text-wrap: balance;
+}
+.heading span {
+  display: block;
+  max-width: 52ch;
+  margin-top: 22px;
+  color: var(--ink-muted);
+  font-size: 1rem;
+}
+.rows {
+  display: flex;
+  flex-direction: column;
+}
+.row {
+  display: grid;
+  grid-template-columns: clamp(90px, 12vw, 180px) 1fr;
+  gap: 24px;
+  align-items: start;
+  padding: 40px 0;
+  border-top: 1px solid var(--hairline);
+}
+.row:last-child {
+  border-bottom: 1px solid var(--hairline);
+}
+.num {
+  font: 800 clamp(3.4rem, 8vw, 7rem) var(--font-body);
+  line-height: .8;
+  letter-spacing: -.06em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--blue);
+  text-stroke: 1.5px var(--blue);
+}
+.content {
+  padding-top: 6px;
+}
+.rowHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.cat {
+  font: 700 clamp(1.4rem, 2.6vw, 2rem) var(--font-body);
+  letter-spacing: -.03em;
+  color: var(--ink);
+}
+.count {
+  color: var(--ink-muted);
+  font: 500 .6rem var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+.skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 10px;
+}
+.skillTile {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 15px 16px 14px;
+  border-radius: 12px;
+  background: var(--surface-raised);
+  border: 1px solid var(--hairline);
+  transition: border-color 200ms ease;
+}
+.skillTile:hover {
+  border-color: var(--blue);
+}
+.tileTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.tileIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  flex-shrink: 0;
+  color: var(--blue);
+}
+.tileName {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--ink);
+  font: 600 .74rem var(--font-mono);
+  letter-spacing: .02em;
+}
+.tileLevel {
+  flex-shrink: 0;
+  color: var(--ink-muted);
+  font: 500 .62rem var(--font-mono);
+  letter-spacing: .06em;
+}
+.bar {
+  display: flex;
+  gap: 3px;
+}
+.seg,
+.segOn {
+  flex: 1;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--hairline);
+}
+.segOn {
+  background: var(--blue);
+}
+@media (max-width: 700px) {
+  .section {
+    padding: 82px 16px;
+  }
+  .heading {
+    margin-bottom: 40px;
+  }
+  .row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 30px 0;
+  }
+  .num {
+    font-size: 3.2rem;
+  }
+  .skills {
+    grid-template-columns: 1fr;
+  }
+}

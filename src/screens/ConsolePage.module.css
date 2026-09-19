@@ -221,6 +221,11 @@ textarea {
   border-color: var(--ink-muted);
 }
 
+.actionBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
 .actionBtn:focus-visible {
   outline: 2px solid var(--link);
   outline-offset: 2px;
@@ -426,6 +431,25 @@ textarea {
 .skillRow .input {
   flex: 1;
   min-width: 120px;
+}
+
+.levelInput {
+  flex: 0 0 64px;
+  width: 64px;
+  min-width: 64px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  outline: none;
+  transition: border-color 200ms ease;
+}
+
+.levelInput:focus {
+  border-color: var(--link);
 }
 
 /* Case study editor */
