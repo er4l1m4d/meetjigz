@@ -55,6 +55,7 @@ const mergeWithDefaults = (defaults, ...sources) => {
   const deepMerge = (target, source) => {
     for (const [key, value] of Object.entries(source || {})) {
       if (value === null || value === undefined || value === '') continue
+      if (Array.isArray(value) && value.length === 0) continue
       if (isObject(value) && isObject(target[key])) {
         deepMerge(target[key], value)
       } else {
