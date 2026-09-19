@@ -71,6 +71,18 @@ function PortfolioProvider({ children }) {
   )
   const [loaded, setLoaded] = useState(false)
 
+const mergeWithDefaults = (defaults, ...sources) => {
+  let result = { ...defaults }
+  for (const source of sources) {
+    if (!source || typeof source !== 'object') continue
+    for (const [key, value] of Object.entries(source)) {
+      if (value === null || value === undefined) continue
+      result[key] = value
+    }
+  }
+  return result
+}
+
   // On mount: fetch from API and override localStorage cache
   useEffect(() => {
     fetchPortfolio().then((data) => {
@@ -80,27 +92,27 @@ function PortfolioProvider({ children }) {
           saveToStorage(STORAGE_KEYS.featured, data.featured)
         }
         if (data.hero) {
-          const merged = { ...DEFAULT_HERO, ...loadFromStorage(STORAGE_KEYS.hero, DEFAULT_HERO), ...data.hero }
+          const merged = mergeWithDefaults(DEFAULT_HERO, loadFromStorage(STORAGE_KEYS.hero, DEFAULT_HERO), data.hero)
           setHeroState(merged)
           saveToStorage(STORAGE_KEYS.hero, merged)
         }
         if (data.contact) {
-          const merged = { ...DEFAULT_CONTACT, ...loadFromStorage(STORAGE_KEYS.contact, DEFAULT_CONTACT), ...data.contact }
+          const merged = mergeWithDefaults(DEFAULT_CONTACT, loadFromStorage(STORAGE_KEYS.contact, DEFAULT_CONTACT), data.contact)
           setContactState(merged)
           saveToStorage(STORAGE_KEYS.contact, merged)
         }
         if (data.about) {
-          const merged = { ...DEFAULT_ABOUT, ...loadFromStorage(STORAGE_KEYS.about, DEFAULT_ABOUT), ...data.about }
+          const merged = mergeWithDefaults(DEFAULT_ABOUT, loadFromStorage(STORAGE_KEYS.about, DEFAULT_ABOUT), data.about)
           setAboutState(merged)
           saveToStorage(STORAGE_KEYS.about, merged)
         }
         if (data.skills) {
-          const merged = { ...DEFAULT_SKILLS, ...loadFromStorage(STORAGE_KEYS.skills, DEFAULT_SKILLS), ...data.skills }
+          const merged = mergeWithDefaults(DEFAULT_SKILLS, loadFromStorage(STORAGE_KEYS.skills, DEFAULT_SKILLS), data.skills)
           setSkillsState(merged)
           saveToStorage(STORAGE_KEYS.skills, merged)
         }
         if (data.settings) {
-          const merged = { ...DEFAULT_SETTINGS, ...loadFromStorage(STORAGE_KEYS.settings, DEFAULT_SETTINGS), ...data.settings }
+          const merged = mergeWithDefaults(DEFAULT_SETTINGS, loadFromStorage(STORAGE_KEYS.settings, DEFAULT_SETTINGS), data.settings)
           setSettingsState(merged)
           saveToStorage(STORAGE_KEYS.settings, merged)
         }
