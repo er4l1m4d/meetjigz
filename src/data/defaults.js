@@ -109,7 +109,7 @@ export const FEATURED_ENTRIES = [
 export const DEFAULT_HERO = {
   firstName: 'Oluwadamilare',
   lastName: 'Ogo-Oluwade',
-  role: 'Designer + Developer',
+  role: 'Web Designer & Developer',
   tagline: 'I build digital products where technology, systems, and interface meet.',
   revealText: 'Who is he?',
   portrait: {

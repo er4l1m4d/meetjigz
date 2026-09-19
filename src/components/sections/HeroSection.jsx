@@ -15,9 +15,25 @@ function HeroSection({ hero }) {
 
   if (!hero) return null
 
-  const contactCta = hero.ctas?.find((cta) => cta.id === 'contact') ?? hero.ctas?.[0]
+  const workCta = hero.ctas?.find((cta) => cta.id === 'work') ?? hero.ctas?.[0]
   const firstName = hero.firstName || ''
   const lastName = hero.lastName || ''
+
+  const roleText = hero.role || 'Web Designer & Developer'
+  let roleLines = hero.roleLines
+  if (!Array.isArray(roleLines)) {
+    if (roleText.includes('&')) {
+      const [a, b] = roleText.split('&').map((s) => s.trim())
+      const first = a.startsWith('//') ? a : `// ${a}`
+      roleLines = [first, `& ${b}`]
+    } else if (roleText.includes('+')) {
+      const [a, b] = roleText.split('+').map((s) => s.trim())
+      const first = a.startsWith('//') ? a : `// ${a}`
+      roleLines = [first, `+ ${b}`]
+    } else {
+      roleLines = [roleText.startsWith('//') ? roleText : `// ${roleText}`]
+    }
+  }
 
   return (
     <section className={styles.hero}>
@@ -27,7 +43,11 @@ function HeroSection({ hero }) {
             <span className={styles.firstName}>{firstName || 'Oluwadamilare'}</span>
             <span className={styles.lastName}>{lastName || 'Ogo-Oluwade'}</span>
           </h1>
-          <p className={styles.role}>{hero.role}</p>
+          <p className={styles.role}>
+            {roleLines.map((line, i) => (
+              <span key={i} className={styles.roleLine}>{line}</span>
+            ))}
+          </p>
         </div>
 
         {hero.portrait?.src && (
@@ -54,15 +74,15 @@ function HeroSection({ hero }) {
           <CaretDown size={18} weight="bold" />
         </button>
 
-        {contactCta && (
+        {workCta && (
           <button
             type="button"
             className={`${styles.cta} ${revealed ? styles.ctaVisible : ''}`}
-            onClick={() => scrollTo(contactCta.target)}
+            onClick={() => scrollTo(workCta.target)}
             aria-hidden={revealed ? undefined : 'true'}
             tabIndex={revealed ? 0 : -1}
           >
-            {contactCta.label}
+            {workCta.label}
           </button>
         )}
       </div>
