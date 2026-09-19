@@ -50,6 +50,18 @@ async function savePortfolio(data) {
   } catch {}
 }
 
+const mergeWithDefaults = (defaults, ...sources) => {
+  let result = { ...defaults }
+  for (const source of sources) {
+    if (!source || typeof source !== 'object') continue
+    for (const [key, value] of Object.entries(source)) {
+      if (value === null || value === undefined) continue
+      result[key] = value
+    }
+  }
+  return result
+}
+
 function PortfolioProvider({ children }) {
   const [featuredEntries, setFeaturedState] = useState(() =>
     loadFromStorage(STORAGE_KEYS.featured, FEATURED_ENTRIES),
@@ -70,18 +82,6 @@ function PortfolioProvider({ children }) {
     loadFromStorage(STORAGE_KEYS.settings, DEFAULT_SETTINGS),
   )
   const [loaded, setLoaded] = useState(false)
-
-const mergeWithDefaults = (defaults, ...sources) => {
-  let result = { ...defaults }
-  for (const source of sources) {
-    if (!source || typeof source !== 'object') continue
-    for (const [key, value] of Object.entries(source)) {
-      if (value === null || value === undefined) continue
-      result[key] = value
-    }
-  }
-  return result
-}
 
   // On mount: fetch from API and override localStorage cache
   useEffect(() => {
