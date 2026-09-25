@@ -84,16 +84,15 @@ function ProjectCard({ entry }) {
         )}
 
         <div className={styles.ctas}>
-          {hasCaseStudy ? (
+          {entry.href && entry.href !== '#' && (
+            <a href={entry.href} className={styles.projectLink} target="_blank" rel="noreferrer noopener">
+              view project →
+            </a>
+          )}
+          {hasCaseStudy && (
             <Link to={`/project/${entry.id}`} className={styles.caseStudyLink}>
               read case study →
             </Link>
-          ) : (
-            entry.href && entry.href !== '#' && (
-              <a href={entry.href} className={styles.projectLink} target="_blank" rel="noreferrer noopener">
-                view project →
-              </a>
-            )
           )}
         </div>
       </div>

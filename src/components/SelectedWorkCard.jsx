@@ -27,13 +27,16 @@ function SelectedWorkCard({ entry }) {
   const media = resolveMedia(entry)
   const hasCaseStudy = hasRealCaseStudy(entry)
   const hasExternal = entry.href && entry.href !== '#'
-  const cta = hasCaseStudy
-    ? { label: 'Case study', to: `/project/${entry.id}`, internal: true }
-    : hasExternal
-      ? { label: 'Live site', href: entry.href, internal: false }
+  const cta = hasExternal
+    ? { label: 'Live site', href: entry.href, internal: false }
+    : hasCaseStudy
+      ? { label: 'Case study', to: `/project/${entry.id}`, internal: true }
       : null
 
   const description = entry.kind === 'design' ? entry.brief : entry.description
+  const caseStudyCta = hasCaseStudy && hasExternal
+    ? { label: 'Case study', to: `/project/${entry.id}`, internal: true }
+    : null
   const roundHref = hasExternal ? entry.href : null
 
   return (
@@ -88,7 +91,7 @@ function SelectedWorkCard({ entry }) {
             </div>
           )}
 
-          {(cta || roundHref) && (
+          {(cta || roundHref || caseStudyCta) && (
             <div className={styles.actions}>
               {cta && (
                 cta.internal ? (
@@ -107,6 +110,12 @@ function SelectedWorkCard({ entry }) {
                     <ArrowUpRight className={styles.ctaArrow} aria-hidden="true" />
                   </a>
                 )
+              )}
+              {caseStudyCta && (
+                <Link to={caseStudyCta.to} className={styles.ctaPill}>
+                  {caseStudyCta.label}
+                  <ArrowUpRight className={styles.ctaArrow} aria-hidden="true" />
+                </Link>
               )}
               {roundHref && (
                 <a
