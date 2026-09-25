@@ -41,7 +41,6 @@ function HeroForm({ hero, onSave }) {
     revealText: hero.revealText || "",
     portraitSrc: hero.portrait?.src || "",
     portraitAlt: hero.portrait?.alt || "",
-    ctas: hero.ctas || [],
     currentBuild: hero.currentBuild || {
       text: "",
       project: "",
@@ -50,13 +49,6 @@ function HeroForm({ hero, onSave }) {
   });
 
   const set = (key) => (val) => setForm((prev) => ({ ...prev, [key]: val }));
-
-  const updateCta = (index, key, val) => {
-    setForm((prev) => ({
-      ...prev,
-      ctas: prev.ctas.map((c, i) => (i === index ? { ...c, [key]: val } : c)),
-    }));
-  };
 
   const updateBuild = (key, val) => {
     setForm((prev) => ({
@@ -124,28 +116,6 @@ function HeroForm({ hero, onSave }) {
         </div>
 
         <div className={styles.subsection}>
-          <span className={styles.label}>CTAs</span>
-          {form.ctas.map((cta, i) => (
-            <div key={i} className={styles.socialRow}>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="label"
-                value={cta.label}
-                onChange={(e) => updateCta(i, "label", e.target.value)}
-              />
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="target (element id)"
-                value={cta.target}
-                onChange={(e) => updateCta(i, "target", e.target.value)}
-              />
-            </div>
-          ))}
-        </div>
-
-        <div className={styles.subsection}>
           <span className={styles.label}>currently building</span>
           <TextInput
             label="label"
@@ -176,8 +146,6 @@ function HeroForm({ hero, onSave }) {
 function AboutForm({ about, onSave }) {
   const [form, setForm] = useState({
     bio: about.bio || "",
-    interests: about.interests || "",
-    availableFor: about.availableFor?.join(", ") || "",
     eyebrow: about.eyebrow || "",
     statement: about.statement || "",
     ctaText: about.ctaText || "",
@@ -188,12 +156,6 @@ function AboutForm({ about, onSave }) {
   const handleSave = () => {
     onSave({
       ...form,
-      availableFor: form.availableFor
-        ? form.availableFor
-            .split(",")
-            .map((s) => s.trim())
-            .filter(Boolean)
-        : [],
     });
   };
 
@@ -206,18 +168,7 @@ function AboutForm({ about, onSave }) {
           value={form.bio}
           onChange={set("bio")}
           multiline
-        />
-        <TextInput
-          label="interests"
-          value={form.interests}
-          onChange={set("interests")}
-        />
-        <TextInput
-          label="available for (comma-separated)"
-          value={form.availableFor}
-          onChange={set("availableFor")}
-          placeholder="Full-time roles, Freelance projects"
-        />
+         />
         <TextInput
           label="eyebrow"
           value={form.eyebrow}
@@ -1408,7 +1359,7 @@ function ConsolePage() {
 
   return (
     <>
-      <TopBar />
+      <TopBar navLinks={settings?.navLinks} />
       <main className={styles.page}>
         <header className={styles.header}>
           <h1 className={styles.title}>console</h1>
@@ -1475,19 +1426,19 @@ function ConsolePage() {
           )}
         </section>
 
-        <SettingsForm
-          settings={settings}
-          onSave={(data) => {
-            setSettings(data);
-            showToast("settings updated");
-          }}
-        />
-
         <ContactForm
           contact={contact}
           onSave={(data) => {
             setContact(data);
             showToast("contact updated");
+          }}
+        />
+
+        <SettingsForm
+          settings={settings}
+          onSave={(data) => {
+            setSettings(data);
+            showToast("settings updated");
           }}
         />
 

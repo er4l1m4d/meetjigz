@@ -201,12 +201,6 @@ export const DEFAULT_SETTINGS = {
     { id: 'works', label: 'works' },
     { id: 'contact', label: 'contact' },
   ],
-  footerNavLinks: [
-    { id: 'about', label: 'About' },
-    { id: 'stack', label: 'Stack' },
-    { id: 'works', label: 'Works' },
-    { id: 'contact', label: 'Contact' },
-  ],
   copyright: {
     year: '2026',
     name: 'Damilare Ogo-Oluwade',
