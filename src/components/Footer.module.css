@@ -95,16 +95,38 @@
   display: inline-flex;
   align-items: center;
   height: 40px;
-  padding: 0 16px;
+  padding: 0 12px;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, .28);
+  overflow: hidden;
+  white-space: nowrap;
   font: 500 .58rem var(--font-mono);
   text-transform: uppercase;
   letter-spacing: .1em;
   color: rgba(255, 255, 255, .8);
   text-decoration: none;
   transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease, transform 200ms ease;
-}.pill:hover {
+}
+.pill svg {
+  flex-shrink: 0;
+}
+.pillLabel {
+  display: inline-block;
+  max-width: 0;
+  margin-left: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: max-width 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    margin-left 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 200ms ease;
+}
+.pill:hover .pillLabel {
+  max-width: 180px;
+  margin-left: 6px;
+  opacity: 1;
+}
+.pill:hover {
   background: var(--pop);
   border-color: var(--pop);
   color: var(--navy);

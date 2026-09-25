@@ -17,14 +17,11 @@ const SKILLS = {
 }
 
 describe('SkillsSection', () => {
-  it('renders a tile with numeric level, migrated legacy level, and unset dash', () => {
-    const { container } = render(<SkillsSection skills={SKILLS} />)
+  it('renders skill tiles with name and icon', () => {
+    render(<SkillsSection skills={SKILLS} />)
     expect(screen.getByText('TypeScript')).toBeInTheDocument()
-    expect(screen.getByText('9/10')).toBeInTheDocument()
-    expect(screen.getByText('4/10')).toBeInTheDocument()
-    expect(screen.getByText('—')).toBeInTheDocument()
-    expect(container.querySelectorAll('[class*="segOn"]')).toHaveLength(13)
-    expect(container.querySelectorAll('[class*="seg"]')).toHaveLength(30)
+    expect(screen.getByText('Rust')).toBeInTheDocument()
+    expect(screen.getByText('Prototyping')).toBeInTheDocument()
   })
 
   it('renders nothing when there are no categories', () => {

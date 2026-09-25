@@ -7,6 +7,14 @@
   background: #0a0a15;
 }
 
+.eyebrow {
+  margin-bottom: 24px;
+  color: rgba(255, 255, 255, 0.6);
+  font: 500 .62rem var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+
 .inner {
   position: relative;
   z-index: 2;
@@ -14,7 +22,7 @@
   grid-template-columns: 1.2fr 1fr;
   gap: 40px;
   align-items: start;
-  max-width: 1180px;
+  max-width: 900px;
   margin: 0 auto;
   min-height: 580px;
 }

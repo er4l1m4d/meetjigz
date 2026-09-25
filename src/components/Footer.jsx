@@ -81,8 +81,10 @@ function Footer() {
                       target="_blank"
                       rel="noreferrer noopener"
                     >
-                      {SocialIcon && <SocialIcon size={14} weight="bold" style={{ marginRight: social.label ? '6px' : 0 }} />}
-                      {social.label}
+                      {SocialIcon && <SocialIcon size={14} weight="bold" />}
+                      {social.label && (
+                        <span className={styles.pillLabel}>{social.label}</span>
+                      )}
                     </a>
                   )
                 })}

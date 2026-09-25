@@ -428,28 +428,9 @@ textarea {
   flex-wrap: wrap;
 }
 
-.skillRow .input {
+  .skillRow .input {
   flex: 1;
   min-width: 120px;
-}
-
-.levelInput {
-  flex: 0 0 64px;
-  width: 64px;
-  min-width: 64px;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--ink);
-  background: var(--surface);
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-sm);
-  padding: 8px 10px;
-  outline: none;
-  transition: border-color 200ms ease;
-}
-
-.levelInput:focus {
-  border-color: var(--link);
 }
 
 /* Case study editor */

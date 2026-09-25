@@ -139,6 +139,7 @@ export const DEFAULT_ABOUT = {
 export const DEFAULT_SKILLS = {
   heading: 'Design meets development.',
   subtext: 'A focused toolkit for turning ambiguous product ideas into clear, usable experiences.',
+  eyebrow: '// Stack',
   categories: [
     {
       id: 'languages',
@@ -214,12 +215,14 @@ export const DEFAULT_SETTINGS = {
   works: {
     heading: 'Selected Work',
     subtext: 'Products and identities shaped from first idea to final interface.',
+    eyebrow: '// Works',
   },
   contactForm: {
     headline: 'Have a project?',
     subhead: 'We would love to help.',
     title: 'Start a project',
     subtitle: "Fill in the form below and I'll be in touch within 24 hours.",
+    eyebrow: '// Contact',
     interestTags: ['UI/UX design', 'Website', 'Branding', 'Design system', 'Other'],
   },
 }

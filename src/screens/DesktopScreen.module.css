@@ -7,8 +7,10 @@
   --ink-muted: #66719b;
   --hairline: #dbe1f7;
 }
-.works { position:relative; overflow:hidden; padding:120px max(24px,calc((100% - 1180px)/2)) 130px; background:var(--surface); }
-.worksIntro { max-width:600px; margin: 0 auto 56px; }
+.works { position:relative; overflow:hidden; padding:130px 24px 130px; background:var(--surface); }
+.worksEyebrow { margin-bottom:32px; color:var(--ink-muted); font:500 .62rem var(--font-mono); text-transform:uppercase; letter-spacing:.1em; }
+.worksInner { max-width:900px; margin:0 auto; }
+.worksIntro { max-width:600px; margin: 0 0 56px; }
 .worksIntro h2 { color:var(--ink); font-size:clamp(2.3rem,4vw,3.9rem); line-height:1; letter-spacing:-.04em; }
 .worksIntro > span { display:block; max-width:44ch; margin:18px 0 0; color:var(--ink-muted); font-size:1rem; }
 .buildNote { margin-top:16px; color:var(--ink-muted); font:.76rem var(--font-mono); text-transform:uppercase; letter-spacing:.06em; }

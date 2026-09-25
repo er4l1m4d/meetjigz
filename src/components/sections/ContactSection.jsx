@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useToast } from '../../context/ToastContext.jsx'
 import { usePortfolioData } from '../../hooks/usePortfolioData.js'
+import Reveal from '../animations/Reveal.jsx'
+import { fadeUp } from '../animations/variants.js'
 import styles from './ContactSection.module.css'
 
 const DEFAULT_INTEREST_TAGS = ['UI/UX design', 'Website', 'Branding', 'Design system', 'Other']
@@ -14,6 +16,7 @@ function ContactSection() {
   const subhead = contactConfig.subhead || 'We would love to help.'
   const formTitle = contactConfig.title || 'Start a project'
   const formSubtitle = contactConfig.subtitle || "Fill in the form below and I'll be in touch within 24 hours."
+  const eyebrow = contactConfig.eyebrow || '// Contact'
   const interestTags = contactConfig.interestTags || DEFAULT_INTEREST_TAGS
 
   const [formData, setFormData] = useState({
@@ -94,14 +97,21 @@ function ContactSection() {
       <div className={styles.inner}>
         <div className={styles.left}>
           <div>
-            <h2 className={styles.headline}>
-              {headline}
-              <br />
-              We would love to help.
-            </h2>
-            <p className={styles.subhead}>
-              {subhead}
-            </p>
+            <Reveal variant={fadeUp}>
+              <p className={styles.eyebrow}>{eyebrow}</p>
+            </Reveal>
+            <Reveal variant={fadeUp} transition={{ delay: 0.06 }}>
+              <h2 className={styles.headline}>
+                {headline}
+                <br />
+                We would love to help.
+              </h2>
+            </Reveal>
+            <Reveal variant={fadeUp} transition={{ delay: 0.12 }}>
+              <p className={styles.subhead}>
+                {subhead}
+              </p>
+            </Reveal>
           </div>
         </div>
         <div className={styles.right}>
