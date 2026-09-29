@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { staggerItem } from './animations/variants.js'
 import { hasRealCaseStudy } from '../lib/caseStudy.js'
+import { externalHrefOf } from '../lib/externalHref.js'
 import Lightbox from './Lightbox.jsx'
 import CiphraChip from './graphics/CiphraChip.jsx'
 import VergeGate from './graphics/VergeGate.jsx'
@@ -18,6 +19,7 @@ function ProjectCard({ entry }) {
   const [lightbox, setLightbox] = useState(null)
   const Graphic = entry.graphic ? GRAPHICS[entry.graphic] : null
   const hasCaseStudy = hasRealCaseStudy(entry)
+  const externalHref = externalHrefOf(entry)
 
   return (
     <motion.article className={styles.card} variants={staggerItem}>
@@ -84,8 +86,8 @@ function ProjectCard({ entry }) {
         )}
 
         <div className={styles.ctas}>
-          {entry.href && entry.href !== '#' && (
-            <a href={entry.href} className={styles.projectLink} target="_blank" rel="noreferrer noopener">
+          {externalHref && (
+            <a href={externalHref} className={styles.projectLink} target="_blank" rel="noreferrer noopener">
               view project →
             </a>
           )}

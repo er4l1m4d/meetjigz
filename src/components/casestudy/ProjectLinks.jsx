@@ -1,11 +1,12 @@
 import Reveal from '../animations/Reveal'
 import { fadeIn } from '../animations/variants'
+import { normalizeExternalHref } from '../../lib/externalHref.js'
 import styles from './ProjectLinks.module.css'
 
 function ProjectLinks({ links }) {
-  const realLinks = (links || []).filter(
-    (link) => link?.href && link.href !== '#' && link.href.trim() !== '',
-  )
+  const realLinks = (links || [])
+    .map((link) => ({ ...link, href: normalizeExternalHref(link?.href) }))
+    .filter((link) => link.href)
   if (realLinks.length === 0) return null
 
   return (

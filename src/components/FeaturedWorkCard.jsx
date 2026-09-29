@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { hasRealCaseStudy } from '../lib/caseStudy.js'
+import { externalHrefOf } from '../lib/externalHref.js'
 import ProjectVisual from './ProjectVisual.jsx'
 import Lightbox from './Lightbox.jsx'
 import {
@@ -47,11 +48,12 @@ function FeaturedWorkCard({ entry }) {
 
   const media = resolveMedia(entry)
   const hasCaseStudy = hasRealCaseStudy(entry)
-  const hasExternal = entry.href && entry.href !== '#'
+  const externalHref = externalHrefOf(entry)
+  const hasExternal = Boolean(externalHref)
   const cta = hasCaseStudy
     ? { label: 'Read case study', to: `/project/${entry.id}`, internal: true }
     : hasExternal
-      ? { label: 'View project', href: entry.href, internal: false }
+      ? { label: 'View project', href: externalHref, internal: false }
       : null
 
   const description = entry.kind === 'design' ? entry.brief : entry.description

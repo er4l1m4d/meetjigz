@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { usePortfolioData } from "../hooks/usePortfolioData.js";
 import { useToast } from "../context/ToastContext.jsx";
+import { normalizeExternalHref } from "../lib/externalHref.js";
 import TopBar from "../components/TopBar.jsx";
 import IconPicker from "../components/ui/IconPicker.jsx";
 import SocialIconPicker from "../components/ui/SocialIconPicker.jsx";
@@ -708,8 +709,18 @@ function EntryForm({ entry, onSave, onCancel }) {
       client: form.client || undefined,
       duration: form.duration || undefined,
       order: form.order ? parseInt(form.order, 10) : undefined,
+      href: normalizeExternalHref(form.href) || "",
       caseStudy: form.hasCaseStudy ? form.caseStudy : null,
     };
+    if (parsed.caseStudy?.links) {
+      parsed.caseStudy = {
+        ...parsed.caseStudy,
+        links: parsed.caseStudy.links.map((link) => ({
+          ...link,
+          href: normalizeExternalHref(link?.href) || "",
+        })),
+      };
+    }
     delete parsed.thumbnailSrc;
     delete parsed.thumbnailAlt;
     delete parsed.hasCaseStudy;

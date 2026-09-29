@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AirplaneTilt, ArrowUpRight, Tag } from '@phosphor-icons/react'
 import { hasRealCaseStudy } from '../lib/caseStudy.js'
+import { externalHrefOf } from '../lib/externalHref.js'
 import DotMatrixVisual from './DotMatrixVisual.jsx'
 import Lightbox from './Lightbox.jsx'
 import styles from './SelectedWorkCard.module.css'
@@ -26,9 +27,10 @@ function SelectedWorkCard({ entry }) {
 
   const media = resolveMedia(entry)
   const hasCaseStudy = hasRealCaseStudy(entry)
-  const hasExternal = entry.href && entry.href !== '#'
+  const externalHref = externalHrefOf(entry)
+  const hasExternal = Boolean(externalHref)
   const cta = hasExternal
-    ? { label: 'Live site', href: entry.href, internal: false }
+    ? { label: 'Live site', href: externalHref, internal: false }
     : hasCaseStudy
       ? { label: 'Case study', to: `/project/${entry.id}`, internal: true }
       : null
@@ -37,7 +39,7 @@ function SelectedWorkCard({ entry }) {
   const caseStudyCta = hasCaseStudy && hasExternal
     ? { label: 'Case study', to: `/project/${entry.id}`, internal: true }
     : null
-  const roundHref = hasExternal ? entry.href : null
+  const roundHref = externalHref
 
   return (
     <div className={styles.root}>
