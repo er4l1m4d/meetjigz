@@ -1,6 +1,15 @@
 /* ============================================================================
    SelectedWorksMarquee — continuous horizontal marquee with 3 visible cards
-   Shows exactly 3 cards at a time; scrolls seamlessly with pause-on-hover.
+   Shows exactly 3 cards at a time.
+
+   Motion is driven by SelectedWorksMarquee.jsx, not by CSS animation, so the
+   automatic glide and manual input share one scroll position:
+     - auto-glide advances scrollLeft every frame (seamless wrap at one copy)
+     - horizontal wheel (trackpad sideways, Shift+wheel) scrolls the strip;
+       vertical wheel is left alone and scrolls the page as usual
+     - horizontal touch swipes scroll the strip (vertical swipes pan the page)
+     - pointer hover pauses the glide; it resumes 3s after the last input
+     - prefers-reduced-motion disables the glide, manual scrolling still works
    Glassmorphism card treatment with dark theme.
    ========================================================================== */
 
@@ -16,6 +25,7 @@
   width: 100%;
   overflow: hidden;
   padding: 20px 0;
+  touch-action: pan-y;
 }
 
 .marqueeTrack {
@@ -23,11 +33,6 @@
   align-items: stretch;
   gap: var(--marquee-card-gap);
   width: max-content;
-  animation: marqueeScroll var(--marquee-duration, 60s) linear infinite;
-}
-
-.marqueeRoot:hover .marqueeTrack {
-  animation-play-state: paused;
 }
 
 .marqueeCard {
@@ -40,8 +45,8 @@
    Symmetric left/right gradients into the section surface. No blur — cards
    simply melt into the background and vanish fully at the extreme edge.
    The zones intentionally intercept the pointer so partially-visible edge
-   cards aren't clickable; hovering them still pauses the marquee because
-   they sit inside .marqueeRoot.                                */
+   cards aren't clickable; hovering them still pauses the glide because they
+   sit inside .marqueeRoot.                                        */
 
 .edgeLeft,
 .edgeRight {
@@ -68,15 +73,6 @@
     var(--surface) 0%,
     transparent 100%
   );
-}
-
-@keyframes marqueeScroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
 }
 
 @media (max-width: 900px) {
