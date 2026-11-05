@@ -117,10 +117,14 @@
   letter-spacing: .06em;
   opacity: 1;
   transition: opacity 400ms ease, background 200ms ease, color 200ms ease;
-  animation: revealBob 1.8s ease-in-out infinite;
+  animation: revealBob 1.8s ease-in-out infinite, revealHalo 1.8s ease-out infinite;
 }
 .revealLabel {
   line-height: 1;
+}
+.revealCaret {
+  display: inline-flex;
+  animation: caretNudge 1.8s ease-in-out infinite;
 }
 .revealBtn:hover {
   background: var(--ink);
@@ -134,6 +138,20 @@
 @keyframes revealBob {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(6px); }
+}
+@keyframes revealHalo {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--blue) 50%, transparent); }
+  60%, 100% { box-shadow: 0 0 0 10px color-mix(in srgb, var(--blue) 0%, transparent); }
+}
+@keyframes caretNudge {
+  0%, 55%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-4px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .revealBtn,
+  .revealCaret {
+    animation: none;
+  }
 }
 @media (max-width: 900px) {
   .hero {

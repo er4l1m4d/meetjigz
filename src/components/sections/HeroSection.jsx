@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CaretDown } from '@phosphor-icons/react'
+import { CaretUp } from '@phosphor-icons/react'
 import styles from './HeroSection.module.css'
 
 function HeroSection({ hero }) {
@@ -62,7 +62,9 @@ function HeroSection({ hero }) {
           tabIndex={revealed ? -1 : 0}
         >
           <span className={styles.revealLabel}>{hero.revealText || 'Who is he?'}</span>
-          <CaretDown size={18} weight="bold" />
+          <span className={styles.revealCaret} aria-hidden="true">
+            <CaretUp size={18} weight="bold" />
+          </span>
         </button>
 
       </div>

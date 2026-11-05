@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react'
 import SelectedWorkCard from './SelectedWorkCard.jsx'
 import styles from './SelectedWorksMarquee.module.css'
 
-const IDLE_RESUME_MS = 3000
 const SWIPE_THRESHOLD = 6
 
 function cloneArray(arr, n) {
@@ -27,7 +26,6 @@ export default function SelectedWorksMarquee({ entries }) {
     let hovering = false
     let touching = false
     let visible = true
-    let lastInteraction = -Infinity
     let lastFrame = performance.now()
     let frame = 0
 
@@ -61,7 +59,6 @@ export default function SelectedWorksMarquee({ entries }) {
     const nudge = (delta) => {
       pos = wrap(pos + delta)
       apply()
-      lastInteraction = performance.now()
     }
 
     const onWheel = (event) => {
@@ -117,7 +114,6 @@ export default function SelectedWorksMarquee({ entries }) {
     const onTouchEnd = () => {
       touching = false
       axis = null
-      lastInteraction = performance.now()
     }
 
     const onPointerEnter = (event) => {
@@ -136,8 +132,7 @@ export default function SelectedWorksMarquee({ entries }) {
       // the way to the end of the loop. Clamp on both sides.
       const dt = Math.min(Math.max(now - lastFrame, 0), 64)
       lastFrame = now
-      const idle = now - lastInteraction >= IDLE_RESUME_MS
-      if (!reducedMotion && visible && !hovering && !touching && idle && wrapWidth > 0) {
+      if (!reducedMotion && visible && !hovering && !touching && wrapWidth > 0) {
         pos = wrap(pos + (wrapWidth / loopSeconds) * (dt / 1000))
         apply()
       }

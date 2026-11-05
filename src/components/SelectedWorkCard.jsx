@@ -28,24 +28,38 @@ function SelectedWorkCard({ entry }) {
   const media = resolveMedia(entry)
   const hasCaseStudy = hasRealCaseStudy(entry)
   const externalHref = externalHrefOf(entry)
-  const hasExternal = Boolean(externalHref)
-  const cta = hasExternal
-    ? { label: 'Live site', href: externalHref, internal: false }
-    : hasCaseStudy
-      ? { label: 'Case study', to: `/project/${entry.id}`, internal: true }
-      : null
+  const isBuild = entry.kind === 'build'
+  const liveHref = isBuild && externalHref ? externalHref : null
+  const caseStudyTo = hasCaseStudy ? `/project/${entry.id}` : null
 
   const description = entry.kind === 'design' ? entry.brief : entry.description
-  const caseStudyCta = hasCaseStudy && hasExternal
-    ? { label: 'Case study', to: `/project/${entry.id}`, internal: true }
-    : null
-  const roundHref = externalHref
 
   return (
     <div className={styles.root}>
       <div className={styles.card}>
         <div className={styles.media}>
-          {media ? (
+          {liveHref ? (
+            <a
+              href={liveHref}
+              className={styles.mediaLink}
+              target="_blank"
+              rel="noreferrer noopener"
+              aria-label={`Open live site for ${entry.title}`}
+            >
+              {media ? (
+                <img
+                  className={styles.image}
+                  src={media.src}
+                  alt={media.alt || entry.title}
+                  loading="lazy"
+                />
+              ) : (
+                <div className={styles.visual} aria-hidden="true">
+                  <DotMatrixVisual seedString={entry.id} accentIndex={0} />
+                </div>
+              )}
+            </a>
+          ) : media ? (
             <img
               className={styles.image}
               src={media.src}
@@ -93,43 +107,12 @@ function SelectedWorkCard({ entry }) {
             </div>
           )}
 
-          {(cta || roundHref || caseStudyCta) && (
+          {caseStudyTo && (
             <div className={styles.actions}>
-              {cta && (
-                cta.internal ? (
-                  <Link to={cta.to} className={styles.ctaPill}>
-                    {cta.label}
-                    <ArrowUpRight className={styles.ctaArrow} aria-hidden="true" />
-                  </Link>
-                ) : (
-                  <a
-                    href={cta.href}
-                    className={styles.ctaPill}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                  >
-                    {cta.label}
-                    <ArrowUpRight className={styles.ctaArrow} aria-hidden="true" />
-                  </a>
-                )
-              )}
-              {caseStudyCta && (
-                <Link to={caseStudyCta.to} className={styles.ctaPill}>
-                  {caseStudyCta.label}
-                  <ArrowUpRight className={styles.ctaArrow} aria-hidden="true" />
-                </Link>
-              )}
-              {roundHref && (
-                <a
-                  href={roundHref}
-                  className={styles.roundBtn}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  aria-label={`Open live site for ${entry.title}`}
-                >
-                  <ArrowUpRight aria-hidden="true" />
-                </a>
-              )}
+              <Link to={caseStudyTo} className={styles.ctaPill}>
+                Case study
+                <ArrowUpRight className={styles.ctaArrow} aria-hidden="true" />
+              </Link>
             </div>
           )}
         </div>
