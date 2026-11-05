@@ -64,4 +64,7 @@ function useToast() {
   return context
 }
 
+// The hook is intentionally co-located with its provider; it is not a
+// component export, so fast-refresh's component-only rule does not apply.
+// eslint-disable-next-line react-refresh/only-export-components
 export { ToastProvider, useToast }

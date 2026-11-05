@@ -31,7 +31,10 @@ function PasswordGate({ children }) {
     if (hash === CORRECT_HASH) {
       try {
         sessionStorage.setItem(STORAGE_KEY, CORRECT_HASH)
-      } catch {}
+      } catch {
+        // Session storage can be unavailable (private mode); keep the
+        // in-memory authorization for this visit.
+      }
       setAuthorized(true)
     } else {
       setError(true)

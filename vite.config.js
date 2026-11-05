@@ -9,5 +9,8 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './src/test/setup.js',
     globals: true,
+    // Full-app render tests can take several seconds on constrained/loaded
+    // machines; the 5s default caused false CI failures.
+    testTimeout: 20000,
   },
 })

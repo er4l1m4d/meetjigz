@@ -27,7 +27,9 @@ function loadFromStorage(key, fallback) {
 function saveToStorage(key, value) {
   try {
     localStorage.setItem(key, JSON.stringify(value))
-  } catch {}
+  } catch {
+    // Storage can be full or unavailable; the API/local state still work.
+  }
 }
 
 async function fetchPortfolio() {
@@ -47,7 +49,9 @@ async function savePortfolio(data) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     })
-  } catch {}
+  } catch {
+    // Offline or API unavailable; local state/storage is already updated.
+  }
 }
 
 const mergeWithDefaults = (defaults, ...sources) => {
@@ -259,4 +263,7 @@ function usePortfolioData() {
   return context
 }
 
+// The hook is intentionally co-located with its provider; it is not a
+// component export, so fast-refresh's component-only rule does not apply.
+// eslint-disable-next-line react-refresh/only-export-components
 export { PortfolioProvider, usePortfolioData }

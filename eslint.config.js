@@ -5,7 +5,9 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  // Vendored agent tooling (e.g. .agents/skills) is third-party code and is
+  // not part of the app build, so it must not gate CI lint.
+  globalIgnores(['dist', 'node_modules', '.agents', '.claude', '.opencode', '.impeccable', 'inspos', 'public']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [
