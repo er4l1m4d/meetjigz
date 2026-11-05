@@ -1,80 +1,132 @@
-# Jigz — Build Log Portfolio
+# Jigz — Developer Portfolio
 
-A single-column, chronological "build log" portfolio built with React + Vite. The page reads as the artifact of the same PRD → build plan → graduation-gate process used to ship the actual projects. Entries interleave code projects and design work, proving "designer and developer" through the content itself.
+A personal portfolio for Damilare "JIGZ" Ogo-Oluwade: an off-white editorial site with
+cobalt and acid-lime accents, a hero portrait, selected work, case studies, and a
+password-gated console for managing content.
+
+Built with React 19 + Vite 7, React Router 7, Framer Motion, and Neon Postgres
+(Vercel serverless functions).
 
 ## Run Locally
 
-1. Install dependencies:
-   `npm install`
-2. Start local dev server:
-   `npm run dev`
-3. Open:
-   `http://127.0.0.1:5173/`
+```bash
+npm install
+npm run dev
+```
 
-Use `Ctrl + C` in the terminal to stop the server.
+Open `http://127.0.0.1:5173/`.
+
+The Vite dev server does **not** run the `api/` functions. Without an API, the app
+falls back to `src/data/defaults.js` plus whatever is cached in `localStorage`, and
+the console saves locally only. To exercise the real API, run the app through the
+Vercel CLI:
+
+```bash
+npx vercel dev
+```
+
+## Environment
+
+| Variable | Required | Purpose |
+|---|---|---|
+| `DATABASE_URL` | For deployed API | Neon Postgres connection string used by `api/portfolio.js` and `api/contact.js` |
+
+No other environment variables are used. Create the `portfolio` and
+`contact_submissions` tables automatically on first request (the handlers call
+`CREATE TABLE IF NOT EXISTS`).
 
 ## Available Scripts
 
 | Command | Description |
 |---|---|
-| `npm run dev` | Start Vite dev server |
-| `npm run build` | Production build |
-| `npm run preview` | Preview production build |
-| `npm run lint` | Run ESLint |
-| `npm run test` | Run Vitest (single run) |
+| `npm run dev` | Start the Vite dev server on `127.0.0.1:5173` |
+| `npm run build` | Production build to `dist/` |
+| `npm run preview` | Preview the production build |
+| `npm run lint` | Run ESLint over the repo |
+| `npm run test` | Run Vitest once |
 | `npm run test:watch` | Run Vitest in watch mode |
+
+## Routes
+
+| Route | Screen | Notes |
+|---|---|---|
+| `/` | `DesktopScreen` | Hero, about, skills, selected work, contact |
+| `/project/:id` | `CaseStudyPage` | 404-style "Case study not found" when an entry has no real case-study copy |
+| `/console` | `ConsolePage` | Behind `PasswordGate`; CRUD for entries, hero, about, skills, contact, settings |
+
+`vercel.json` rewrites all non-asset paths to `index.html` so client-side routing
+works in production.
+
+## Architecture
+
+- **Content pipeline**: `PortfolioContext` merges `src/data/defaults.js` with the
+  `localStorage` cache and then with `GET /api/portfolio`. Writes go through the
+  context (optimistic local update + `PUT /api/portfolio`).
+- **Sections**: `TopBar`, `HeroSection`, `AboutSection`, `SkillsSection`,
+  `SelectedWorksMarquee` + `SelectedWorkCard`, `ContactSection`, `Footer`.
+- **Case studies**: `CaseStudyPage` renders only non-placeholder sections and uses
+  `hasRealCaseStudy()` (`src/lib/caseStudy.js`) to decide whether a case study
+  exists at all.
+- **Console**: `PasswordGate` protects `/console`; the gate is a client-side
+  convenience, **not a security boundary** — the password hash lives in the
+  shipped bundle, so never store secrets behind it.
+- **Theme**: CSS variables in `src/index.css`; light/dark switch persisted in
+  `localStorage`. The hero region is intentionally always light.
+- **Design system**: cobalt `#2448E8`, acid-lime `#EFF45A`, Bricolage Grotesque,
+  DM Mono, and Newsreader. See `DESIGN.md` for tokens and type scale.
+- **Animations**: Framer Motion reveal helpers; motion is disabled under
+  `prefers-reduced-motion`.
 
 ## Project Structure
 
 ```
+api/
+├── portfolio.js            # GET/PUT portfolio JSON (Neon)
+└── contact.js              # POST contact submissions (Neon)
+public/images/              # Portrait + placeholder art
 src/
-├── main.jsx                    # Entry point (StrictMode + ThemeProvider)
-├── App.jsx                     # Root: boot → router (BrowserRouter)
-├── index.css                   # Build Log design tokens
-├── context/
-│   └── ThemeContext.jsx         # Dark/light theme with localStorage
-├── data/
-│   └── defaults.js             # FEATURED_ENTRIES, ARCHIVE_ENTRIES, DEFAULT_CONTACT, DEFAULT_HERO
-├── hooks/
-│   └── usePortfolioData.js     # Data layer with localStorage persistence
+├── App.jsx                 # Router
+├── main.jsx                # Entry (ThemeProvider, PortfolioProvider, ToastProvider)
 ├── screens/
-│   ├── BootScreen.jsx          # Animated loading bar (2s)
-│   ├── DesktopScreen.jsx       # Main page: hero + entries + contact
-│   └── ArchivePage.jsx         # Archive page: remaining entries
+│   ├── DesktopScreen.jsx   # Main portfolio page
+│   ├── CaseStudyPage.jsx   # Project detail page
+│   └── ConsolePage.jsx     # Admin console
 ├── components/
-│   ├── Entry.jsx               # Shared shell: ghost numeral, divider, title, badge
-│   ├── Lightbox.jsx            # Full-screen image overlay
-│   ├── TopBar.jsx              # Sticky header: brand + role + nav + theme toggle
-│   ├── Footer.jsx              # Brand + social links + copyright
-│   ├── sections/
-│   │   ├── HeroSection.jsx     # Oversized type + pop highlight
-│   │   └── ContactSection.jsx  # Terminal-style contact block
-│   ├── graphics/
-│   │   ├── CiphraChip.jsx      # SVG chip graphic (build entries)
-│   │   └── VergeGate.jsx       # SVG gate bar graphic (build entries)
-│   └── animations/
-│       ├── Reveal.jsx          # Scroll-triggered reveal
-│       └── variants.js         # Framer Motion variants
-└── test/
-    ├── setup.js                # Vitest setup + localStorage polyfill
-    └── renderWithProviders.jsx # Test helper (ThemeProvider + BrowserRouter)
+│   ├── sections/           # Hero, About, Skills, Contact
+│   ├── casestudy/          # Case-study building blocks
+│   ├── ui/                 # CutoutCard, IconPicker
+│   └── ...                 # TopBar, Footer, Lightbox, PasswordGate, cards
+├── context/                # Theme, Portfolio, Toast providers
+├── data/defaults.js        # Fallback content (see CONTENT_CHECKLIST.md)
+├── hooks/                  # usePortfolioData (re-export), skill icon catalog
+├── lib/                    # caseStudy, externalHref, icon catalogs
+└── test/                   # Vitest setup + render helper
 ```
-
-## Architecture
-
-- **Two pages**: `/` (main Build Log) and `/archive` (remaining entries), connected via React Router
-- **Entry system**: Single `<Entry>` component renders about, build, and design entries via `kind` field. Ghost numerals auto-index from array position.
-- **Data model**: `FEATURED_ENTRIES` and `ARCHIVE_ENTRIES` arrays in `defaults.js`. Each entry has `kind` ('about' | 'build' | 'design') with type-specific fields.
-- **Build entries**: `status`, `description`, `tags`, `href`, `graphic` (resolves to SVG component)
-- **Design entries**: `brief`, `images`, `tools`, `caseStudy`. Images open in Lightbox.
-- **Design tokens**: IBM Plex Mono/Sans fonts, graphite palette (#14171C), magenta accent (#FF3D81)
-- **Animation**: Stagger-in on first load (disabled under prefers-reduced-motion)
-- **Theme**: CSS variables in `:root`. Dark/light toggle with localStorage persistence.
-
-## Environment
-
-No environment variables required. Deploy directly to Vercel.
 
 ## Testing
 
-Tests use Vitest + React Testing Library. Run `npm run test` to execute all tests.
+Vitest + React Testing Library + jsdom. 46 tests across 9 files cover the app
+shell, screens, data hook, icon catalogs, and case-study/link helpers. The global
+`testTimeout` is 20s (`vite.config.js`) because full-app renders can be slow on
+constrained CI machines.
+
+## CI / Deploy
+
+`.github/workflows/ci.yml` runs `npm ci`, `npm run lint`, `npm run build`, and
+`npm test` on pushes and PRs to `main`. Production deploys to Vercel, where `api/`
+functions become serverless endpoints.
+
+## Content status
+
+The shipped defaults are scaffolding: placeholder images, example project names, and
+`[Placeholder: ...]` case-study copy. Real content is entered through `/console`
+and stored in Neon. Missing assets and copy are tracked in
+[`CONTENT_CHECKLIST.md`](./CONTENT_CHECKLIST.md).
+
+## Known limitations
+
+- The production bundle is a single ~556 kB chunk (~172 kB gzipped); no route-level
+  code splitting yet.
+- Fixed console password in `PasswordGate.jsx` — a UX gate only, not authentication.
+- Screen-reader behavior has not been audited (tracked in `PRODUCT.md`).
+- `projectIds` metadata still references a removed `design-1` entry.

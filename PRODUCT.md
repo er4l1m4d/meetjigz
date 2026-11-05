@@ -24,7 +24,7 @@ Visitors arrive from job applications, LinkedIn, GitHub, or referrals. They have
 
 ## Capabilities and Constraints
 
-- Boot screen with password gate for admin console
+- Password-gated admin console for content management (CRUD)
 - Hero section with name, role, tagline, CTAs
 - About section with bio and current build status
 - Skills section with categorized technologies
@@ -41,13 +41,12 @@ Visitors arrive from job applications, LinkedIn, GitHub, or referrals. They have
 
 - Name: Jigz (inferred from repo name "meetjigz")
 - Voice: Technical but approachable, confident without arrogance
-- Existing visual system: dark theme with pink accent (#FF3D81), IBM Plex Mono + IBM Plex Sans
-- Open to fresh redesign of visual identity
+- Existing visual system: off-white editorial surfaces, cobalt (#2448E8) and acid-lime (#EFF45A) accents, Bricolage Grotesque / DM Mono / Newsreader; light and dark themes (hero always light)
 
 ## Evidence on Hand
 
-- Working portfolio with boot screen, hero, about, skills, works, contact sections
-- Case study pages with evidence galleries
+- Working portfolio with hero, about, skills, works, contact sections
+- Case study pages with evidence galleries (placeholder copy still to be replaced)
 - Admin console for content management
 - Dark/light theme support
 - Responsive layouts
